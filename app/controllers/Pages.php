@@ -3,7 +3,16 @@
 
         public function index() 
         {
-            // echo 'I am index method';
+            $data = [
+                'title' => 'Index'
+            ];
+
+            $this->view('pages/index', $data);
+        }
+
+        public function about() 
+        {
+            $this->view('pages/about');
         }
 
     }
