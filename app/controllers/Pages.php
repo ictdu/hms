@@ -1,9 +1,9 @@
 <?php
-    class Pages {
+    class Pages extends Controller {
+
         public function index() 
         {
-            // Index
-            echo 'I am index';
+            // echo 'I am index method';
         }
 
     }
