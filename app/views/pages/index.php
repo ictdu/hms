@@ -1,7 +1,8 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
-<?php require APPROOT . '/views/inc/sidebar.php'; ?>
 
-<div class="main-container">
+	<?php require APPROOT . '/views/inc/header.php'; ?>
+	<?php require APPROOT . '/views/inc/sidebar.php'; ?>
+
+	<div class="main-container">
 		<div class="pd-ltr-20">
 			<div class="card-box pd-20 height-100-p mb-30">
 				<div class="row align-items-center">
@@ -227,21 +228,4 @@
 					</tbody>
 				</table>
 			</div>
-            <div class="footer-wrap pd-20 mb-20 card-box">
-                    Hotel Management System &#169; 2021
-                </div>
-            </div>
-        </div>
-        <!-- js -->
-        <script src="<?php echo URLROOT; ?>/vendors/scripts/core.js"></script>
-        <script src="<?php echo URLROOT; ?>/vendors/scripts/script.min.js"></script>
-        <script src="<?php echo URLROOT; ?>/vendors/scripts/process.js"></script>
-        <script src="<?php echo URLROOT; ?>/vendors/scripts/layout-settings.js"></script>
-        <script src="<?php echo URLROOT; ?>/src/plugins/apexcharts/apexcharts.min.js"></script>
-        <script src="<?php echo URLROOT; ?>/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="<?php echo URLROOT; ?>/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-        <script src="<?php echo URLROOT; ?>/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-        <script src="<?php echo URLROOT; ?>/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-        <script src="<?php echo URLROOT; ?>/vendors/scripts/dashboard.js"></script>
-    </body>
-</html>
+			<?php require APPROOT . '/views/inc/footer.php'; ?>
