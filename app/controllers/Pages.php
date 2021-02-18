@@ -1,5 +1,9 @@
 <?php
     class Pages extends Controller {
+        public function __construct()
+        {
+            // $this->model = $this->model('model')    
+        }
 
         public function index() 
         {
