@@ -13,7 +13,7 @@
 						<h4 class="font-20 weight-500 mb-10 text-capitalize">
 							Welcome to your dashboard <div class="weight-600 font-30 text-blue"><?php if(isset($_SESSION['user_name'])) echo $_SESSION['user_name']; ?></div>
 						</h4>
-						<p class="font-18 max-width-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde hic non repellendus debitis iure, doloremque assumenda. Autem modi, corrupti, nobis ea iure fugiat, veniam non quaerat mollitia animi error corporis.</p>
+						<p class="font-18 max-width-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde hic non repellendus debitis iure, doloremque assumenda.</p>
 					</div>
 				</div>
 			</div>

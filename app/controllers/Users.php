@@ -1,5 +1,7 @@
 <?php
     class Users extends Controller {
+        private $userModel;
+        
         public function __construct()
         {
             $this->userModel = $this->model('User');
@@ -90,15 +92,5 @@
             session_destroy();
 
             redirect('users/login');
-        }
-
-        // Is user logged in?
-        public function isLoggedIn()
-        {
-            if(isset($_SESSION['user_id'])) {
-                return true;
-            } else {
-                return false;
-            }
         }
     }

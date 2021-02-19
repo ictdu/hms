@@ -2,16 +2,16 @@
     class Pages extends Controller {
         public function __construct()
         {
+            // Load model
             // $this->model = $this->model('model')    
         }
 
         public function index() 
         {
-            $data = [
-                'title' => 'Index'
-            ];
-
-            $this->view('pages/index', $data);
+            if(!isLoggedIn()) {
+                redirect('users/login');
+            }
+            $this->view('pages/index');
         }
 
         public function about() 

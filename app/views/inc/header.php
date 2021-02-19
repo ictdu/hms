@@ -67,7 +67,7 @@
 						<span class="user-icon">
 							<img src="<?php echo URLROOT; ?>/vendors/images/photo1.jpg" alt="">
 						</span>
-						<span class="user-name">Juan Dela Cruz</span>
+						<span class="user-name"><?php if(isset($_SESSION['user_name'])) echo $_SESSION['user_name']; ?></span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 						<a class="dropdown-item" href="#"><i class="dw dw-help"></i> Help</a>
