@@ -1,4 +1,4 @@
-	<?php require APPROOT . '/views/inc/header.php'; ?>
+    <?php require APPROOT . '/views/inc/header.php'; ?>
 	<?php require APPROOT . '/views/inc/sidebar.php'; ?>
 
 		<div class="main-container">
@@ -22,7 +22,7 @@
 
 					<div class="card-box mb-30">
 						<div class="col-md-8 pd-20">
-							<a href="<?php echo URLROOT; ?>/users/add_employee" role="button" class="btn btn-primary">+ Employee</a>
+							<a href="<?php echo URLROOT; ?>/employees/add" role="button" class="btn btn-primary">+ Employee</a>
 						</div>
 						<div class="pb-20">
 							<table class="data-table table stripe hover nowrap">
@@ -44,8 +44,8 @@
 														<i class="dw dw-more"></i>
 													</a>
 													<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-														<a class="dropdown-item" href="<?php echo URLROOT . '/users/update_employee/' . $employee->id ?>"><i class="dw dw-edit2"></i> Update</a>
-														<a class="dropdown-item" href="<?php echo URLROOT . '/users/remove_employee/' . $employee->id ?>"><i class="dw dw-delete-3"></i> Remove</a>
+														<a class="dropdown-item" href="<?php echo URLROOT . '/employees/update/' . $employee->id ?>"><i class="dw dw-edit2"></i> Update</a>
+														<a class="dropdown-item" href="<?php echo URLROOT . '/employees/remove/' . $employee->id ?>"><i class="dw dw-delete-3"></i> Remove</a>
 													</div>
 												</div>
 											</td>

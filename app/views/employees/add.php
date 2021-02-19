@@ -30,7 +30,7 @@
                                 <p>Fill out the information below</p>
                                 <span><?php flash('Employee_Added'); ?></span>
                             </div>
-                            <form action="<?php echo URLROOT; ?>/users/add_employee" method="post">
+                            <form action="<?php echo URLROOT; ?>/employees/add" method="post">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
