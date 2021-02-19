@@ -22,7 +22,7 @@
 					</li>
 					<?php if(isAdmin()) : ?>
 						<li>
-							<a href="#" class="dropdown-toggle no-arrow">
+							<a href="<?php echo URLROOT; ?>/users" class="dropdown-toggle no-arrow">
 								<span class="micon dw dw-chat3"></span><span class="mtext">Employees</span>
 							</a>
 						</li>
