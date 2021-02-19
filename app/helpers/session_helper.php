@@ -39,3 +39,15 @@
         }
     }
 
+    // Check if user is admin
+    function isAdmin()
+    {
+        if(isset($_SESSION['user_role'])) {
+            if($_SESSION['user_role'] == 'admin') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
