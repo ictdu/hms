@@ -24,7 +24,7 @@
             } else {
                 // Edit this later
                 // Redirect to 404 page
-                die('View does not exist');
+                redirect('pages/error_404');
             }
         }
     }

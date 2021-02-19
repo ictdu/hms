@@ -8,15 +8,12 @@
 
         public function index() 
         {
-            if(!isLoggedIn()) {
-                redirect('users/login');
-            }
             $this->view('pages/index');
         }
 
-        public function about() 
+        public function error_404() 
         {
-            $this->view('pages/about');
+            $this->view('pages/error_404');
         }
 
     }
