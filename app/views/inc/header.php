@@ -65,7 +65,11 @@
 				<div class="dropdown">
 					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img src="<?php echo URLROOT; ?>/vendors/images/photo1.jpg" alt="">
+							<?php if(isset($_SESSION['user_gender']) && $_SESSION['user_gender'] == 'male') : ?>
+							<?php echo '<img src="' . URLROOT . '/vendors/images/male.png">'; ?>
+							<?php else : ?>
+							<?php echo '<img src="' . URLROOT . '/vendors/images/female.png">'; ?>
+							<?php endif; ?>
 						</span>
 						<span class="user-name"><?php if(isset($_SESSION['user_name'])) echo $_SESSION['user_name']; ?></span>
 					</a>

@@ -13,18 +13,20 @@
 				<ul id="accordion-menu">
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-house-1"></span><span class="mtext">Menu 1</span>
+							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
 						</a>
 						<ul class="submenu">
 							<li><a href="#">Submenu 1</a></li>
 							<li><a href="#">Submenu 2</a></li>
 						</ul>
 					</li>
-					<li>
-						<a href="#" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-chat3"></span><span class="mtext">Menu 2</span>
-						</a>
-					</li>
+					<?php if(isAdmin()) : ?>
+						<li>
+							<a href="#" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-chat3"></span><span class="mtext">Employees</span>
+							</a>
+						</li>
+					<?php endif; ?>
 				</ul>
 			</div>
 		</div>
