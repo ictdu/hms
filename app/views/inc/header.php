@@ -3,7 +3,7 @@
 <head>
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
-	<title><?php echo URLROOT; ?></title>
+	<title><?php echo SITENAME; ?></title>
 
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo URLROOT; ?>/vendors/images/apple-touch-icon.png">
@@ -21,6 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/src/plugins/datatables/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/src/plugins/datatables/css/responsive.bootstrap4.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/vendors/styles/style.css">
+
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
@@ -69,8 +70,8 @@
 						<span class="user-name">Juan Dela Cruz</span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-						<a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-						<a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+						<a class="dropdown-item" href="#"><i class="dw dw-help"></i> Help</a>
+						<a class="dropdown-item" href="<?php echo URLROOT; ?>/users/logout"><i class="dw dw-logout"></i> Log Out</a>
 					</div>
 				</div>
 			</div>
