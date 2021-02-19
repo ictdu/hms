@@ -4,9 +4,27 @@
         
         public function __construct()
         {
+
             $this->userModel = $this->model('User');
         }
 
+
+        public function index()
+        {
+            if(!isLoggedIn()) {
+                redirect('users/login');
+            }
+
+            $employees = $this->userModel->getUserEmployees();
+
+            $data = [
+                'employees' => $employees
+            ];
+            
+            $this->view('users/index', $data);
+        }
+
+        // User Login
         public function login() 
         {
             // Check for POST
@@ -70,6 +88,17 @@
                 $this->view('users/login', $data);
             }
         }
+        
+        // Create new employee
+        public function add_employee() 
+        {
+            if(!isAdmin()) {
+                die('you are not admin');
+            }
+
+            // Load view
+            $this->view('users/add_employee');
+        }
 
         // Create session
         public function createUserSession($user) 
@@ -77,9 +106,10 @@
             $_SESSION['user_id'] = $user->id;
             $_SESSION['user_username'] = $user->username;
             $_SESSION['user_name'] = $user->first_name . ' ' .$user->last_name;
-            $_SESSION['user_isAdmin'] = $user->is_admin;
+            $_SESSION['user_gender'] = $user->gender;
+            $_SESSION['user_role'] = $user->role;
 
-            redirect('dashboard');
+            redirect('users');
         }
 
         // Logout user
@@ -88,7 +118,8 @@
             unset($_SESSION['user_id']);
             unset($_SESSION['user_username']);
             unset($_SESSION['user_name']);
-            unset($_SESSION['user_isAdmin']);
+            unset($_SESSION['user_gender']);
+            unset($_SESSION['user_role']);
             session_destroy();
 
             redirect('users/login');

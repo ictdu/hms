@@ -41,4 +41,15 @@
                 return false;
             }
         } 
+
+        // Get users with employee role
+        public function getUserEmployees()
+        {
+            // Database query
+            $this->db->query('SELECT * FROM users WHERE role = "employee"');
+            // Return records 
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
     }
