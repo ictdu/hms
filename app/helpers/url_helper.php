@@ -1,9 +1,9 @@
 <?php
     // Page redirect
-    function redirect($page) 
+    function redirect($page, $id = null) 
     {
-        if($page == 'home') {
-            header('location: ' . URLROOT);
+        if($id != null) {
+            header('location: ' . URLROOT . '/' . $page . '/' . $id);
         } else {
             header('location: ' . URLROOT . '/' . $page);
         }

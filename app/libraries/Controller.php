@@ -22,7 +22,6 @@
                 // Require view
                 require_once '../app/views/' . $view . '.php';
             } else {
-                // Edit this later
                 // Redirect to 404 page
                 redirect('pages/error_404');
             }
