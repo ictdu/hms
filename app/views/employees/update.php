@@ -26,7 +26,7 @@
                     <div class="col-md-4 mb-30">
                         <div class="card-box pd-20">
                             <div class="title mb-20">
-                                <h2 class="mb-10">Update Employee Form</h2>
+                                <h2 class="mb-10">Update Employee</h2>
                                 <p>Fill out the information below</p>
                                 <span><?php flash('feedback'); ?></span>
                             </div>

@@ -23,10 +23,14 @@
 							</a>
 						</li>
 					<?php endif; ?>
-					<li>
-						<a href="<?php echo URLROOT; ?>/rooms/" class="dropdown-toggle no-arrow">
-							<span class="micon fi-list"></span><span class="mtext">Rooms</span>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon fi-list"></span><span class="mtext">Manage Rooms</span>
 						</a>
+						<ul class="submenu">
+							<li><a href="<?php echo URLROOT; ?>/categories/">Rooms</a></li>
+							<li><a href="<?php echo URLROOT; ?>/categories/">Categories</a></li>
+						</ul>
 					</li>
 					<li>
 						<a href="<?php echo URLROOT; ?>/guests/" class="dropdown-toggle no-arrow">

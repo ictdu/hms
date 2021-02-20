@@ -1,4 +1,4 @@
-<div class="card-box pd-20 height-100-p mb-30">
+<div class="card-box pd-20 mb-30">
     <div class="row align-items-center">
         <div class="col-md-4">
             <img src="<?php echo URLROOT ?>/vendors/images/banner-img.png" alt="">
