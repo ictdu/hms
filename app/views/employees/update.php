@@ -35,14 +35,14 @@
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
                                             <label>First Name</label>
-                                            <input name="first_name" type="text" class="form-control form-control-lg <?php echo (!empty($data['first_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['first_name']; ?>" placeholder="Enter employee first name">
+                                            <input name="first_name" type="text" class="form-control form-control-lg <?php echo (!empty($data['first_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['first_name']; ?>" placeholder="Update employee first name">
                                             <span class="invalid-feedback"><?php echo $data['first_name_err'] ?></span>
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
                                             <label>Last Name</label>
-                                            <input name="last_name" type="text" class="form-control form-control-lg <?php echo (!empty($data['last_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['last_name']; ?>" placeholder="Enter employee last name">
+                                            <input name="last_name" type="text" class="form-control form-control-lg <?php echo (!empty($data['last_name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['last_name']; ?>" placeholder="Update employee last name">
                                             <span class="invalid-feedback"><?php echo $data['last_name_err'] ?></span>
                                         </div>
                                     </div>
@@ -52,9 +52,13 @@
                                     <label>Gender</label>
                                         <div class="form-group">
                                             <select name="gender" class="custom-select col-md-12 <?php echo (!empty($data['gender_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['gender']; ?>">
-                                                <option value="" selected="">Select...</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
+                                                <?php if($data['gender'] == 'male') : ?>
+                                                    <option value="<?php echo $data['gender']; ?>" selected=""><?php echo ucwords($data['gender']); ?></option>
+                                                    <option value="female">Female</option>
+                                                <?php elseif($data['gender'] == 'female') : ?>
+                                                    <option value="<?php echo $data['gender']; ?>" selected=""><?php echo ucwords($data['gender']); ?></option>
+                                                    <option value="female">Male</option>
+                                                <?php endif; ?>
                                             </select>
                                             <span class="invalid-feedback"><?php echo $data['gender_err'] ?></span>
                                         </div>
@@ -62,7 +66,7 @@
                                     <div class="col-md-8 col-sm-12">
                                         <div class="form-group">
                                             <label>Username</label>
-                                            <input name="username" type="text" class="form-control form-control-lg <?php echo (!empty($data['username_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['username']; ?>" placeholder="Choose a username">
+                                            <input name="username" type="text" class="form-control form-control-lg <?php echo (!empty($data['username_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['username']; ?>" placeholder="Choose a new username">
                                             <span class="invalid-feedback"><?php echo $data['username_err'] ?></span>
                                         </div>
                                     </div>
@@ -71,7 +75,7 @@
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
                                             <label>Password</label>
-                                            <input name="password" type="password" class="form-control form-control-lg <?php echo (!empty($data['password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['password']; ?>" placeholder="Choose a password">
+                                            <input name="password" type="password" class="form-control form-control-lg <?php echo (!empty($data['password_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['password']; ?>" placeholder="Choose a new password">
                                             <span class="invalid-feedback"><?php echo $data['password_err'] ?></span>
                                         </div>
                                     </div>
@@ -80,7 +84,7 @@
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
                                             <label>Confirm Password</label>
-                                            <input name="password_confirmation" type="password" class="form-control form-control-lg <?php echo (!empty($data['password_confirmation_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['password_confirmation']; ?>" placeholder="Repeat your password">
+                                            <input name="password_confirmation" type="password" class="form-control form-control-lg <?php echo (!empty($data['password_confirmation_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['password_confirmation']; ?>" placeholder="Repeat new password">
                                             <span class="invalid-feedback"><?php echo $data['password_confirmation_err'] ?></span>
                                         </div>
                                     </div>

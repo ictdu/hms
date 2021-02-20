@@ -1,4 +1,4 @@
-<div class="left-side-bar">
+	<div class="left-side-bar">
 		<div class="brand-logo mb-30 mt-30">
 			<a href="#">
 				<img src="<?php echo URLROOT; ?>/vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
@@ -52,4 +52,4 @@
 			</div>
 		</div>
 	</div>
-	<div class="mobile-menu-overlay"></div>
+<div class="mobile-menu-overlay"></div>
