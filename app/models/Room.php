@@ -11,4 +11,16 @@
         }
 
 
+        // Get all rooms
+        public function getAllRooms()
+        {
+            // Database query
+            $this->db->query('SELECT * FROM rooms');
+            // Return records 
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
+
     }
