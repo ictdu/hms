@@ -5,8 +5,7 @@
         <table class="data-table table stripe hover nowrap">
             <thead>
                 <tr>
-                    <th class="table-plus">ID</th>
-                    <th class="datatable-nosort">Name</th>
+                    <th class="table-plus">Name</th>
                     <th class="datatable-nosort">Rate</th>
                     <th class="datatable-nosort">Capacity</th>
                     <th class="datatable-nosort">Description</th>
@@ -17,12 +16,11 @@
             <tbody>
                 <?php foreach($data['categories'] as $category) : ?>
                     <tr>
-                        <td><?php echo $category->id; ?></td>
                         <td><?php echo $category->name; ?></td>
-                        <td><?php echo $category->rate; ?></td>
-                        <td><?php echo $category->capacity; ?></td>
+                        <td><?php echo 'P' . $category->rate; ?></td>
+                        <td><?php echo $category->capacity . ' Persons'; ?></td>
                         <td><?php echo $category->description; ?></td>
-                        <td><a href="<?php echo URLROOT . '/images/uploads/' . $category->image; ?>">View</a></td>
+                        <td><a class="btn btn-info" href="<?php echo URLROOT . '/images/uploads/' . $category->image; ?>" target="_blank">View</a></td>
                         <td>
                             <div class="dropdown">
                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">

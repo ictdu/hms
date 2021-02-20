@@ -35,7 +35,7 @@
                                     <div class="col-md-8 col-sm-12">
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <input name="name" type="text" class="form-control form-control-lg <?php echo (!empty($data['name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['name']; ?>" placeholder="Super Deluxe I">
+                                            <input name="name" type="text" class="form-control form-control-lg <?php echo (!empty($data['name_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['name']; ?>" placeholder="Regular Room">
                                             <span class="invalid-feedback"><?php echo $data['name_err'] ?></span>
                                         </div>
                                     </div>

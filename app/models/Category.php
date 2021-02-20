@@ -30,6 +30,43 @@
             }
         }
 
+        // Update existing category record
+        public function updateCategory($data)
+        {
+            // Database query
+            $this->db->query('UPDATE rooms_categories SET name = :name, rate = :rate, description = :description, capacity = :capacity, image = :image WHERE id = :id');
+            // Bind values
+            $this->db->bind(':id', $data['id']);
+            $this->db->bind(':name', $data['name']);
+            $this->db->bind(':rate', $data['rate']);
+            $this->db->bind(':description', $data['description']);
+            $this->db->bind(':capacity', $data['capacity']);
+            $this->db->bind(':image', $data['image']);
+
+            // Execute query
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // Delete category record
+        public function deleteCategory($categoryId)
+        {
+            // Database query
+            $this->db->query('DELETE from room_categories WHERE id = :id');
+            // Bind value
+            $this->db->bind(':id', $categoryId);
+            
+            // Execute query
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         // Find category by name
         public function findCategoryByName($categoryName)
         {
@@ -47,6 +84,19 @@
                 return false;
             }
         } 
+
+        // Get category by id
+        public function getCategoryById($categoryId)
+        {
+            // Database query
+            $this->db->query('SELECT * FROM room_categories WHERE id = :id');
+            // Bind value
+            $this->db->bind(':id', $categoryId);
+            // Get record
+            $row = $this->db->single();
+
+            return $row;
+        }
 
         // Get all categories
         public function getAllCategories()
