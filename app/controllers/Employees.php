@@ -99,7 +99,7 @@
                     // Hash password
                     $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-                    if($this->employeeModel->add($data)) {
+                    if($this->employeeModel->addEmployee($data)) {
                         flash('feedback', 'New employee successfully added.');
                         redirect('employees/index');
                     } else {

@@ -16,19 +16,12 @@
 							<span class="micon fi-home"></span><span class="mtext">Dashboard</span>
 						</a>
 					</li>
-					<?php if(isAdmin()) : ?>
-						<li>
-							<a href="<?php echo URLROOT; ?>/employees/" class="dropdown-toggle no-arrow">
-								<i class="micon fi-torsos-male-female"></i><span class="mtext">Employees</span>
-							</a>
-						</li>
-					<?php endif; ?>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon fi-list"></span><span class="mtext">Manage Rooms</span>
+							<span class="micon fi-list"></span><span class="mtext">Rooms / Category</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="<?php echo URLROOT; ?>/categories/">Rooms</a></li>
+							<li><a href="<?php echo URLROOT; ?>/rooms/">Rooms</a></li>
 							<li><a href="<?php echo URLROOT; ?>/categories/">Categories</a></li>
 						</ul>
 					</li>
@@ -52,6 +45,13 @@
 							<span class="micon  fi-pricetag-multiple"></span><span class="mtext">Discounts</span>
 						</a>
 					</li>
+					<?php if(isAdmin()) : ?>
+						<li>
+							<a href="<?php echo URLROOT; ?>/employees/" class="dropdown-toggle no-arrow">
+								<i class="micon fi-torsos-male-female"></i><span class="mtext">Employees</span>
+							</a>
+						</li>
+					<?php endif; ?>
 				</ul>
 			</div>
 		</div>
