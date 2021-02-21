@@ -34,7 +34,7 @@
         public function updateCategory($data)
         {
             // Database query
-            $this->db->query('UPDATE rooms_categories SET name = :name, rate = :rate, description = :description, capacity = :capacity, image = :image WHERE id = :id');
+            $this->db->query('UPDATE room_categories SET name = :name, rate = :rate, description = :description, capacity = :capacity, image = :image WHERE id = :id');
             // Bind values
             $this->db->bind(':id', $data['id']);
             $this->db->bind(':name', $data['name']);
@@ -98,6 +98,19 @@
             return $row;
         }
 
+        // Get category by name
+        public function getCategoryByName($categoryName)
+        {
+            // Database query
+            $this->db->query('SELECT * FROM room_categories WHERE name = :name');
+            // Bind value
+            $this->db->bind(':name', $categoryName);
+            // Get record
+            $row = $this->db->single();
+
+            return $row;
+        }
+
         // Get all categories
         public function getAllCategories()
         {
@@ -108,5 +121,7 @@
 
             return $results;
         }
+
+        //
 
     }

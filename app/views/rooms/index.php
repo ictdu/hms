@@ -30,36 +30,45 @@
                                 <p>Fill out the information below</p>
                                 <span><?php flash('feedback'); ?></span>
                             </div>
-                            <form action="<?php echo URLROOT; ?>/rooms" method="post" enctype="multipart/form-data">
+                            <form action="<?php echo URLROOT; ?>/rooms" method="post">
                                 <div class="row">
                                     <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label>Room Number</label>
-                                            <input name="name" type="text" class="form-control form-control-lg" placeholder="123">
-                                            <span class="invalid-feedback"></span>
+                                            <input name="number" id="number" type="text" class="form-control form-control-lg  <?php echo (!empty($data['number_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['number']; ?>" placeholder="123">
+                                            <span class="invalid-feedback"><?php echo $data['number_err'] ?></span>
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-sm-12">
+                                        <label>Category</label>
                                         <div class="form-group">
-                                            <label>Category</label>
-                                            <input name="rate" type="text" class="form-control form-control-lg" placeholder="0.00">
-                                            <span class="invalid-feedback"></span>
+                                            <select name="category" id="category" class="custom-select col-md-12 <?php echo (!empty($data['category_err'])) ? 'is-invalid' : ''; ?>">
+                                                <option value="" selected="">Select...</option>
+                                                <?php foreach($data['categories'] as $category) : ?>
+                                                    <?php echo '<option data-rate="' . $category->rate . '"' . 'data-capacity="' . $category->capacity . '"'. 'data-description="' . $category->description . '"' . 'data-status="Available"' . 'value="' . $category->name .'">' . $category->name . '</option>'; ?>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <span class="invalid-feedback"><?php echo $data['category_err'] ?></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3 col-sm-12">
+                                    <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
-                                            <label>Capacity</label>
-                                            <input name="capacity" type="text" class="form-control form-control-lg" placeholder="1-2">
-                                            <span class="invalid-feedback"></span>
+                                            <label>Rate Per Day</label>
+                                            <input name="rate" id="rate" type="text" class="form-control form-control-lg" value="" disabled>
                                         </div>
                                     </div>
-                                    <div class="col-md-9 col-sm-12">
+                                    <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
-                                            <label>Image</label>
-                                            <input type="file" name="category-image" accept="image/*" class="form-control-file form-control">
-                                            <span class="invalid-feedback"></span>
+                                            <label>Capacity</label>
+                                            <input name="capacity" id="capacity" type="text" class="form-control form-control-lg" value="" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <input name="status" id="status" type="text" class="form-control form-control-lg" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -67,8 +76,7 @@
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
                                             <label>Description</label>
-                                            <textarea name="description" class="form-control"></textarea>
-                                            <span class="invalid-feedback"></span>
+                                            <textarea name="description" id="description" class="form-control" disabled></textarea>
                                         </div>
                                     </div>
                                 </div> 
@@ -79,5 +87,14 @@
                         </div>
                     </div>
                     <?php require APPROOT . '/views/rooms/displayRooms.php'; ?>
-                </div>      
+                </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                <script>
+                    $('#category').change(function() {
+                        $('#rate').val($(this).find('option:selected').data('rate'))
+                        $('#capacity').val($(this).find('option:selected').data('capacity'))
+                        $('#description').val($(this).find('option:selected').data('description'))
+                        $('#status').val($(this).find('option:selected').data('status'))
+                    })
+                </script>
 	<?php require APPROOT . '/views/inc/footer.php'; ?>

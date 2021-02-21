@@ -14,13 +14,13 @@
             <tbody>
                 <?php foreach($data['rooms'] as $room) : ?>
                     <tr>
-                        <td><?php echo $room->room_number; ?></td>
-                        <td><?php echo $room->room_category; ?></td>
+                        <td><?php echo $room->number; ?></td>
+                        <td><?php echo $room->category; ?></td>
                         <td>
-                            <?php if($room->room_status == 'available') : ?>
-                                <div class="btn btn-success"><?php echo ucwords($room->room_status); ?></div>
-                            <?php elseif($room->room_status == 'occupied') : ?>
-                                <div class="btn btn-danger"><?php echo ucwords($room->room_status); ?></div>
+                            <?php if($room->status == 'available') : ?>
+                                <div class="btn btn-success"><?php echo ucwords($room->status); ?></div>
+                            <?php elseif($room->status == 'occupied') : ?>
+                                <div class="btn btn-danger"><?php echo ucwords($room->status); ?></div>
                             <?php endif; ?>
                         </td>
                         <td>
