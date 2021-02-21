@@ -147,6 +147,7 @@
             // Fetch all room categories
             $categories = $this->categoryModel->getAllCategories();
 
+
             // Check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Proccess form
@@ -182,12 +183,12 @@
 
                 } else {
                     // File upload location
-                    $target = URLROOT  . '/images/uploads/' . basename($_FILES['category-image']['name']);
+                    $target = $_SERVER['DOCUMENT_ROOT']  . '/ictdu/hotel-booking/public/images/uploads/' . basename($_FILES['category-image']['name']);
 
                     // If uploaded successfully
                     if(move_uploaded_file($_FILES['category-image']['tmp_name'], $target)) {
                         // Success, redirect to index
-                        die('uploaded');
+                        $data['image'] = trim($imageName);
                     } else {
                         // An error occured
                         $data['image_err'] = 'There seems to be a problem.';
@@ -210,11 +211,16 @@
                     'image_err' => ''
                 ];
 
+                // Fetch category single record
+                $category = $this->categoryModel->getCategoryByName($data['name']);
+
                 // Validate category name
                 if(empty($data['name'])) {
                     $data['name_err'] = 'The name field is required.';
-                } elseif(!empty($data['name']) && ($this->categoryModel->findCategoryByName($data['name']))) {
-                    $data['name_err'] = 'Category name already exists.';
+                } elseif(!empty($data['name'])) {
+                    if($category->name != $data['name'] && $this->categoryModel->findCategoryByName($data['name'])) {
+                        $data['name_err'] = 'The name already exists.';
+                    }
                 }
 
                 // Validate category rate
@@ -279,10 +285,10 @@
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if($this->categoryModel->deleteCategory($categoryId)) {
                     flash('feedback', 'Room category deleted successfully.', 'alert alert-danger alert-dismissible fade show');
-                    redirect('categories');
+                    redirect('categories/index');
                 } else {
                     flash('feedback', 'Failed to delete room category.', 'alert alert-danger alert-dismissible fade show');
-                    redirect('categories');
+                    redirect('categories/index');
                 }
             } else {
                 die('Error.');
