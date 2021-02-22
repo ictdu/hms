@@ -61,6 +61,19 @@
             }
         } 
 
+        // Get room by status
+        public function getRoomByStatus($status)
+        {
+            // Database query
+            $this->db->query('SELECT * FROM rooms WHERE status = :status');
+            // Bind values
+            $this->db->bind(':status', $status);
+            // Get records
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
         // Get all rooms
         public function getAllRooms()
         {
