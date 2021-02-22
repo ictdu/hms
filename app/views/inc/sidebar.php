@@ -18,17 +18,22 @@
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon fi-torsos-all"></span><span class="mtext">Guests</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="<?php echo URLROOT; ?>/guests/">Booked</a></li>
+							<li><a href="<?php echo URLROOT; ?>/guests/">Check In</a></li>
+							<li><a href="<?php echo URLROOT; ?>/categories/">Schedules</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon fi-list"></span><span class="mtext">Rooms / Category</span>
 						</a>
 						<ul class="submenu">
 							<li><a href="<?php echo URLROOT; ?>/rooms/">Rooms</a></li>
 							<li><a href="<?php echo URLROOT; ?>/categories/">Categories</a></li>
 						</ul>
-					</li>
-					<li>
-						<a href="<?php echo URLROOT; ?>/guests/" class="dropdown-toggle no-arrow">
-							<span class="micon fi-torsos-all"></span><span class="mtext">Guests</span>
-						</a>
 					</li>
 					<li>
 						<a href="<?php echo URLROOT; ?>/reservations/" class="dropdown-toggle no-arrow">
