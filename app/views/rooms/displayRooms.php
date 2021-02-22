@@ -18,9 +18,9 @@
                         <td><?php echo $room->category; ?></td>
                         <td>
                             <?php if($room->status == 'available') : ?>
-                                <div class="btn btn-success"><?php echo ucwords($room->status); ?></div>
+                                <div class="badge badge-success"><?php echo ucwords($room->status); ?></div>
                             <?php elseif($room->status == 'occupied') : ?>
-                                <div class="btn btn-danger"><?php echo ucwords($room->status); ?></div>
+                                <div class="badge badge-danger"><?php echo ucwords($room->status); ?></div>
                             <?php endif; ?>
                         </td>
                         <td>
