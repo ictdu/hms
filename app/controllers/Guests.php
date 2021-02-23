@@ -33,6 +33,25 @@
             $this->view('guests/index', $data);
         }
 
+        // View booking details by room number
+        public function room($roomNumber) 
+        {
+            // Get guest details
+            $guest = $this->guestModel->getBookingDetails($roomNumber);
+
+            // Fetch booked rooms
+            $rooms = $this->roomModel->getRoomByStatus('booked');
+
+            // Init data
+            $data = [
+                'guest' => $guest,
+                'rooms' => $rooms
+            ];
+
+            // Load view
+            $this->view('guests/room', $data, $roomNumber);
+        }
+
         // Check in guest
         public function checkin()
         {
@@ -113,6 +132,7 @@
                     $data['checked_in_by_err'] = 'The checked in by field is required.';
                 }
                 
+                // Make sure errors are empty
                 if(empty($data['room_number_err']) && empty($data['full_name_err']) && empty($data['address_err']) && empty($data['phone_number_err']) && empty($data['email_err']) && empty($data['check_in_date_err']) && empty($data['check_out_date_err']) && empty($data['notes_err']) && empty($data['checked_in_by_err'])) {
                     if($this->guestModel->checkInGuest($data)) {
                         if($this->roomModel->updateRoomStatus('booked', $data['room_number'])) {
@@ -124,7 +144,7 @@
                         }
                     }
                 } else {
-                    flash('feedback', 'There is a problem. Please input check fields.');
+                    flash('feedback', 'There is a problem. Please check input fields.');
                     redirect('guests/checkin');
                 }   
             } else {

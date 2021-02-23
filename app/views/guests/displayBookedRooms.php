@@ -1,6 +1,6 @@
-<div class="card-box col-md-12 mb-30">
+<div class="card-box col-md-8 mb-30">
     <div class="pb-20">
-        <div class="col-md-12 pd-20">  
+        <div class="col-md-8 pd-20">  
         </div>
         <table class="data-table table stripe hover nowrap">
             <thead>
@@ -23,8 +23,8 @@
                                 <i class="dw dw-more"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#booking-details" type="button"><i class="dw dw-newspaper"></i> Booking Details</a>
-                                <a class="dropdown-item" href="<?php echo URLROOT . '/rooms/checkout/' . $room->id; ?>"><i class="dw dw-edit2"></i> Update Details</a>
+                                <a class="dropdown-item" href="<?php echo URLROOT . '/guests/room/' . $room->number; ?>"><i class="dw dw-newspaper"></i> Booking Details</a>
+                                <a class="dropdown-item" href=""><i class="dw dw-edit2"></i> Update Details</a>
                                 <a data-toggle="modal" href="" data-target="#confirmation-modal" class="dropdown-item"><i class="dw dw-delete-3"></i> Check Out</a>
                             </div>
                         </div>
