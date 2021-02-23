@@ -8,7 +8,6 @@
                     <th class="table-plus">Room Number</th>
                     <th class="datatable-nosort">Category</th>
                     <th class="datatable-nosort">Status</th>
-                    <th class="datatable-nosort">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,16 +16,6 @@
                     <td><?php echo $room->number; ?></td>
                     <td><?php echo $room->category; ?></td>
                     <td><span class="badge badge-success"><?php echo ucwords($room->status); ?></span></td>
-                    <td>
-                        <div class="dropdown">
-                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                <i class="dw dw-more"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="<?php echo URLROOT . '/rooms/checkout/' . $room->id; ?>"><i class="dw dw-edit2"></i> Change Status</a>
-                            </div>
-                        </div>
-                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

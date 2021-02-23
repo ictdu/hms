@@ -111,8 +111,8 @@
                                     <input class="btn btn-primary" type="submit" value="Submit"> 
                                 </div>       
                             </form>
-                        </div>
+                        </div>  
                     </div>
                     <?php require APPROOT . '/views/guests/displayAvailableRooms.php'; ?>
-                </div>      
+                </div>         
 	<?php require APPROOT . '/views/inc/footer.php'; ?>
