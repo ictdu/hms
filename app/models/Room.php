@@ -74,6 +74,22 @@
             return $results;
         }
 
+        // Get room by status
+        public function updateRoomStatus($status, $number)
+        {
+            // Database query
+            $this->db->query('UPDATE rooms SET status = :status WHERE number = :number');
+            // Bind values
+            $this->db->bind(':status', $status);
+            $this->db->bind(':number', $number);
+            // Execute query
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         // Get all rooms
         public function getAllRooms()
         {
