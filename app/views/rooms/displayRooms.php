@@ -19,8 +19,8 @@
                         <td>
                             <?php if($room->status == 'available') : ?>
                                 <div class="badge badge-success"><?php echo ucwords($room->status); ?></div>
-                            <?php elseif($room->status == 'occupied') : ?>
-                                <div class="badge badge-danger"><?php echo ucwords($room->status); ?></div>
+                            <?php elseif($room->status == 'booked') : ?>
+                                <div class="badge badge-secondary"><?php echo ucwords($room->status); ?></div>
                             <?php endif; ?>
                         </td>
                         <td>

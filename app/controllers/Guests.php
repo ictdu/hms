@@ -55,6 +55,9 @@
         // Check in guest
         public function checkin()
         {
+            // Date today
+            $dateToday = date('Y-m-d');
+
             // Fetch available rooms
             $rooms = $this->roomModel->getRoomByStatus('available');
 
@@ -74,7 +77,7 @@
                     'check_in_date' => date('Y-m-d', strtotime(trim($_POST['check_in_date']))),
                     'check_out_date' => date('Y-m-d', strtotime(trim($_POST['check_out_date']))),
                     'notes' => trim($_POST['notes']),
-                    'checked_in_by' => $_SESSION['user_name'],
+                    'checked_in_by' => $_SESSION['user_id'],
                     'rooms' => $rooms,
                     'room_number_err' => '',
                     'full_name_err' => '',
@@ -115,12 +118,20 @@
                 // Validate check in date
                 if(empty($data['check_in_date'])) {
                     $data['check_in_date_err'] = 'The check in date is required.';
-                } 
+                } elseif(!empty($data['check_in_date'])) {
+                    if(($data['check_in_date'] < $dateToday) || ($data['check_in_date'] >= $data['check_out_date'])) {
+                        $data['check_in_date_err'] = 'Invalid check in date.';
+                    } 
+                }
 
                 // Validate check out date
                 if(empty($data['check_out_date'])) {
                     $data['check_out_date_err'] = 'The check out date is required.';
-                } 
+                } elseif(!empty($data['check_out_date'])) {
+                    if(($data['check_out_date'] <= $data['check_in_date']) || ($data['check_out_date'] <= $dateToday)) {
+                        $data['check_out_date_err'] = 'Invalid check out date.';
+                    } 
+                }
 
                 // Validate check in notes
                 if(empty($data['notes'])) {
@@ -135,17 +146,23 @@
                 // Make sure errors are empty
                 if(empty($data['room_number_err']) && empty($data['full_name_err']) && empty($data['address_err']) && empty($data['phone_number_err']) && empty($data['email_err']) && empty($data['check_in_date_err']) && empty($data['check_out_date_err']) && empty($data['notes_err']) && empty($data['checked_in_by_err'])) {
                     if($this->guestModel->checkInGuest($data)) {
-                        if($this->roomModel->updateRoomStatus('booked', $data['room_number'])) {
-                            flash('feedback', 'Guest successfully checked in.');
-                            redirect('guests/checkin');
+                        // If check in date is higher than date today insert as reservation
+                        if($data['check_in_date'] > $dateToday) {
+                                // Insert data as confirmed reservation
                         } else {
-                            flash('feedback', 'Failed to update room status.');
+                            // Change room status to booked
+                            $this->roomModel->updateRoomStatus('booked', $data['room_number']);
+
+                            // Generate invoice
+
+                            // Success
+                            flash('feedback', 'Guest has been checked in.');
                             redirect('guests/checkin');
                         }
                     }
                 } else {
-                    flash('feedback', 'There is a problem. Please check input fields.');
-                    redirect('guests/checkin');
+                    // Load view with errors
+                    $this->view('guests/checkin', $data);
                 }   
             } else {
                 // Load form

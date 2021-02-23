@@ -83,11 +83,7 @@
             $this->db->bind(':status', $status);
             $this->db->bind(':number', $number);
             // Execute query
-            if($this->db->execute()) {
-                return true;
-            } else {
-                return false;
-            }
+            $this->db->execute();
         }
 
         // Get all rooms
