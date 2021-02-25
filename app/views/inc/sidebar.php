@@ -42,6 +42,11 @@
 						</a>
 					</li>
 					<li>
+						<a href="<?php echo URLROOT; ?>/payments/" class="dropdown-toggle no-arrow">
+							<span class="micon fi-credit-card"></span><span class="mtext">Payments</span>
+						</a>
+					</li>
+					<li>
 						<a href="<?php echo URLROOT; ?>/sales/" class="dropdown-toggle no-arrow">
 							<span class="micon fi-clipboard-notes"></span><span class="mtext">Sales Report</span>
 						</a>

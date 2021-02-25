@@ -86,6 +86,19 @@
             $this->db->execute();
         }
 
+
+        // Get room details by room number
+        public function getRoomDetailsByNumber($roomNumber)
+        {
+            // Database query
+            $this->db->query('SELECT * FROM rooms WHERE number = :number');
+            // Bind value
+            $this->db->bind(':number', $roomNumber);
+            // Get records
+            $row = $this->db->single();
+
+            return $row;
+        }
         // Get all rooms
         public function getAllRooms()
         {
