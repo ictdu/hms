@@ -34,7 +34,7 @@
         public function updateCategory($data)
         {
             // Database query
-            $this->db->query('UPDATE room_categories SET name = :name, rate = :rate, description = :description, capacity = :capacity, image = :image WHERE id = :id');
+            $this->db->query('UPDATE categories SET name = :name, rate = :rate, description = :description, capacity = :capacity, image = :image WHERE id = :id');
             // Bind values
             $this->db->bind(':id', $data['id']);
             $this->db->bind(':name', $data['name']);
@@ -55,7 +55,7 @@
         public function deleteCategory($categoryId)
         {
             // Database query
-            $this->db->query('DELETE from room_categories WHERE id = :id');
+            $this->db->query('DELETE from categories WHERE id = :id');
             // Bind value
             $this->db->bind(':id', $categoryId);
             
@@ -71,7 +71,7 @@
         public function findCategoryByName($categoryName)
         {
             // Database query
-            $this->db->query('SELECT * FROM room_categories WHERE name = :name');
+            $this->db->query('SELECT * FROM categories WHERE name = :name');
             // Bind values
             $this->db->bind(':name', $categoryName);
             // Return record 
@@ -89,7 +89,7 @@
         public function getCategoryById($categoryId)
         {
             // Database query
-            $this->db->query('SELECT * FROM room_categories WHERE id = :id');
+            $this->db->query('SELECT * FROM categories WHERE id = :id');
             // Bind value
             $this->db->bind(':id', $categoryId);
             // Get record
@@ -102,7 +102,7 @@
         public function getCategoryByName($categoryName)
         {
             // Database query
-            $this->db->query('SELECT * FROM room_categories WHERE name = :name');
+            $this->db->query('SELECT * FROM categories WHERE name = :name');
             // Bind value
             $this->db->bind(':name', $categoryName);
             // Get record
@@ -115,7 +115,7 @@
         public function getAllCategories()
         {
             // Database query
-            $this->db->query('SELECT * FROM room_categories');
+            $this->db->query('SELECT * FROM categories');
             // Return records 
             $results = $this->db->resultSet();
 

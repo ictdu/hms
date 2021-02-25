@@ -211,9 +211,8 @@
         // Guest arrivals
         public function arrivals()
         {
-
-            // Fetch all guests
-            $guests = $this->guestModel->getAllGuests();
+            // Join reservations and guests table
+            $guests = $this->reservationModel->getGuestsWithConfirmedReservation();
 
             $data = [
                 'guests' => $guests
@@ -222,4 +221,104 @@
             // Load view
             $this->view('guests/arrivals', $data);
         }
+
+        // Guest arrivals today
+        public function arrivals_today()
+        {
+            // Join reservations and guests table
+            $guests = $this->reservationModel->sortCheckInDay();
+            
+            $data = [
+                'guests' => $guests
+            ];
+
+            // Load view
+            $this->view('guests/arrivals_today', $data);
+        }
+
+        // Guest arrivals today
+        public function arrivals_week()
+        {
+            // Join reservations and guests table
+            $guests = $this->reservationModel->sortCheckInWeek();
+            
+            $data = [
+                'guests' => $guests
+            ];
+
+            // Load view
+            $this->view('guests/arrivals_week', $data);
+        }
+
+        // Guest arrivals today
+        public function arrivals_month()
+        {
+            // Join reservations and guests table
+            $guests = $this->reservationModel->sortCheckInWeek();
+            
+            $data = [
+                'guests' => $guests
+            ];
+
+            // Load view
+            $this->view('guests/arrivals_month', $data);
+        }
+
+        // Guest departures
+        public function departures()
+        {
+
+            // Join reservations and guests table
+            $guests = $this->reservationModel->getGuestsWithConfirmedReservation();
+
+            $data = [
+                'guests' => $guests
+            ];
+
+            // Load view
+            $this->view('guests/departures', $data);
+        }
+
+        // Guest departures today
+        public function departures_today()
+        {
+            // Join reservations and guests table
+            $guests = $this->reservationModel->sortCheckOutDay();
+            
+            $data = [
+                'guests' => $guests
+            ];
+
+            // Load view
+            $this->view('guests/departures_today', $data);
+        }
+
+        // Guest arrivals today
+        public function departures_week()
+        {
+            // Join reservations and guests table
+            $guests = $this->reservationModel->sortCheckOutWeek();
+            
+            $data = [
+                'guests' => $guests
+            ];
+
+            // Load view
+            $this->view('guests/departures_week', $data);
+        }
+
+        // Guest arrivals today
+        public function departures_month()
+        {
+            // Join reservations and guests table
+            $guests = $this->reservationModel->sortCheckOutWeek();
+            
+            $data = [
+                'guests' => $guests
+            ];
+
+            // Load view
+            $this->view('guests/departures_month', $data);
+        }
+
     }

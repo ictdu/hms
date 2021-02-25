@@ -18,22 +18,22 @@
 					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon fi-torsos-all"></span><span class="mtext">Guests</span>
-						</a>
-						<ul class="submenu">
-							<li><a href="<?php echo URLROOT; ?>/guests/checkin">Check In</a></li>
-							<li><a href="<?php echo URLROOT; ?>/guests/">Booked</a></li>
-							<li><a href="<?php echo URLROOT; ?>/guests/arrival">Arrival</a></li>
-							<li><a href="<?php echo URLROOT; ?>/guests/departure">Departure</a></li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon fi-list"></span><span class="mtext">Rooms / Category</span>
 						</a>
 						<ul class="submenu">
 							<li><a href="<?php echo URLROOT; ?>/rooms/">Rooms</a></li>
 							<li><a href="<?php echo URLROOT; ?>/categories/">Categories</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon fi-torsos-all"></span><span class="mtext">Guests</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="<?php echo URLROOT; ?>/guests/">Booked</a></li>
+							<li><a href="<?php echo URLROOT; ?>/guests/checkin">Check In</a></li>
+							<li><a href="<?php echo URLROOT; ?>/guests/arrivals">Arrival</a></li>
+							<li><a href="<?php echo URLROOT; ?>/guests/departures">Departure</a></li>
 						</ul>
 					</li>
 					<li>

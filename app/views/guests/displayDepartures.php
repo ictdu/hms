@@ -1,4 +1,10 @@
 <div class="card-box col-md-12 mb-30">
+    <div class="col-md-12 pd-20 text-right">
+        <a href="<?php echo URLROOT ?>/guests/departures" class="btn btn-info">All</a>
+        <a href="<?php echo URLROOT ?>/guests/departures_today" class="btn btn-info">Today</a>
+        <a href="<?php echo URLROOT ?>/guests/departures_week" class="btn btn-info">Week</a>
+        <a href="<?php echo URLROOT ?>/guests/departures_month" class="btn btn-info">Month</a>
+    </div>
     <div class="pb-20">
         <div class="col-md-12 pd-20">  
         </div>
@@ -6,18 +12,20 @@
             <thead>
                 <tr>
                     <th class="datatable-nosort">Guest Number</th>
+                    <th class="datatable-nosort">Full Name</th>
+                    <th class="datatable-nosort">Room Number</th>
                     <th class="datatable-nosort">Check-in Date</th>
                     <th class="datatable-nosort">Check-out Date</th>
-                    <th class="datatable-nosort">Actions</th>
                 </tr>
             </thead>
             <tbody>
             <?php foreach($data['guests'] as $guest) : ?>
                 <tr>
                     <td><?php echo $guest->id; ?></td>
+                    <td><?php echo $guest->full_name; ?></td>
+                    <td><?php echo $guest->room_number; ?></td>
                     <td><?php echo $guest->check_in_date; ?></td>
                     <td><?php echo $guest->check_out_date; ?></td>
-                    <td></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

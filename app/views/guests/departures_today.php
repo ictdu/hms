@@ -1,4 +1,4 @@
-    <?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/header.php'; ?>
 	<?php require APPROOT . '/views/inc/sidebar.php'; ?>
 
         <div class="main-container">
@@ -14,7 +14,7 @@
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="">Home</a></li>
                                         <li class="breadcrumb-item"><a href="">Arrivals</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">View</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Today</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -22,5 +22,5 @@
                     </div>  
                 </div>
                 <?php require APPROOT . '/views/inc/welcome.php'; ?>
-                    <?php require APPROOT . '/views/guests/displayArrivals.php'; ?>
+                    <?php require APPROOT . '/views/guests/displayArrivalsToday.php'; ?>
 	<?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -47,6 +47,19 @@
             return $row;
         }
 
+        // Get guest details by id
+        public function getGuestDetailsById($guestId)
+        {
+            // Database query
+            $this->db->query('SELECT * FROM guests WHERE id = :id');
+            // Bind value
+            $this->db->bind(':id', $guestId);
+            // Get record
+            $row = $this->db->single();
+
+            return $row;
+        }
+
         // Get all guests
         public function getAllGuests()
         {
