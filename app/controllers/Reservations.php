@@ -1,17 +1,13 @@
 <?php
-    class Resrvations extends Controller {
+    class Reservations extends Controller {
 
         // Init models var
-        private $reservationModel;
-        private $roomModel;
-        private $categoryModel;
-        
+        private $reservationModel; 
 
         public function __construct()
         {
             // Load models
-            $this->roomModel = $this->model('Room');
-            $this->categoryModel = $this->model('Category');
+            $this->reservationModel = $this->model('Reservation');
 
             // Check if user is logged in
             if(!isLoggedIn()) {
@@ -23,84 +19,29 @@
         // Default method
         public function index()
         {
-            // Fetch all rooms
+            // Fetch all reservations
             $reservations = $this->reservationModel->getAllReservations();
 
-            // Fetch all categories
-            $categories = $this->categoryModel->getAllCategories();
+            // Init data values
+            $data = [
+                'reservations' => $reservations
+            ];
 
-            if($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // Process form
-                // Sanitize POST data
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-                // Data values
-                $data = [
-                    'number' => trim($_POST['number']),
-                    'category' => trim($_POST['category']),
-                    'reservations' => $reservations,
-                    'categories' => $categories,
-                    'number_err' => '',
-                    'category_err' => ''
-                ];
-
-                // Validate room number
-                if(empty($data['number'])) {
-                    $data['number_err'] = 'The room number field is required.';
-                } elseif(!empty($data['number']) && ($this->roomModel->findRoomByNumber($data['number']))) {
-                    $data['number_err'] = 'Reservation number already exists.';
-                }
-
-                // Validate category name 
-                if(empty($data['category'])) {
-                    $data['category_err'] = 'The category field is required.';
-                }
-
-                // Make sure errors are empty
-                if(empty($data['number_err']) && empty($data['category_err'])) {
-                    if($this->reservationModel->createReservation($data)) {
-                        flash('feedback', 'New reservation successfully added.');
-                        redirect('reservations/index');
-                    } else {
-                        flash('feedback', 'Adding new reservation failed.', 'alert alert-danger alert-dismissible fade show');
-                        redirect('reservations/index');
-                    }
-                } else {
-                    // Load view with errors
-                    $this->view('reservations/index', $data);
-                }
-            } else {
-                // Load form
-                // Init data
-                $data = [
-                    'number' => '',
-                    'category' => '',
-                    'reservations' => $reservations,
-                    'categories' => $categories,
-                    'number_err' => '',
-                    'category_err' => ''
-                ];
-
-                // Load view
-                $this->view('reservations/index', $data);
-            }
+            // Load view
+            $this->view('reservations/index', $data);
         }
 
-        // Delete room record
-        public function delete($reservationId)
+
+        // Delete reservation
+        public function delete()
         {
-            // Check for POST
-            if($_SERVER['REQUEST_METHOD'] == 'POST') {
-                if($this->reservationModel->deleteReservation($reservationId)) {
-                    flash('feedback', 'Reservation deleted successfully.', 'alert alert-danger alert-dismissible fade show');
-                    redirect('reservations/index');
-                } else {
-                    flash('feedback', 'Failed to delete reservation from record.', 'alert alert-danger alert-dismissible fade show');
-                    redirect('reservations/index');
-                }
-            } else {
-                die('Error.');
-            }
+
+        }
+
+        // Update reservation status
+        public function update()
+        {
+
         }
 
     }

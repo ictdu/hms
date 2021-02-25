@@ -10,6 +10,7 @@
             // Load models
             $this->guestModel = $this->model('Guest');
             $this->roomModel = $this->model('Room');
+            $this->reservationModel = $this->model('Reservation');
 
             // Check if user is logged in
             if(!isLoggedIn()) {
@@ -149,12 +150,24 @@
                         // If check in date is higher than date today insert as reservation
                         if($data['check_in_date'] > $dateToday) {
                                 // Insert data as confirmed reservation
+                                $guest = $this->guestModel->getBookingDetails($data['room_number']);
+
+                                // Reservation details
+                                $data = [
+                                    'guest' => $guest->id,
+                                    'status' => 'confirmed'
+                                ];
+
+                                // Create reservation
+                                if($this->reservationModel->createReservation($data)) {
+                                    // Inserted as reservations
+                                    die('reservation created');
+                                } else {
+                                    // Something is wrong
+                                }
                         } else {
                             // Change room status to booked
                             $this->roomModel->updateRoomStatus('booked', $data['room_number']);
-
-                            // Generate invoice
-
                             // Success
                             flash('feedback', 'Guest has been checked in.');
                             redirect('guests/checkin');
@@ -193,5 +206,20 @@
                 $this->view('guests/checkin', $data);
             }
             
+        }
+
+        // Guest arrivals
+        public function arrivals()
+        {
+
+            // Fetch all guests
+            $guests = $this->guestModel->getAllGuests();
+
+            $data = [
+                'guests' => $guests
+            ];
+
+            // Load view
+            $this->view('guests/arrivals', $data);
         }
     }
