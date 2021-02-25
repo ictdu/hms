@@ -34,6 +34,19 @@
             }
         }
 
+        // Get all bookings by room number
+        public function getAllBookingDetails($roomNumber)
+        {
+            // Database query
+            $this->db->query('SELECT * FROM guests WHERE room_number = :room_number');
+            // Bind value
+            $this->db->bind(':room_number', $roomNumber);
+            // Get records
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
         // Get booking details of guest by room number
         public function getBookingDetails($roomNumber)
         {

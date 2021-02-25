@@ -8,13 +8,13 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-12">
                                 <div class="title">
-                                    <h4>Rooms</h4>
+                                    <h4>Guests</h4>
                                 </div>
                                 <nav aria-label="breadcrumb" role="navigation">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="">Home</a></li>
                                         <li class="breadcrumb-item"><a href="">Arrivals</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">View</li>
+                                        <li class="breadcrumb-item active" aria-current="page">All</li>
                                     </ol>
                                 </nav>
                             </div>

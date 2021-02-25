@@ -124,6 +124,15 @@
                         $data['check_in_date_err'] = 'Invalid check in date.';
                     } 
                 }
+                
+                // Check if date is already booked
+                $guests = $this->guestModel->getAllBookingDetails($data['room_number']);
+                foreach($guests as $guest) {
+                    if(($data['check_in_date'] >= $guest->check_in_date) && ($data['check_in_date'] <= $guest->check_out_date)) {
+                        $data['check_in_date_err'] = 'The date is unavailable.';
+                        $data['check_out_date_err'] = 'The date is unavailable.';
+                    }    
+                }
 
                 // Validate check out date
                 if(empty($data['check_out_date'])) {
@@ -254,7 +263,7 @@
         public function arrivals_month()
         {
             // Join reservations and guests table
-            $guests = $this->reservationModel->sortCheckInWeek();
+            $guests = $this->reservationModel->sortCheckInMonth();
             
             $data = [
                 'guests' => $guests
@@ -311,7 +320,7 @@
         public function departures_month()
         {
             // Join reservations and guests table
-            $guests = $this->reservationModel->sortCheckOutWeek();
+            $guests = $this->reservationModel->sortCheckOutMonth();
             
             $data = [
                 'guests' => $guests
