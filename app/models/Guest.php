@@ -83,4 +83,19 @@
             return $results;
         }
 
+        // Delete guest
+        public function deleteGuest($guestId)
+        {
+            // Database query
+            $this->db->query('DELETE from guests WHERE id = :id');
+            // Bind value
+            $this->db->bind(':id', $guestId);
+            // Execute query
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
     }

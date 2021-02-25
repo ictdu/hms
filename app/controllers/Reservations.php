@@ -69,11 +69,23 @@
         // Delete reservation record
         public function delete($reservationId)
         {
+            // Get reservation by id
+            $reservation = $this->reservationModel->getReservationDetailsById($reservationId);
+
             // Check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Get guest id
+                $guestId = $reservation->guest;
+
+                // Delete reservation details
                 if($this->reservationModel->deleteReservation($reservationId)) {
-                    flash('feedback', 'Reservation deleted successfully.', 'alert alert-danger alert-dismissible fade show');
-                    redirect('reservations/index');
+                    if($this->guestModel->deleteGuest($guestId)) {
+                        flash('feedback', 'Reservation deleted successfully.', 'alert alert-danger alert-dismissible fade show');
+                        redirect('reservations/index');
+                    }  else {
+                        // something is wrong
+                        die('Something is wrong');
+                    }
                 } else {
                     flash('feedback', 'Failed to delete reservation record.', 'alert alert-danger alert-dismissible fade show');
                     redirect('reservations/index');
