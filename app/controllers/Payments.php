@@ -1,5 +1,5 @@
 <?php
-    class Invoices extends Controller {
+    class Payments extends Controller {
 
         // Init model var
         private $invoiceModel;
@@ -19,5 +19,19 @@
                 // If not, redirect to login page
                 redirect('users/login');
             } 
+        }
+
+        public function index()
+        {
+            // Fetch booked rooms
+            $invoices = $this->invoiceModel->getAllInvoices();
+
+            // Init data
+            $data = [
+                'invoices' => $invoices
+            ];
+
+            // Load view
+            $this->view('payments/index', $data);
         }
     }
