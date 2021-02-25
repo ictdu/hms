@@ -47,4 +47,27 @@
             return $row;
         }
 
+        // Get all guests
+        public function getAllGuests()
+        {
+            // Database query
+            $this->db->query('SELECT * FROM guests');
+
+            // Get record
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
+        // Get booking details of guest by room number
+        public function getArrivals()
+        {
+            // Database query
+            $this->db->query('SELECT * FROM guests WHERE check_in_date >= NOW()');
+            // Get record
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
     }
