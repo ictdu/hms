@@ -96,6 +96,39 @@
             return $results;
         }
 
+        // Display guests with check out date today
+        public function sortCheckOutDay()
+        {
+            // Database query
+            $this->db->query('SELECT * FROM guests WHERE check_out_date = CURDATE()');
+            // Get records
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
+        // Display guests with check out date within this week
+        public function sortCheckOutWeek()
+        {
+            // Database query
+            $this->db->query('SELECT * FROM guests WHERE YEARWEEK(check_out_date) = YEARWEEK(CURDATE())');
+            // Get records
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
+        // Display guests with check out date within this month
+        public function sortCheckOutMonth()
+        {
+            // Database query
+            $this->db->query('SELECT * FROM guests WHERE (YEAR(check_out_date) = YEAR(CURDATE()) AND MONTH(check_out_date) = MONTH(CURRENT_DATE()))');
+            // Get records
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
         // Delete guest
         public function deleteGuest($guestId)
         {

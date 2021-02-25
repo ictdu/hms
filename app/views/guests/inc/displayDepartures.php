@@ -12,22 +12,24 @@
             <thead>
                 <tr>
                     <th class="datatable-nosort">Guest Number</th>
-                    <th class="datatable-nosort">Full Name</th>
+                    <th class="datatable-nosort">Guest Name</th>
                     <th class="datatable-nosort">Room Number</th>
                     <th class="datatable-nosort">Check-in Date</th>
                     <th class="datatable-nosort">Check-out Date</th>
                 </tr>
             </thead>
             <tbody>
-            <?php foreach($data['guests'] as $guest) : ?>
-                <tr>
-                    <td><?php echo $guest->id; ?></td>
-                    <td><?php echo $guest->full_name; ?></td>
-                    <td><?php echo $guest->room_number; ?></td>
-                    <td><?php echo $guest->check_in_date; ?></td>
-                    <td><?php echo $guest->check_out_date; ?></td>
-                </tr>
-            <?php endforeach; ?>
+            <?php if(isset($data['guests'])) : ?>
+                <?php foreach($data['guests'] as $guest) : ?>
+                    <tr>
+                        <td><?php echo $guest->id; ?></td>
+                        <td><?php echo $guest->full_name; ?></td>
+                        <td><?php echo $guest->room_number; ?></td>
+                        <td><?php echo $guest->check_in_date; ?></td>
+                        <td><?php echo $guest->check_out_date; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
             </tbody>
         </table>
     </div>
