@@ -22,5 +22,5 @@
                     </div>  
                 </div>
                 <?php require APPROOT . '/views/inc/welcome.php'; ?>
-                    <?php require APPROOT . '/views/guests/displayDeparturesMonth.php'; ?>
+                    <?php require APPROOT . '/views/guests/inc/displayDeparturesMonth.php'; ?>
 	<?php require APPROOT . '/views/inc/footer.php'; ?>

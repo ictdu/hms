@@ -113,6 +113,6 @@
                             </form>
                         </div>  
                     </div>
-                    <?php require APPROOT . '/views/guests/displayAvailableRooms.php'; ?>
+                    <?php require APPROOT . '/views/guests/inc/displayAvailableRooms.php'; ?>
                 </div>         
 	<?php require APPROOT . '/views/inc/footer.php'; ?>

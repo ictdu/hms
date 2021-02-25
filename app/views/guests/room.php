@@ -100,6 +100,6 @@
                             </form>
                         </div>  
                     </div>
-                    <?php require APPROOT . '/views/guests/displayBookedRooms.php'; ?>
+                    <?php require APPROOT . '/views/guests/inc/displayBookedRooms.php'; ?>
                 </div>         
 	<?php require APPROOT . '/views/inc/footer.php'; ?>
