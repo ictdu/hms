@@ -99,7 +99,9 @@
                 // Validate room number
                 if(empty($data['room_number'])) {
                     $data['room_number_err'] = 'The room number field is required.';
-                } 
+                } elseif(!empty($data['room_number']) && !$this->roomModel->findRoomByNumber($data['room_number'])) {
+                    $data['room_number_err'] = 'The room does not exists.';
+                }
 
                 // Validate guest name
                 if(empty($data['full_name'])) {

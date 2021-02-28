@@ -5,14 +5,16 @@
         private $invoiceModel;
         private $guestModel;
         private $categoryModel;
+        private $roomModel;
 
 
         public function __construct()
         {
             // Load models
             $this->invoiceModel = $this->model('Invoice');
-            $this->guestModelModel = $this->model('Guest');
+            $this->guestModel = $this->model('Guest');
             $this->categoryModel = $this->model('Category');
+            $this->roomModel = $this->model('Room');
             
             // Check if user is logged in
             if(!isLoggedIn()) {
@@ -33,5 +35,32 @@
 
             // Load view
             $this->view('payments/index', $data);
+        }
+
+        // Display invoice
+        public function invoice($roomNumber)
+        {
+            // Get guest by room number
+            $guest = $this->guestModel->getBookingDetails($roomNumber);
+            // Fetch invoice details by guest id
+            $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
+            // Fetch room details by room number
+            $room = $this->roomModel->getRoomDetailsByNumber($roomNumber);
+            // Fetch room category details by room number
+            $category = $this->categoryModel->getCategoryByName($room->category);
+
+
+            // Data values
+            $data = [
+                'invoice' => $invoice,
+                'guest' => $guest,
+                'room' => $room,
+                'category' => $category
+            ];
+
+            // Load view
+            $this->view('payments/invoice', $data, $roomNumber);
+
+
         }
     }

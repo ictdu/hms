@@ -25,7 +25,7 @@
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                 <a class="dropdown-item" href="<?php echo URLROOT . '/guests/room/' . $room->number; ?>"><i class="dw dw-newspaper"></i> Booking Details</a>
                                 <a class="dropdown-item" href=""><i class="dw dw-edit2"></i> Update Details</a>
-                                <a class="dropdown-item" href="<?php echo URLROOT . '/invoices/v/' . $room->number; ?>"><i class="dw dw-invoice"></i> View Invoice</a>
+                                <a class="dropdown-item" href="<?php echo URLROOT . '/payments/invoice/' . $room->number; ?>" target="_blank"><i class="dw dw-invoice"></i> View Invoice</a>
                                 <a data-toggle="modal" href="" data-target="#confirmation-modal" class="dropdown-item"><i class="dw dw-delete-3"></i> Check Out</a>
                             </div>
                         </div>
