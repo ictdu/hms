@@ -60,4 +60,23 @@
 
             return $row;
         }
+
+        // Update invoice balance
+        public function updateBalance($data)
+        {
+            // Database query
+            $this->db->query('UPDATE invoices SET balance = :balance, discounted = :discounted WHERE number = :number');
+            // Bind values
+            $this->db->bind(':balance', $data['balance']);
+            $this->db->bind(':number', $data['invoice_number']);
+            $this->db->bind(':discounted', $data['discounted']);
+
+            // Execute
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
     }

@@ -63,14 +63,16 @@
         {
             // Get guest details
             $guest = $this->guestModel->getBookingDetails($roomNumber);
-
             // Fetch booked rooms
             $rooms = $this->roomModel->getRoomByStatus('booked');
+            // Get invoice details by guest ID
+            $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
 
             // Init data
             $data = [
                 'guest' => $guest,
-                'rooms' => $rooms
+                'rooms' => $rooms,
+                'invoice_number' => $invoice->number
             ];
 
             // Load view

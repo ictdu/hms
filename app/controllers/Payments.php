@@ -6,6 +6,7 @@
         private $guestModel;
         private $categoryModel;
         private $roomModel;
+        private $discountModel;
 
 
         public function __construct()
@@ -15,6 +16,7 @@
             $this->guestModel = $this->model('Guest');
             $this->categoryModel = $this->model('Category');
             $this->roomModel = $this->model('Room');
+            $this->discountModel = $this->model('Discount');
             
             // Check if user is logged in
             if(!isLoggedIn()) {
@@ -56,20 +58,66 @@
             $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
             // Get category details by name
             $category = $this->categoryModel->getCategoryByName($room->category);
-            // Get invoice number by guest id
-            $number = $this->invoiceModel->getInvoiceByGuestId($guest->id);
 
-            // Data values
-            $data = [
-                'invoice' => $invoice,
-                'guest' => $guest,
-                'room' => $room,
-                'category' => $category
-            ];
+            // Check for POST
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Process form
+                // Sanitize POST data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            // Load view
-            $this->view('payments/invoice', $data, $invoiceNumber);
+                // Data values
+                $data = [
+                    'invoice' => $invoice,
+                    'guest' => $guest,
+                    'room' => $room,
+                    'category' => $category,
+                    'code' => trim($_POST['code']),
+                    'code_err' => ''
+                ];
 
+                // Check if discount code field is empty
+                if(empty($data['code'])) {
+                    $data['code_err'] = 'Discount code can not be empty.';
+                }
 
+                // Check if discount code exists 
+               // if(!empty($data['code']) && (!$this->discountModel->findDiscountCode($data['code']))) {
+                   // $data['code_err'] ='Discount code not found.';
+                //}
+
+                // Make sure there are no errors
+                if(empty($data['code_err'])) {
+                    // Get discount details by code
+                    $discount = $this->discountModel->getDiscountByCode($data['code']);
+                    // Deduct discount amount to balance
+                    $discountPercentage = $discount->discount / 100;
+                    $newBalance = $data['invoice']->balance * $discountPercentage;
+
+                    if($this->invoiceModel->updateBalance($data = [
+                        'balance' => $newBalance,
+                        'invoice_number' => $invoiceNumber,
+                        'discounted' => 1,
+                    ])) {
+                        // Success, refresh page
+                        redirect('payments/invoice/' . $invoiceNumber);
+                    }
+                } else {
+                    // Load view with errors
+                    $this->view('payments/invoice', $data, $invoiceNumber);
+                }
+            } else {
+                // Init data values
+                $data = [
+                    'invoice' => $invoice,
+                    'guest' => $guest,
+                    'room' => $room,
+                    'category' => $category,
+                    'code' => '',
+                    'code_err' => ''
+                ];
+
+                // Load view
+                $this->view('payments/invoice', $data, $invoiceNumber);
+            }
         }
     }
