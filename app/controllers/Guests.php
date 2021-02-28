@@ -64,6 +64,7 @@
         public function checkin()
         {
             // Date today
+            date_default_timezone_set('Asia/Hong_Kong');
             $dateToday = date('Y-m-d');
 
             // Fetch available rooms
@@ -138,8 +139,8 @@
                 $guests = $this->guestModel->getAllBookingDetails($data['room_number']);
                 foreach($guests as $guest) {
                     if(($data['check_in_date'] >= $guest->check_in_date) && ($data['check_in_date'] <= $guest->check_out_date)) {
-                        $data['check_in_date_err'] = 'The date is unavailable.';
-                        $data['check_out_date_err'] = 'The date is unavailable.';
+                        $data['check_in_date_err'] = 'The date is already booked.';
+                        $data['check_out_date_err'] = 'The date is already booked.';
                     }    
                 }
 
@@ -165,53 +166,51 @@
                 // Make sure errors are empty
                 if(empty($data['room_number_err']) && empty($data['full_name_err']) && empty($data['address_err']) && empty($data['phone_number_err']) && empty($data['email_err']) && empty($data['check_in_date_err']) && empty($data['check_out_date_err']) && empty($data['notes_err']) && empty($data['checked_in_by_err'])) {
                     if($this->guestModel->checkInGuest($data)) {
-                        // Get guest details by id
+                        // Get guest details by ID
                         $guest = $this->guestModel->getBookingDetails($data['room_number']);
-                        // Get room details
+                        // Get room details by room number
                         $room = $this->roomModel->getRoomDetailsByNumber($data['room_number']);
-                        // Get room category details
+                        // Get room category details by name
                         $category = $this->categoryModel->getCategoryByName($room->category);
-                        // Number of days checked in
+
+                        // Calculate number of days guest have been checked in
                         $checkInDate = date_create($data['check_in_date']);
                         $checkOutDate = date_create($data['check_out_date']);
-                        $diff = date_diff($checkInDate, $checkOutDate);
-                        // Balance
-                        $balance = $diff->days * $category->rate;
+                        $difference = date_diff($checkInDate, $checkOutDate);
+                        // Calculate payable amount
+                        // Number Of Days X Room Category Rate
+                        $balance = $difference->days * $category->rate;
 
-                        // If check in date is higher than date today insert as reservation
+                        // If check in date is higher than date today, insert record as a confirmed reservation
                         if($data['check_in_date'] > $dateToday) {
-                            // die('reserved');
                             // Data values
                             $data = [
                                 'guest' => $guest->id,
                                 'status' => 'confirmed'
                             ];
-
+                            
                             if($this->reservationModel->createReservation($data)) {
-                                // Insert record as reservation
-                                flash('feedback', 'A reservation has been created.');
-                                redirect('guests/checkin');
-
                                 // Generate Invoice
                                 $this->invoiceModel->generateInvoice($data = [
-                                'number' => rand(100000, 999999),
-                                'guest_id' => $guest->id,
-                                'balance' => $balance
+                                    'number' => rand(100000, 999999),
+                                    'guest_id' => $guest->id,
+                                    'balance' => $balance
                                 ]);
+
+                                // Record inserted as a reservation (Success)
+                                flash('feedback', 'A reservation has been created.');
+                                redirect('guests/checkin');
                             }
                         } else {
                             // Change room status to booked
                             $this->roomModel->updateRoomStatus('booked', $data['room_number']);
-                            flash('feedback', 'Guest has been checked in.');
+                            // Record inserted as a booking (Success)
+                            flash('feedback', 'Guest has been booked successfully.');
                             redirect('guests/checkin');
-
-                            // Generate Invoice
-                            $this->invoiceModel->generateInvoice($data = [
-                            'number' => rand(100000, 999999),
-                            'guest_id' => $guest->id,
-                            'balance' => $balance
-                            ]);
                         }
+                    } else {
+                        // Something went wrong
+                        die('Inserting record failed.');
                     }
                 } else {
                     // Load view with errors
@@ -325,63 +324,51 @@
         // Guest departures
         public function departures()
         {
-            //  Get all guests details
+            //  Get details of all guests
             $guests = $this->guestModel->getAllGuests();
-
+            
             foreach($guests as $guest) {
-                // Get guest room number
+                // Get guest room details by room number
                 $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
-                // Check if booked
+                // if room status is booked, display guest in departure
                 if($room->status == 'booked') {
-                    // Init data values
+                    // Data values
                     $data = [
-                        'guests' => $guests
-                    ];
-
-                    // Load view
-                    $this->view('guests/departures', $data);
-                } else {
-                    // Empty data table
-                    $data = [
-                        'guests' => null
+                        'id' => $guest->id,
+                        'full_name' => $guest->full_name,
+                        'room_number' => $guest->room_number,
+                        'check_in_date' => $guest->check_in_date,
+                        'check_out_date' => $guest->check_out_date
                     ];
 
                     // Load view
                     $this->view('guests/departures', $data);
                 }
-            }   
+            }
         }
 
         // Guest departures today
         public function departures_today()
         {
-            //  Get all guests details
+            //  Get details of all guests
             $guests = $this->guestModel->getAllGuests();
             
             foreach($guests as $guest) {
-                // Get guest room number
+                // Get guest room details by room number
                 $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
-                // Check if booked
-                if($room->status == 'booked') {
-                    // Get sorted guests by date
-                    $sortedGuests = $this->guestModel->sortCheckOutDay();
-                    
-                    // Init data values
+                // if room status is booked, display guest in departure
+                if($room->status == 'booked' && $this->guestModel->filterCheckOutDay()) {
+                    // Data values
                     $data = [
-                        'guests' => $sortedGuests
+                        'id' => $guest->id,
+                        'full_name' => $guest->full_name,
+                        'room_number' => $guest->room_number,
+                        'check_in_date' => $guest->check_in_date,
+                        'check_out_date' => $guest->check_out_date
                     ];
 
                     // Load view
-                    $this->view('guests/departures_today', $data);
-                    
-                } else {
-                    // Empty data table
-                    $data = [
-                        'guests' => null
-                    ];
-
-                    // Load view
-                    $this->view('guests/departures_today', $data);
+                    $this->view('guests/departures', $data);
                 }
             }
         }
@@ -389,33 +376,25 @@
         // Guest arrivals today
         public function departures_week()
         {
-            //  Get all guests details
+            //  Get details of all guests
             $guests = $this->guestModel->getAllGuests();
             
             foreach($guests as $guest) {
-                // Get guest room number
+                // Get guest room details by room number
                 $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
-                // Check if booked
-                if($room->status == 'booked') {
-                    // Get sorted guests by date
-                    $sortedGuests = $this->guestModel->sortCheckOutWeek();
-                    
-                    // Init data values
+                // if room status is booked, display guest in departure
+                if($room->status == 'booked' && $this->guestModel->filterCheckOutWeek()) {
+                    // Data values
                     $data = [
-                        'guests' => $sortedGuests
+                        'id' => $guest->id,
+                        'full_name' => $guest->full_name,
+                        'room_number' => $guest->room_number,
+                        'check_in_date' => $guest->check_in_date,
+                        'check_out_date' => $guest->check_out_date
                     ];
 
                     // Load view
-                    $this->view('guests/departures_week', $data);
-                    
-                } else {
-                    // Empty data table
-                    $data = [
-                        'guests' => null
-                    ];
-
-                    // Load view
-                    $this->view('guests/departures_week', $data);
+                    $this->view('guests/departures', $data);
                 }
             }
         }
@@ -423,33 +402,25 @@
         // Guest arrivals today
         public function departures_month()
         {
-            //  Get all guests details
+            //  Get details of all guests
             $guests = $this->guestModel->getAllGuests();
             
             foreach($guests as $guest) {
-                // Get guest room number
+                // Get guest room details by room number
                 $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
-                // Check if booked
-                if($room->status == 'booked') {
-                    // Get sorted guests by date
-                    $sortedGuests = $this->guestModel->sortCheckOutMonth();
-                    
-                    // Init data values
+                // if room status is booked, display guest in departure
+                if($room->status == 'booked' && $this->guestModel->filterCheckOutMonth()) {
+                    // Data values
                     $data = [
-                        'guests' => $sortedGuests
+                        'id' => $guest->id,
+                        'full_name' => $guest->full_name,
+                        'room_number' => $guest->room_number,
+                        'check_in_date' => $guest->check_in_date,
+                        'check_out_date' => $guest->check_out_date
                     ];
 
                     // Load view
-                    $this->view('guests/departures_month', $data);
-                    
-                } else {
-                    // Empty data table
-                    $data = [
-                        'guests' => null
-                    ];
-
-                    // Load view
-                    $this->view('guests/departures_month', $data);
+                    $this->view('guests/departures', $data);
                 }
             }
         }
