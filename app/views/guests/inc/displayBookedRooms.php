@@ -35,4 +35,24 @@
             </tbody>
         </table>
     </div>
+    <!-- Confirmation modal -->
+    <div class="modal fade" id="confirmation-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center font-18">
+                    <form action="<?php echo URLROOT . '/guests/checkout/' . $room->number; ?>" method="post">
+                        <h4 class="padding-top-30 mb-30 weight-500">Are you sure you want to continue?</h4>
+                        <div class="padding-bottom-30 row" style="margin: 0 auto;">
+                            <div class="col-6">
+                                <input role="button" type="button" value="Cancel" class="btn btn-secondary btn-block" data-dismiss="modal">
+                            </div>
+                            <div class="col-6">
+                                <input role="button" type="submit" value="Confirm" class="btn btn-danger btn-block">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

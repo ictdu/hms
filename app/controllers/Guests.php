@@ -7,6 +7,7 @@
         private $reservationModel;
         private $invoiceModel;
         private $categoryModel;
+        private $checkoutModel;
 
         public function __construct()
         {
@@ -16,6 +17,7 @@
             $this->reservationModel = $this->model('Reservation');
             $this->invoiceModel = $this->model('Invoice');
             $this->categoryModel = $this->model('Category');
+            $this->checkoutModel = $this->model('Checkout');
 
             // Check if user is logged in
             if(!isLoggedIn()) {
@@ -163,9 +165,6 @@
                 // Make sure errors are empty
                 if(empty($data['room_number_err']) && empty($data['full_name_err']) && empty($data['address_err']) && empty($data['phone_number_err']) && empty($data['email_err']) && empty($data['check_in_date_err']) && empty($data['check_out_date_err']) && empty($data['notes_err']) && empty($data['checked_in_by_err'])) {
                     if($this->guestModel->checkInGuest($data)) {
-                        // Change room status to booked
-                        $this->roomModel->updateRoomStatus('booked', $data['room_number']);
-
                         // Get guest id
                         $guest = $this->guestModel->getBookingDetails($data['room_number']);
                         // Get room details
@@ -188,8 +187,6 @@
 
                         // If check in date is higher than date today insert as reservation
                         if($data['check_in_date'] > $dateToday) {
-                                // Insert data as confirmed reservation
-                                $guest = $this->guestModel->getBookingDetails($data['room_number']);
                                 // Reservation details
                                 $data = [
                                     'guest_id' => $guest->id,
@@ -205,6 +202,9 @@
                                     // Something is wrong
                                 }
                         } else {
+                            // Change room status to booked
+                            $this->roomModel->updateRoomStatus('booked', $data['room_number']);
+                            
                             // Success
                             flash('feedback', 'Guest has been checked in.');
                             redirect('guests/checkin');
@@ -243,6 +243,24 @@
                 $this->view('guests/checkin', $data);
             }
             
+        }
+
+        // Checkout guest
+        public function checkout($roomNumber)
+        {
+            // Get guest details by room number
+            $guest = $this->guestModel->getBookingDetails($roomNumber);
+
+            // Check out guest
+            if($this->checkoutModel->checkoutGuest($guest->id)) {
+                // Delete guest details from guests table
+                if($this->guestModel->deleteGuest($guest->id)) {
+                    // Change room status to available upon checkout
+                    $this->roomModel->updateRoomStatus('available', $roomNumber);
+                }  
+            }
+            flash('feedback', 'Guest has been check out.');
+            redirect('guests/index');
         }
 
         // Guest arrivals
