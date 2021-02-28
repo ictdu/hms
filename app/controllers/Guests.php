@@ -165,7 +165,7 @@
                 // Make sure errors are empty
                 if(empty($data['room_number_err']) && empty($data['full_name_err']) && empty($data['address_err']) && empty($data['phone_number_err']) && empty($data['email_err']) && empty($data['check_in_date_err']) && empty($data['check_out_date_err']) && empty($data['notes_err']) && empty($data['checked_in_by_err'])) {
                     if($this->guestModel->checkInGuest($data)) {
-                        // Get guest id
+                        // Get guest details by id
                         $guest = $this->guestModel->getBookingDetails($data['room_number']);
                         // Get room details
                         $room = $this->roomModel->getRoomDetailsByNumber($data['room_number']);
@@ -178,36 +178,39 @@
                         // Balance
                         $balance = $diff->days * $category->rate;
 
-                        // Generate Invoice
-                        $this->invoiceModel->generateInvoice($data = [
-                            'number' => rand(100000, 999999),
-                            'guest_id' => $guest->id,
-                            'balance' => $balance
-                        ]);
-
                         // If check in date is higher than date today insert as reservation
                         if($data['check_in_date'] > $dateToday) {
-                                // Reservation details
-                                $data = [
-                                    'guest_id' => $guest->id,
-                                    'status' => 'confirmed'
-                                ];
+                            // die('reserved');
+                            // Data values
+                            $data = [
+                                'guest' => $guest->id,
+                                'status' => 'confirmed'
+                            ];
 
-                                // Create reservation
-                                if($this->reservationModel->createReservation($data)) {
-                                    // Inserted as reservations
-                                    flash('feedback', 'A reservation has been created.');
-                                    redirect('guests/checkin');
-                                } else {
-                                    // Something is wrong
-                                }
+                            if($this->reservationModel->createReservation($data)) {
+                                // Insert record as reservation
+                                flash('feedback', 'A reservation has been created.');
+                                redirect('guests/checkin');
+
+                                // Generate Invoice
+                                $this->invoiceModel->generateInvoice($data = [
+                                'number' => rand(100000, 999999),
+                                'guest_id' => $guest->id,
+                                'balance' => $balance
+                                ]);
+                            }
                         } else {
                             // Change room status to booked
                             $this->roomModel->updateRoomStatus('booked', $data['room_number']);
-                            
-                            // Success
                             flash('feedback', 'Guest has been checked in.');
                             redirect('guests/checkin');
+
+                            // Generate Invoice
+                            $this->invoiceModel->generateInvoice($data = [
+                            'number' => rand(100000, 999999),
+                            'guest_id' => $guest->id,
+                            'balance' => $balance
+                            ]);
                         }
                     }
                 } else {
