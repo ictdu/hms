@@ -16,6 +16,7 @@
                     <th class="datatable-nosort">Room Number</th>
                     <th class="datatable-nosort">Check-in Date</th>
                     <th class="datatable-nosort">Check-out Date</th>
+                    <th class="datatable-nosort">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                         <td><?php echo $guest->room_number; ?></td>
                         <td><?php echo $guest->check_in_date; ?></td>
                         <td><?php echo $guest->check_out_date; ?></td>
+                        <td><a data-toggle="modal" href="" data-target="#confirmation-modal" class="btn btn-info" role="button">Checkout</td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -38,14 +40,14 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body text-center font-18">
-                    <form action="" method="post">
+                    <form action="<?php echo URLROOT . '/guests/checkout/' . $data['room_number']; ?>" method="post">
                         <h4 class="padding-top-30 mb-30 weight-500">Are you sure you want to continue?</h4>
                         <div class="padding-bottom-30 row" style="margin: 0 auto;">
                             <div class="col-6">
-                                <input role="button" type="button" value="No." class="btn btn-secondary btn-block" data-dismiss="modal">
+                                <input role="button" type="button" value="Cancel" class="btn btn-secondary btn-block" data-dismiss="modal">
                             </div>
                             <div class="col-6">
-                                <input role="button" type="submit" value="Yes, delete it." class="btn btn-danger btn-block">
+                                <input role="button" type="submit" value="Confirm" class="btn btn-info btn-block">
                             </div>
                         </div>
                     </form>

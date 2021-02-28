@@ -28,7 +28,7 @@
                         <td><?php echo $guest->room_number; ?></td>
                         <td><?php echo $guest->check_in_date; ?></td>
                         <td><?php echo $guest->check_out_date; ?></td>
-                        <td><a data-toggle="modal" href="" data-target="#confirmation-modal" class="dropdown-item">Checkout</td>
+                        <td><a data-toggle="modal" href="" data-target="#confirmation-modal" class="btn btn-info" role="button">Checkout</td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -40,7 +40,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body text-center font-18">
-                    <form action="<?php echo URLROOT . '/guests/checkout/' . $guest->room_number; ?>" method="post">
+                    <form action="<?php echo URLROOT . '/guests/checkout/' . $data['room_number']; ?>" method="post">
                         <h4 class="padding-top-30 mb-30 weight-500">Are you sure you want to continue?</h4>
                         <div class="padding-bottom-30 row" style="margin: 0 auto;">
                             <div class="col-6">
