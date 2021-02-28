@@ -39,7 +39,8 @@
                     'number' => $invoice->number,
                     'guest' => $guest->full_name,
                     'balance' => $invoice->balance,
-                    'status' => $invoice->status
+                    'status' => $invoice->status,
+                    'room_number' => $guest->room_number
                 ];
 
                 // Load view
@@ -118,6 +119,38 @@
 
                 // Load view
                 $this->view('payments/invoice', $data, $invoiceNumber);
+            }
+        }
+
+        // Pay invoice
+        // Refactor this later for a real payment gateway
+        public function pay($invoiceNumber)
+        {
+            // Get invoice by number
+            $invoice = $this->invoiceModel->getInvoiceByNumber($invoiceNumber);
+
+            // Check for POST
+            if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                
+                // Init data values
+                $data = [
+                    'status' => 'paid',
+                    'number' => $invoiceNumber
+                ];
+
+                if($this->invoiceModel->updateInvoiceStatus($data)) {
+                    // Update invoice status to paid
+                    flash('feedback', 'Invoice has been paid.');
+                    redirect('payments/invoice/' . $invoiceNumber);
+                }
+            } else {
+                // Init data values
+                $data = [
+                    'invoice' => $invoice
+                ];
+
+                // Load view
+                $this->view('payments/pay', $data, $invoiceNumber);
             }
         }
     }

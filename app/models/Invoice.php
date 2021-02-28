@@ -79,4 +79,20 @@
             }
 
         }
+
+        // Update invoice status
+        public function updateInvoiceStatus($data)
+        {
+            // Database query
+            $this->db->query('UPDATE invoices SET status = :status WHERE number = :number');
+            // Bind values
+            $this->db->bind(':status', $data['status']);
+            $this->db->bind(':number', $data['number']);
+            // Execute
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }

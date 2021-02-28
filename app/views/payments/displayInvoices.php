@@ -1,6 +1,6 @@
-<div class="card-box col-md-8 mb-30">
+<div class="card-box col-md-12 mb-30">
     <div class="pb-20">
-        <div class="col-md-8 pd-20">  
+        <div class="col-md-12 pd-20">  
         </div>
         <table class="data-table table stripe hover nowrap">
             <thead>
@@ -19,7 +19,7 @@
                     <td><?php echo date('Y-m-d', strtotime($data['date'])); ?></td>
                     <td><?php echo $data['number']; ?></td>
                     <td><?php echo $data['guest']; ?></td>
-                    <td><?php echo $data['number']; ?></td>
+                    <td><?php echo $data['room_number']; ?></td>
                     <td>PHP<?php echo $data['balance']; ?></td>
                     <td>
                     <?php if($data['status'] == 'paid') : ?>
