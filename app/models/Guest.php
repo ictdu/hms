@@ -97,36 +97,45 @@
         }
 
         // Display guests with check out date today
-        public function sortCheckOutDay()
+        public function filterCheckOutDay()
         {
             // Database query
             $this->db->query('SELECT * FROM guests WHERE check_out_date = CURDATE()');
-            // Get records
-            $results = $this->db->resultSet();
-
-            return $results;
+            
+            // Return true if check out date is today
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         // Display guests with check out date within this week
-        public function sortCheckOutWeek()
+        public function filterCheckOutWeek()
         {
             // Database query
             $this->db->query('SELECT * FROM guests WHERE YEARWEEK(check_out_date) = YEARWEEK(CURDATE())');
-            // Get records
-            $results = $this->db->resultSet();
-
-            return $results;
+            
+            // Return true if check out date is within this week
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         // Display guests with check out date within this month
-        public function sortCheckOutMonth()
+        public function filterCheckOutMonth()
         {
             // Database query
             $this->db->query('SELECT * FROM guests WHERE (YEAR(check_out_date) = YEAR(CURDATE()) AND MONTH(check_out_date) = MONTH(CURRENT_DATE()))');
-            // Get records
-            $results = $this->db->resultSet();
-
-            return $results;
+            
+            // Return true if check out date is within this month
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         // Delete guest
