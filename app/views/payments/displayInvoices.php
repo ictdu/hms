@@ -7,24 +7,25 @@
                 <tr>
                     <th class="datatable-nosort">Invoice Date</th>
                     <th class="table-plus">Invoice Number</th>
-                    <th class="datatable-nosort">Guest Number</th>
+                    <th class="datatable-nosort">Guest</th>
+                    <th class="datatable-nosort">Room Number</th>
                     <th class="datatable-nosort">Balance</th>
                     <th class="datatable-nosort">Status</th>
                     <th class="datatable-nosort">Actions</th>
                 </tr>
             </thead>
             <tbody>
-            <?php foreach($data['invoices'] as $invoice) : ?>
                 <tr>
-                    <td><?php echo date('y-m-d', strtotime($invoice->created_at)); ?></td>
-                    <td><?php echo $invoice->number; ?></td>
-                    <td><?php echo $invoice->guest_id; ?></td>
-                    <td><?php echo $invoice->balance; ?></td>
+                    <td><?php echo date('Y-m-d', strtotime($data['date'])); ?></td>
+                    <td><?php echo $data['number']; ?></td>
+                    <td><?php echo $data['guest']; ?></td>
+                    <td><?php echo $data['number']; ?></td>
+                    <td>PHP<?php echo $data['balance']; ?></td>
                     <td>
-                    <?php if($invoice->status == 'paid') : ?>
-                        <span class="badge badge-success"><?php echo ucwords($invoice->status); ?></span>
-                    <?php elseif($invoice->status == 'unpaid') : ?>
-                        <span class="badge badge-secondary"><?php echo ucwords($invoice->status); ?></span>
+                    <?php if($data['status'] == 'paid') : ?>
+                        <span class="badge badge-success"><?php echo ucwords($data['status']); ?></span>
+                    <?php elseif($data['status'] == 'unpaid') : ?>
+                        <span class="badge badge-secondary"><?php echo ucwords($data['status']); ?></span>
                     <?php endif; ?>
                     </td>
                     <td>
@@ -33,13 +34,12 @@
                                 <i class="dw dw-more"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/details/' . $invoice->id; ?>"><i class="dw dw-edit2"></i> Details</a>
+                                <a class="dropdown-item" href="<?php echo URLROOT . '/payments/invoices/' . $data['number']; ?>"><i class="dw dw-edit2"></i> Details</a>
                                 <a data-toggle="modal" href="" data-target="#confirmation-modal" class="dropdown-item"><i class="dw dw-delete-3"></i> Delete</a>
                             </div>
                         </div>
                     </td>
                 </tr>
-            <?php endforeach; ?>
             </tbody>
         </table>
     </div>

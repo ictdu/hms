@@ -31,14 +31,31 @@
         {
             // Fetch booked rooms
             $rooms = $this->roomModel->getRoomByStatus('booked');
+            
+            foreach($rooms as $room) {
+                // Get guest details by room number
+                $guest = $this->guestModel->getBookingDetails($room->number);
+                // Get invoice details by guest ID
+                $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
 
-            // Init data
+                // Init data
+                $data = [
+                    'rooms' => $rooms,
+                    'invoice_number' => $invoice->number
+                ];
+
+                // Load view
+                $this->view('guests/index', $data);
+            }
+
+            // Init data values
             $data = [
                 'rooms' => $rooms
             ];
-
+            
             // Load view
             $this->view('guests/index', $data);
+            
         }
 
         // View booking details by room number
@@ -188,7 +205,8 @@
                                 'guest' => $guest->id,
                                 'status' => 'confirmed'
                             ];
-                            
+
+                            // Generate Invoice
                             if($this->reservationModel->createReservation($data)) {
                                 // Generate Invoice
                                 $this->invoiceModel->generateInvoice($data = [
@@ -204,9 +222,17 @@
                         } else {
                             // Change room status to booked
                             $this->roomModel->updateRoomStatus('booked', $data['room_number']);
+
+                            // Generate Invoice
+                            $this->invoiceModel->generateInvoice($data = [
+                                'number' => rand(100000, 999999),
+                                'guest_id' => $guest->id,
+                                'balance' => $balance
+                            ]);
+
                             // Record inserted as a booking (Success)
                             flash('feedback', 'Guest has been booked successfully.');
-                            redirect('guests/checkin');
+                            redirect('guests/checkin'); 
                         }
                     } else {
                         // Something went wrong

@@ -15,10 +15,10 @@
     			<div class="col-xs-6">
     				<address>
     				<strong>Billed To:</strong><br>
-    					<?php echo $data['guest']->full_name; ?><br>
-                  <?php echo $data['guest']->address; ?><br>
-                  <?php echo $data['guest']->phone_number; ?><br>
-                  <?php echo $data['guest']->email; ?>
+    				<?php echo $data['guest']->full_name; ?><br>
+                  	<?php echo $data['guest']->address; ?><br>
+                  	<?php echo $data['guest']->phone_number; ?><br>
+                  	<?php echo $data['guest']->email; ?>
     				</address>
     			</div>
     			<div class="col-xs-6 text-right">
@@ -65,8 +65,9 @@
     						<thead>
                                 <tr>
         							<td><strong>Room Type</strong></td>
+									<td><strong>Room Number</strong></td>
         							<td class="text-center"><strong>Check-in Date</strong></td>
-                           <td class="text-center"><strong>Check-out Date</strong></td>
+                           			<td class="text-center"><strong>Check-out Date</strong></td>
         							<td class="text-right"><strong>Rate / Day</strong></td>
                                 </tr>
     						</thead>
@@ -74,9 +75,10 @@
     							<!-- foreach ($order->lineItems as $line) or some such thing here -->
     							<tr>
     								<td><?php echo $data['category']->name; ?></td>
+									<td><?php echo $data['guest']->room_number; ?></td>
     								<td class="text-center"><?php echo date('jS M Y', strtotime($data['guest']->check_in_date)); ?></td>
     								<td class="text-center"><?php echo date('jS M Y', strtotime($data['guest']->check_out_date)); ?></td>
-                            <td class="text-right">PHP <?php echo $data['category']->rate; ?></td>
+                            		<td class="text-right">PHP <?php echo $data['category']->rate; ?></td>
     						</tbody>
     					</table>
     				</div>

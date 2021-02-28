@@ -47,4 +47,17 @@
 
             return $row;
         }
+
+        // Get invoice by number
+        public function getInvoiceByNumber($invoiceNumber)
+        {
+            // Database query
+            $this->db->query('SELECT * FROM invoices WHERE number = :number');
+            // Bind values
+            $this->db->bind(':number', $invoiceNumber);
+            // Get recrod
+            $row = $this->db->single();
+
+            return $row;
+        }
     }

@@ -28,27 +28,36 @@
             // Fetch booked rooms
             $invoices = $this->invoiceModel->getAllInvoices();
 
-            // Init data
-            $data = [
-                'invoices' => $invoices
-            ];
+            foreach($invoices as $invoice) {
+                // Get guest details by id
+                $guest = $this->guestModel->getGuestDetailsById($invoice->guest_id);
 
-            // Load view
-            $this->view('payments/index', $data);
+                $data = [
+                    'date' => $invoice->created_at,
+                    'number' => $invoice->number,
+                    'guest' => $guest->full_name,
+                    'balance' => $invoice->balance,
+                    'status' => $invoice->status
+                ];
+
+                // Load view
+                $this->view('payments/index', $data);
+            }    
         }
 
         // Display invoice
-        public function invoice($roomNumber)
+        public function invoice($invoiceNumber)
         {
-            // Get guest by room number
-            $guest = $this->guestModel->getBookingDetails($roomNumber);
-            // Fetch invoice details by guest id
-            $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
-            // Fetch room details by room number
-            $room = $this->roomModel->getRoomDetailsByNumber($roomNumber);
-            // Fetch room category details by room number
+            // Get invoice details by number
+            $invoice = $this->invoiceModel->getInvoiceByNumber($invoiceNumber);
+            // Get guest ID from invoice details
+            $guest = $this->guestModel->getGuestDetailsById($invoice->guest_id);
+            // Get room details by room number
+            $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
+            // Get category details by name
             $category = $this->categoryModel->getCategoryByName($room->category);
-
+            // Get invoice number by guest id
+            $number = $this->invoiceModel->getInvoiceByGuestId($guest->id);
 
             // Data values
             $data = [
@@ -59,7 +68,7 @@
             ];
 
             // Load view
-            $this->view('payments/invoice', $data, $roomNumber);
+            $this->view('payments/invoice', $data, $invoiceNumber);
 
 
         }
