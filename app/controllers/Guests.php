@@ -371,8 +371,13 @@
 
                     // Load view
                     $this->view('guests/departures', $data);
-                }
+                } 
             }
+
+            // Init empty data
+            $data = [];
+            // Load view
+            $this->view('guests/departures', $data);
         }
 
         // Guest departures today
@@ -396,9 +401,14 @@
                     ];
 
                     // Load view
-                    $this->view('guests/departures', $data);
+                    $this->view('guests/departures_today', $data);
                 }
             }
+
+            // Init empty data
+            $data = [];
+            // Load view
+            $this->view('guests/departures_today', $data);
         }
 
         // Guest arrivals today
@@ -422,9 +432,14 @@
                     ];
 
                     // Load view
-                    $this->view('guests/departures', $data);
+                    $this->view('guests/departures_week', $data);
                 }
             }
+
+            // Init empty data
+            $data = [];
+            // Load view
+            $this->view('guests/departures_week', $data);
         }
 
         // Guest arrivals today
@@ -448,8 +463,13 @@
                     ];
 
                     // Load view
-                    $this->view('guests/departures', $data);
+                    $this->view('guests/departures_month', $data);
                 }
             }
+
+            // Init empty data
+            $data = [];
+            // Load view
+            $this->view('guests/departures_month', $data);
         }
     }

@@ -20,17 +20,15 @@
                 </tr>
             </thead>
             <tbody>
-            <?php if(isset($data['guests'])) : ?>
-                <?php foreach($data['guests'] as $guest) : ?>
+            <?php if(!empty($data)) : ?>
                     <tr>
-                        <td><?php echo $guest->id; ?></td>
-                        <td><?php echo $guest->full_name; ?></td>
-                        <td><?php echo $guest->room_number; ?></td>
-                        <td><?php echo $guest->check_in_date; ?></td>
-                        <td><?php echo $guest->check_out_date; ?></td>
+                        <td><?php echo $data['id']; ?></td>
+                        <td><?php echo $data['full_name']; ?></td>
+                        <td><?php echo $data['room_number']; ?></td>
+                        <td><?php echo $data['check_in_date']; ?></td>
+                        <td><?php echo $data['check_out_date']; ?></td>
                         <td><a data-toggle="modal" href="" data-target="#confirmation-modal" class="btn btn-info" role="button">Checkout</td>
                     </tr>
-                <?php endforeach; ?>
             <?php endif; ?>
             </tbody>
         </table>
