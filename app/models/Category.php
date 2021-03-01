@@ -14,7 +14,7 @@
         public function createRoomCategory($data)
         {
             // Database query
-            $this->db->query('INSERT INTO room_categories (name, rate, description, capacity, image) VALUES (:name, :rate, :description, :capacity, :image)');
+            $this->db->query('INSERT INTO categories (name, rate, description, capacity, image) VALUES (:name, :rate, :description, :capacity, :image)');
             // Bind values
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':rate', $data['rate']);
