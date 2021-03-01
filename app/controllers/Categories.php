@@ -57,12 +57,12 @@
 
                 } else {
                     // File upload location
-                    $target = URLROOT  . '/images/uploads/' . basename($_FILES['category-image']['name']);
+                    $target = $_SERVER['DOCUMENT_ROOT']  . UPLOADS . basename($_FILES['category-image']['name']);
 
                     // If uploaded successfully
                     if(move_uploaded_file($_FILES['category-image']['tmp_name'], $target)) {
                         // Success, redirect to index
-                        die('uploaded');
+                        $data['image'] = trim($imageName);
                     } else {
                         // An error occured
                         $data['image_err'] = 'There seems to be a problem.';
