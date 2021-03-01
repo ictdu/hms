@@ -6,11 +6,11 @@
 3. Go to `database` folder and import `db.sql` to your database
 4. Open `public/.htacess` find and change this line `/hms/public` to your public folder location
 
-
+## User Accounts
 ### Admin
-Username: `admin`
+Username: `admin`  
 Password: `admin`
 
 ### Employee
-Username: `employee`
+Username: `employee`  
 Password: `admin`
