@@ -30,23 +30,14 @@
             // Fetch booked rooms
             $invoices = $this->invoiceModel->getAllInvoices();
 
-            foreach($invoices as $invoice) {
-                // Init data values
-                $data = [
-                    'date' => $invoice->created_at,
-                    'number' => $invoice->number,
-                    'balance' => $invoice->balance,
-                    'status' => $invoice->status
-                ];
+            
+            // Init data values
+            $data = [
+                'invoices' => $invoices
+            ];
 
-                // Load view
-                $this->view('payments/index', $data);
-            }    
-
-            // Init empty data
-            $data = [];
             // Load view
-            $this->view('payments/index', $data);
+            $this->view('payments/index', $data);   
         }
 
         // Display invoice
