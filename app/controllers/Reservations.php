@@ -4,12 +4,16 @@
         // Init models var
         private $reservationModel; 
         private $guestModel; 
+        private $roomModel;
+        private $userModel;
 
         public function __construct()
         {
             // Load models
             $this->reservationModel = $this->model('Reservation');
             $this->guestModel = $this->model('Guest');
+            $this->roomModel = $this->model('Room');
+            $this->userModel = $this->model('User');
 
             // Check if user is logged in
             if(!isLoggedIn()) {
@@ -24,13 +28,29 @@
             // Fetch all reservations
             $reservations = $this->reservationModel->getAllReservations();
 
-            // Init data values
-            $data = [
-                'reservations' => $reservations
-            ];
+            foreach($reservations as $reservation) {
+                // Get guest details by ID
+                $guest = $this->guestModel->getGuestDetailsById($reservation->guest);
+                // Get room details by guest number
+                $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
 
+                $data = [
+                    'room' => $room,
+                    'reservation_id' => $reservation->id,
+                    'guest_name' => $guest->full_name,
+                    'guest_check_in_date' => $guest->check_in_date,
+                    'guest_check_out_date' => $guest->check_out_date,
+                    'reservation_status' => $reservation->status
+                ];
+
+                // Load view
+                $this->view('reservations/index', $data);
+            }
+
+            // Init empty data
+            $data = [];
             // Load view
-            $this->view('reservations/index', $data);
+            $this->view('reservations/index', $data);  
         }
 
         // Guest reservation details
@@ -44,13 +64,33 @@
             $guestId = $reservation->guest;
             // Fetch guest details
             $guest = $this->guestModel->getGuestDetailsById($guestId);
+            // Get room details by guest number
+            $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
 
-            // Data values
-            $data = [
-                'reservations' => $reservations,
-                'guest' => $guest
-            ];
+            foreach($reservations as $reservation) {
+                // Get guest details by ID
+                $guest = $this->guestModel->getGuestDetailsById($reservation->guest);
+                // Get employee details by ID
+                $employee = $this->userModel->getEmployeeById($guest->checked_in_by);
 
+                $data = [
+                    'reservations' => $reservations,
+                    'guest' => $guest,
+                    'room' => $room,
+                    'employee' => $employee,
+                    'reservation_id' => $reservation->id,
+                    'guest_name' => $guest->full_name,
+                    'guest_check_in_date' => $guest->check_in_date,
+                    'guest_check_out_date' => $guest->check_out_date,
+                    'reservation_status' => $reservation->status
+                ];
+
+                // Load view
+                $this->view('reservations/details', $data, $reservationId);
+            }
+
+            // Init emtpy data
+            $data = [];
             // Load view
             $this->view('reservations/details', $data, $reservationId);
         }
@@ -96,9 +136,18 @@
         }
 
         // Update reservation status
-        public function update()
+        public function update($reservationId)
         {
+            // Get reservation by id
+            $reservation = $this->reservationModel->getReservationDetailsById($reservationId);
+            // Get guest details by ID
+            $guest = $this->guestModel->getGuestDetailsById($reservation->guest);
 
+            $this->roomModel->updateRoomStatus('booked', $guest->room_number);
+
+            // Redirect
+            flash('feedback', 'The room has been booked.');
+            redirect('reservations/index');
         }
 
     }
