@@ -1,7 +1,6 @@
 	<div class="left-side-bar">
 		<div class="brand-logo mb-30 mt-30">
 			<a href="#">
-				<img src="<?php echo URLROOT; ?>/vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
 				<img src="<?php echo URLROOT; ?>/vendors/images/deskapp-logo-white.svg" alt="" class="light-logo">
 			</a>
 			<div class="close-sidebar" data-toggle="left-sidebar-close">
