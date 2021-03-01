@@ -100,14 +100,11 @@
         public function filterCheckOutDay()
         {
             // Database query
-            $this->db->query('SELECT * FROM guests WHERE check_out_date = CURDATE()');
-            
-            // Return true if check out date is today
-            if($this->db->rowCount() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            $this->db->query('SELECT * FROM guests WHERE DATE_FORMAT(check_out_date, "%Y-%m-%d") = CURDATE()');
+            // Get records
+            $results = $this->db->resultSet();
+
+            return $results;
         }
 
         // Display guests with check out date within this week
@@ -115,13 +112,10 @@
         {
             // Database query
             $this->db->query('SELECT * FROM guests WHERE YEARWEEK(check_out_date) = YEARWEEK(CURDATE())');
-            
-            // Return true if check out date is within this week
-            if($this->db->rowCount() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            // Get records
+            $results = $this->db->resultSet();
+
+            return $results;
         }
 
         // Display guests with check out date within this month
@@ -129,13 +123,10 @@
         {
             // Database query
             $this->db->query('SELECT * FROM guests WHERE (YEAR(check_out_date) = YEAR(CURDATE()) AND MONTH(check_out_date) = MONTH(CURRENT_DATE()))');
-            
-            // Return true if check out date is within this month
-            if($this->db->rowCount() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            // Get records
+            $results = $this->db->resultSet();
+
+            return $results;
         }
 
         // Delete guest

@@ -384,13 +384,13 @@
         public function departures_today()
         {
             //  Get details of all guests
-            $guests = $this->guestModel->getAllGuests();
+            $guests = $this->guestModel->filterCheckOutDay();
             
             foreach($guests as $guest) {
                 // Get guest room details by room number
                 $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
                 // if room status is booked, display guest in departure
-                if($room->status == 'booked' && $this->guestModel->filterCheckOutDay()) {
+                if($room->status == 'booked') {
                     // Data values
                     $data = [
                         'id' => $guest->id,
@@ -415,13 +415,13 @@
         public function departures_week()
         {
             //  Get details of all guests
-            $guests = $this->guestModel->getAllGuests();
+            $guests = $this->guestModel->filterCheckOutWeek();
             
             foreach($guests as $guest) {
                 // Get guest room details by room number
                 $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
                 // if room status is booked, display guest in departure
-                if($room->status == 'booked' && $this->guestModel->filterCheckOutWeek()) {
+                if($room->status == 'booked') {
                     // Data values
                     $data = [
                         'id' => $guest->id,
@@ -446,13 +446,13 @@
         public function departures_month()
         {
             //  Get details of all guests
-            $guests = $this->guestModel->getAllGuests();
+            $guests = $this->guestModel->filterCheckOutMonth();
             
             foreach($guests as $guest) {
                 // Get guest room details by room number
                 $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
                 // if room status is booked, display guest in departure
-                if($room->status == 'booked' && $this->guestModel->filterCheckOutMonth()) {
+                if($room->status == 'booked') {
                     // Data values
                     $data = [
                         'id' => $guest->id,
