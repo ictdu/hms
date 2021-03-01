@@ -89,6 +89,15 @@
                     }
                 }
 
+                // Check if discount code is active
+                if(!empty($data['code'])) {
+                    // Get discount details by code
+                    $discount = $this->discountModel->getDiscountByCode($data['code']);
+                    if($discount->status == 'inactive') {
+                        $data['code_err'] = 'Discount code is already inactive.';
+                    }
+                }
+
                 // Make sure there are no errors
                 if(empty($data['code_err'])) {
                     // Get discount details by code
