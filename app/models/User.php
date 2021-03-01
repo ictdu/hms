@@ -41,4 +41,17 @@
                 return false;
             }
         } 
+
+        // Get employee by ID
+        public function getEmployeeById($employeeId)
+        {
+            // Database query
+            $this->db->query('SELECT * FROM users WHERE id = :id');
+            // Bind values
+            $this->db->bind(':id', $employeeId);
+            // Get record
+            $row = $this->db->single();
+
+            return $row;
+        }
     }

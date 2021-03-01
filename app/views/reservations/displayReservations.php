@@ -6,21 +6,25 @@
             <thead>
                 <tr>
                     <th class="table-plus">Reservation Number</th>
-                    <th class="datatable-nosort">Guest Number</th>
+                    <th class="datatable-nosort">Guest Name</th>
+                    <th class="datatable-nosort">Check-in</th>
+                    <th class="datatable-nosort">Check-out</th>
                     <th class="datatable-nosort">Status</th>
                     <th class="datatable-nosort">Actions</th>
                 </tr>
             </thead>
             <tbody>
-            <?php foreach($data['reservations'] as $reservation) : ?>
+            <?php if(!empty($data)) : ?>
                 <tr>
-                    <td><?php echo $reservation->id; ?></td>
-                    <td><?php echo $reservation->guest; ?></td>
+                    <td><?php echo $data['reservation_id']; ?></td>
+                    <td><?php echo $data['guest_name']; ?></td>
+                    <td><?php echo $data['guest_check_in_date']; ?></td>
+                    <td><?php echo $data['guest_check_out_date']; ?></td>
                     <td>
-                    <?php if($reservation->status == 'confirmed') : ?>
-                        <span class="badge badge-success"><?php echo ucwords($reservation->status); ?></span>
-                    <?php elseif($reservation->status == 'pending') : ?>
-                        <span class="badge badge-secondary"><?php echo ucwords($reservation->status); ?></span>
+                    <?php if($data['reservation_status'] == 'confirmed') : ?>
+                        <span class="badge badge-success"><?php echo ucwords($data['reservation_status']); ?></span>
+                    <?php elseif($data['reservation_status'] == 'pending') : ?>
+                        <span class="badge badge-secondary"><?php echo ucwords($data['reservation_status']); ?></span>
                     <?php endif; ?>
                     </td>
                     <td>
@@ -29,16 +33,19 @@
                                 <i class="dw dw-more"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/details/' . $reservation->id; ?>"><i class="dw dw-edit2"></i> Details</a>
-                                <?php if($reservation->status == 'pending') : ?>
-                                    <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/confirm/' . $reservation->id; ?>"><i class="dw dw-checked"></i> Confirm</a>
+                                <?php if(($data['reservation_status'] == 'confirmed') && ($data['room']->status == 'available')) : ?>
+                                <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/update/' . $data['reservation_id']; ?>"><i class="dw dw-checked"></i> Check-in</a>
+                                <?php endif; ?>
+                                <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/details/' . $data['reservation_id']; ?>"><i class="dw dw-edit2"></i> Details</a>
+                                <?php if($data['reservation_status'] == 'pending') : ?>
+                                    <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/confirm/' . $data['reservation_id']; ?>"><i class="dw dw-checked"></i> Confirm</a>
                                 <?php endif; ?>
                                 <a data-toggle="modal" href="" data-target="#confirmation-modal" class="dropdown-item"><i class="dw dw-delete-3"></i> Delete</a>
                             </div>
                         </div>
                     </td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endif; ?>
             </tbody>
         </table>
     </div>
@@ -47,8 +54,8 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body text-center font-18">
-                    <form action="<?php echo URLROOT . '/reservations/delete/' . $reservation->id; ?>" method="post">
-                        <h4 class="padding-top-30 mb-30 weight-500">Guest Details</h4>
+                    <form action="<?php echo URLROOT . '/reservations/delete/' . $data['reservation_id']; ?>" method="post">
+                        <h4 class="padding-top-30 mb-30 weight-500">Are you sure you want to do this?</h4>
 
                         <div class="padding-bottom-30 row" style="margin: 0 auto;">
                             <div class="col-6">

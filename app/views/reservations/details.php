@@ -40,7 +40,7 @@
                                     <div class="col-md-8 col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Checked-in By</label>
-                                            <input name="checked_in_by" type="text" class="form-control form-control-lg" value="<?php echo $data['guest']->checked_in_by; ?>" disabled>
+                                            <input name="checked_in_by" type="text" class="form-control form-control-lg" value="<?php echo $data['employee']->first_name . ' ' . $data['employee']->last_name; ?>" disabled>
                                         </div>
                                     </div>
                                 </div>
