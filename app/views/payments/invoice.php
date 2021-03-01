@@ -97,7 +97,7 @@
     								<td id="balance">PHP <?php echo $data['invoice']->balance; ?></td>							
     						</tbody>
     					</table>
-						<?php if($data['invoice']->discounted == false) : ?>
+						<?php if(($data['invoice']->discounted == false) && $data['invoice']->status == 'unpaid') : ?>
 						<form action='<?php echo URLROOT . '/payments/invoice/' . $data['invoice']->number; ?>' method='post'>
 							<div class="form-group">
 								<label for="promo_code">Do you have a discount code?</label>
@@ -109,7 +109,6 @@
 						<?php if($data['invoice']->status == 'unpaid') : ?>
 							<a target="_blank" href="<?php echo URLROOT . '/payments/pay/' . $data['invoice']->number; ?>" class="col-xs-12 btn btn-warning">PROCEED TO PAYMENT</a>
 						<?php endif; ?>
-						<span><?php flash('feedback'); ?></span>
 						</form>
     				</div>
     			</div>
