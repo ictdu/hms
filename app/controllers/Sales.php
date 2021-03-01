@@ -14,11 +14,6 @@
                 // If not, redirect to login page
                 redirect('users/login');
             } 
-            // Check if user have admin role
-            elseif (!isAdmin()) {
-                // If not, deny access
-                redirect('pages/dashboard');
-            }
         }
 
         // Default method
