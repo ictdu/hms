@@ -105,7 +105,8 @@
 								<span id="error" class="text-danger"><?php echo $data['code_err'] ?></span>
 							</div>
 							<input type="submit" class="col-xs-12 btn btn-info" style="margin-bottom: 5px;" value="APPLY" id="apply">
-						<?php elseif($data['invoice']->status == 'unpaid') : ?>
+						<?php endif; ?>
+						<?php if($data['invoice']->status == 'unpaid') : ?>
 							<a target="_blank" href="<?php echo URLROOT . '/payments/pay/' . $data['invoice']->number; ?>" class="col-xs-12 btn btn-warning">PROCEED TO PAYMENT</a>
 						<?php endif; ?>
 						<span><?php flash('feedback'); ?></span>
