@@ -51,10 +51,10 @@
         public function today()
         {
             // Fetch booked rooms
-            $invoices = $this->invoiceModel->getAllInvoices();
+            $invoices = $this->invoiceModel->filterPaidInvoiceDay();
 
             foreach($invoices as $invoice) {
-                if($invoice->status == 'paid' && $this->invoiceModel->filterPaidInvoiceDay()) {
+                if($invoice->status == 'paid') {
                     // Init data values
                     $data = [
                         'date' => $invoice->created_at,
@@ -82,10 +82,10 @@
         public function week()
         {
             // Fetch booked rooms
-            $invoices = $this->invoiceModel->getAllInvoices();
+            $invoices = $this->invoiceModel->filterPaidInvoiceWeek();
 
             foreach($invoices as $invoice) {
-                if($invoice->status == 'paid' && $this->invoiceModel->filterPaidInvoiceWeek()) {
+                if($invoice->status == 'paid') {
                     // Init data values
                     $data = [
                         'date' => $invoice->created_at,
@@ -96,12 +96,7 @@
 
                     // Load view
                     $this->view('sales/week', $data);
-                } else {
-                    // Empty data
-                    $data = [];
-                    // Load view
-                    $this->view('sales/week', $data);
-                }  
+                } 
             }    
             // Init empty data
             $data = [];

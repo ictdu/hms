@@ -100,14 +100,12 @@
         public function filterPaidInvoiceDay()
         {
             // Database query
-            $this->db->query('SELECT * FROM invoices WHERE created_at = CURDATE()');
+            $this->db->query('SELECT * FROM invoices WHERE DATE_FORMAT(created_at, "%Y-%m-%d") = CURDATE()');
             
-            // Return true if check out date is today
-            if($this->db->rowCount() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            // Return records
+            $results = $this->db->resultSet();
+
+            return $results;
         }
 
         // Paid invoices for the week
@@ -116,12 +114,10 @@
             // Database query
             $this->db->query('SELECT * FROM invoices WHERE YEARWEEK(created_at) = YEARWEEK(CURDATE())');
             
-            // Return true if check out date is within this week
-            if($this->db->rowCount() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            // Return records
+            $results = $this->db->resultSet();
+
+            return $results;
         }
 
         // Paid invoices for the month
@@ -130,11 +126,9 @@
             // Database query
             $this->db->query('SELECT * FROM invoices WHERE (YEAR(created_at) = YEAR(CURDATE()) AND MONTH(created_at) = MONTH(CURRENT_DATE()))');
             
-            // Return true if check out date is within this month
-            if($this->db->rowCount() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            // Return records
+            $results = $this->db->resultSet();
+
+            return $results;
         }
     }
