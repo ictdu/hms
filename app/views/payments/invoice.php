@@ -30,7 +30,7 @@
     			<div class="col-xs-6 text-right">
     				<address>
         			<strong></strong><br>
-    					<h3>Hotel Managemeng System</h3>
+    					<h3><?php echo SITENAME; ?></h3>
     					1234 Main
     					Apt. 4B
     					Angeles City PH 2009

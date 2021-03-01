@@ -35,9 +35,9 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                             <?php if($discount->status == 'active') : ?>
-                                <a class="dropdown-item" href="<?php echo URLROOT . '/discounts/inactive/' . $discount->id; ?>"><i class="dw dw-edit2"></i> Set as Inactive</a>
+                                <a class="dropdown-item" href="<?php echo URLROOT . '/discounts/inactive/' . $discount->id; ?>"><i class="dw dw-edit2"></i> Set As Inactive</a>
                             <?php elseif($discount->status == 'inactive') : ?>
-                                <a class="dropdown-item" href="<?php echo URLROOT . '/discounts/active/' . $discount->id; ?>"><i class="dw dw-edit2"></i> Set as Active</a>
+                                <a class="dropdown-item" href="<?php echo URLROOT . '/discounts/active/' . $discount->id; ?>"><i class="dw dw-edit2"></i> Set As Active</a>
                             <?php endif; ?>
                                 <a data-toggle="modal" href="" data-target="#confirmation-modal" class="dropdown-item"><i class="dw dw-delete-3"></i> Delete</a>
                             </div>

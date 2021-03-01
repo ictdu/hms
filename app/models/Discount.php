@@ -44,7 +44,7 @@
             }
         }
 
-        // Apply discount 
+        // Get discount by discount code
         public function getDiscountByCode($code)
         {
             // Database query 
@@ -82,6 +82,17 @@
             } else {
                 return false;
             }
+        }
+
+        // Update number of usage
+        public function updateNumOfUsage($code)
+        {
+            // Database query
+            $this->db->query('UPDATE discounts SET number_of_usage = (number_of_usage - 1) WHERE code = :code AND number_of_usage > 0');
+            // Bind value
+            $this->db->bind(':code', $code);
+            // Execute
+            $this->db->execute();
         }
 
         // Get discount details by ID

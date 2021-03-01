@@ -64,7 +64,7 @@
                     'guest' => $guest,
                     'room' => $room,
                     'category' => $category,
-                    'code' => trim($_POST['code']),
+                    'code' => trim(strtoupper($_POST['code'])),
                     'code_err' => ''
                 ];
 
@@ -74,14 +74,27 @@
                 }
 
                 // Check if discount code exists 
-                if(!empty($data['code']) && (!$this->discountModel->findDiscountCode($data['code']))) {
-                    $data['code_err'] = 'Discount code not found.';
+                if(!empty($data['code'])) {
+                    if($this->discountModel->findDiscountCode($data['code'])) {
+                        $data['code_err'] = 'Discount code not found.';
+                    }
+                }
+
+                // Check if discount code number of usage is greater than zero
+                if(!empty($data['code'])) {
+                    // Get discount details by code
+                    $discount = $this->discountModel->getDiscountByCode($data['code']);
+                    if($discount->number_of_usage <= 0) {
+                        $data['code_err'] = 'Discount code reached its limit of usage.';
+                    }
                 }
 
                 // Make sure there are no errors
                 if(empty($data['code_err'])) {
                     // Get discount details by code
                     $discount = $this->discountModel->getDiscountByCode($data['code']);
+                    // Decrease discount code number of usage
+                    $this->discountModel->updateNumOfUsage($data['code']);
                     // Deduct discount amount to balance
                     $discountPercentage = $discount->discount / 100;
                     $newBalance = $data['invoice']->balance * $discountPercentage;
@@ -92,7 +105,7 @@
                         'discounted' => 1,
                     ])) {
                         // Success, refresh page
-                        redirect('payments/invoice/' . $invoiceNumber);
+                        redirect('payments/invoice/' . $invoiceNumber);  
                     }
                 } else {
                     // Load view with errors
