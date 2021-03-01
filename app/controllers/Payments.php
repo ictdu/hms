@@ -83,7 +83,7 @@
 
                 // Check if discount code exists 
                 if(!empty($data['code']) && (!$this->discountModel->findDiscountCode($data['code']))) {
-                    $data['code_err'] ='Discount code not found.';
+                    $data['code_err'] = 'Discount code not found.';
                 }
 
                 // Make sure there are no errors

@@ -18,7 +18,7 @@
             $this->db->bind(':code', $code);
 
             // Execute
-            if($this->db->rowCount() > 1) {
+            if($this->db->rowCount() > 0) {
                 return true;
             } else {
                 return false;
