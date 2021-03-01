@@ -8,13 +8,13 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-12">
                                 <div class="title">
-                                    <h4>Employees</h4>
+                                    <h4>Sales Report</h4>
                                 </div>
                                 <nav aria-label="breadcrumb" role="navigation">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="">Guests</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Booked</li>
+                                        <li class="breadcrumb-item"><a href="">Sales Report</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Month</li>
                                     </ol>
                                 </nav>
                             </div>

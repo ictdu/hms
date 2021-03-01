@@ -29,7 +29,7 @@
                                     <i class="dw dw-more"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                    <a class="dropdown-item" href="<?php echo URLROOT . '/rooms/update/' . $room->id; ?>"><i class="dw dw-edit2"></i> Update</a>
+                                    <!-- <a class="dropdown-item" href="<?php echo URLROOT . '/rooms/update/' . $room->id; ?>"><i class="dw dw-edit2"></i> Update</a> -->
                                     <a data-toggle="modal" href="" data-target="#confirmation-modal" class="dropdown-item"><i class="dw dw-delete-3"></i> Delete</a>
                                 </div>
                             </div>
