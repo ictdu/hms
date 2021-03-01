@@ -31,21 +31,22 @@
             $invoices = $this->invoiceModel->getAllInvoices();
 
             foreach($invoices as $invoice) {
-                // Get guest details by id
-                $guest = $this->guestModel->getGuestDetailsById($invoice->guest_id);
-
+                // Init data values
                 $data = [
                     'date' => $invoice->created_at,
                     'number' => $invoice->number,
-                    'guest' => $guest->full_name,
                     'balance' => $invoice->balance,
-                    'status' => $invoice->status,
-                    'room_number' => $guest->room_number
+                    'status' => $invoice->status
                 ];
 
                 // Load view
                 $this->view('payments/index', $data);
             }    
+
+            // Init empty data
+            $data = [];
+            // Load view
+            $this->view('payments/index', $data);
         }
 
         // Display invoice
