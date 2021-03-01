@@ -51,7 +51,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="<?php echo URLROOT; ?>/vouchers/" class="dropdown-toggle no-arrow">
+						<a href="<?php echo URLROOT; ?>/discounts/" class="dropdown-toggle no-arrow">
 							<span class="micon  fi-pricetag-multiple"></span><span class="mtext">Discounts</span>
 						</a>
 					</li>
