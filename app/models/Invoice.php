@@ -95,4 +95,46 @@
                 return false;
             }
         }
+
+        // Paid invoices for today
+        public function filterPaidInvoiceDay()
+        {
+            // Database query
+            $this->db->query('SELECT * FROM invoices WHERE created_at = CURDATE()');
+            
+            // Return true if check out date is today
+            if($this->db->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // Paid invoices for the week
+        public function filterPaidInvoiceWeek()
+        {
+            // Database query
+            $this->db->query('SELECT * FROM invoices WHERE YEARWEEK(created_at) = YEARWEEK(CURDATE())');
+            
+            // Return true if check out date is within this week
+            if($this->db->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // Paid invoices for the month
+        public function filterPaidInvoiceMonth()
+        {
+            // Database query
+            $this->db->query('SELECT * FROM invoices WHERE (YEAR(created_at) = YEAR(CURDATE()) AND MONTH(created_at) = MONTH(CURRENT_DATE()))');
+            
+            // Return true if check out date is within this month
+            if($this->db->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }

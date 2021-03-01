@@ -1,4 +1,10 @@
 <div class="card-box col-md-12 mb-30">
+    <div class="col-md-12 pd-20 text-right">
+        <a href="<?php echo URLROOT ?>/sales/index" class="btn btn-info">All</a>
+        <a href="<?php echo URLROOT ?>/sales/today" class="btn btn-info">Today</a>
+        <a href="<?php echo URLROOT ?>/sales/week" class="btn btn-info">Week</a>
+        <a href="<?php echo URLROOT ?>/sales/month" class="btn btn-info">Month</a>
+    </div>
     <div class="pb-20">
         <div class="col-md-12 pd-20">  
         </div>
