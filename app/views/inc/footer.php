@@ -1,5 +1,7 @@
             <div class="footer-wrap pd-20 mb-20 card-box">
 				<?php echo SITENAME; ?> &#169; 2021
+				<br>
+				<img src="../../public/vendors/images/logo.png" />
 			</div>
 		</div>
 	</div>
