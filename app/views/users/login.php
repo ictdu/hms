@@ -36,9 +36,11 @@
 <body class="login-page">
 	<div class="login-header box-shadow">
 		<div class="container-fluid d-flex justify-content-between align-items-center">
-			<div class="brand-logo">
+			<div class="brand-logo" style="height: 150px !important;">
 				<a href="login.html">
-					<img src="<?php echo URLROOT; ?>/vendors/images/deskapp-logo.svg" alt="">
+					<!-- <img src="<?php echo URLROOT; ?>/vendors/images/deskapp-logo.svg" alt=""> -->
+					<img src="<?php echo URLROOT; ?>/vendors/images/logo.png" width="100px"/>
+					<span class="text-center" style="color: black !important;">Hotel Management System</span>
 				</a>
 			</div>
 		</div>
@@ -52,7 +54,7 @@
 				<div class="col-md-6 col-lg-5">
 					<div class="login-box bg-white box-shadow border-radius-10">
 						<div class="login-title">
-							<h2 class="text-center text-primary">Users Login - HMS</h2>
+							<h2 class="text-center text-primary">Employee Login - HMS</h2>
 						</div>
 						<form action="<?php echo URLROOT; ?>/users/login" method="post">
 							<div class="input-group custom">
@@ -65,13 +67,13 @@
 							</div>
 							<div class="row pb-30">
 								<div class="col-6">
-									<div class="custom-control custom-checkbox">
+									<!-- <div class="custom-control custom-checkbox">
 										<input type="checkbox" class="custom-control-input" id="customCheck1">
 										<label class="custom-control-label" for="customCheck1">Remember</label>
-									</div>
+									</div> -->
 								</div>
 								<div class="col-6">
-									<div class="forgot-password"><a href="forgot-password.html">Forgot Password?</a></div>
+									<!-- <div class="forgot-password"><a href="forgot-password.html">Forgot Password?</a></div> -->
 								</div>
 							</div>
 							<div class="row">

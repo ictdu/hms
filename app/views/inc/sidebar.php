@@ -1,7 +1,9 @@
 	<div class="left-side-bar">
-		<div class="brand-logo mb-30 mt-30">
+		<div class="mb-30 mt-30">
 			<a href="#">
-				<img src="<?php echo URLROOT; ?>/vendors/images/deskapp-logo-white.svg" alt="" class="light-logo">
+                <div style="text-align: center;">
+				<img src="<?php echo URLROOT; ?>/vendors/images/logo.png" width="100px" style="background-color: white !important; border-radius: 10px;">
+                </div>
 			</a>
 			<div class="close-sidebar" data-toggle="left-sidebar-close">
 				<i class="ion-close-round"></i>

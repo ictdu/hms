@@ -1,15 +1,15 @@
 <?php
     // DB Params
     define('DB_HOST', 'localhost');
-    define('DB_USER', 'ictdu');
-    define('DB_PASS', 'ictdu');
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
     define('DB_NAME', 'hms_db');
     
     // Uploads
     // define('UPLOADS', '/ictdu/hotel-booking/public/images/uploads/');
     define('UPLOADS', '/hms/public/images/uploads/');
     // Site Name
-    define('SITENAME', 'Hotel Management System');
+    define('SITENAME', 'St. Benilde - Hotel Management System');
     // App Root
     define('APPROOT', dirname(dirname(__FILE__)));
     // URL Root
