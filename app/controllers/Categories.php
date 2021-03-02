@@ -183,7 +183,7 @@
 
                 } else {
                     // File upload location
-                    $target = $_SERVER['DOCUMENT_ROOT']  . '/ictdu/hotel-booking/public/images/uploads/' . basename($_FILES['category-image']['name']);
+                    $target = $_SERVER['DOCUMENT_ROOT']  . UPLOADS . basename($_FILES['category-image']['name']);
 
                     // If uploaded successfully
                     if(move_uploaded_file($_FILES['category-image']['tmp_name'], $target)) {
