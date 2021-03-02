@@ -6,8 +6,8 @@
     define('DB_NAME', '');      // Database Name
     
     // Dir for uploads folder
-    // Default: define('UPLOADS', '/hms/public/images/uploads/');
-    define('UPLOADS', '/directory/to/your/uploads/folder/');
+    // Default: define('UPLOADS', '/public/images/uploads/');
+    define('UPLOADS', '/public/images/uploads/');
 
     // Site Name
     define('SITENAME', '');     // Enter Site Name
