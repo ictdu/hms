@@ -1,7 +1,9 @@
             <div class="footer-wrap pd-20 mb-20 card-box">
-				<?php echo SITENAME; ?> &#169; 2021
+				<?php echo SITENAME; ?> &#169; 2021 - All Rights Reserved
 				<br>
-				<img src="../../public/vendors/images/logo.png" />
+<!--				<img src="--><?php //echo URLROOT; ?><!--/vendors/images/logo.png" width="100px"/>-->
+				<!-- <img src="<?php echo URLROOT; ?>/vendors/images/deskapp-logo.svg" alt=""> -->
+
 			</div>
 		</div>
 	</div>
