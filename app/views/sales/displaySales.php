@@ -18,11 +18,13 @@
                 </tr>
             </thead>
             <tbody>
-            <?php foreach($data['invoices'] as $invoice) : ?>
+            <?php
+			$total = 0;
+			foreach($data['invoices'] as $invoice) : ?>
                 <tr>
                     <td><?php echo date('Y-m-d', strtotime($invoice->created_at)); ?></td>
                     <td><?php echo $invoice->number; ?></td>
-                    <td>PHP <?php echo$invoice->balance; ?></td>
+                    <td>PHP <?php echo $total += $invoice->balance; ?></td>
                     <td>
                     <?php if($invoice->status == 'paid') : ?>
                         <span class="badge badge-success"><?php echo ucwords($invoice->status); ?></span>
@@ -45,6 +47,9 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+		<center>
+			<b>Total: PHP <?php echo $total; ?></b>
+		</center>
     </div>
     <!-- Confirmation modal -->
     <div class="modal fade" id="confirmation-modal" tabindex="-1" role="dialog" aria-hidden="true">
