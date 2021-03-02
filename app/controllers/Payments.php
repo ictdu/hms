@@ -106,7 +106,7 @@
                     $this->discountModel->updateNumOfUsage($data['code']);
                     // Deduct discount amount to balance
                     $discountPercentage = $discount->discount / 100;
-                    $newBalance = $data['invoice']->balance * $discountPercentage;
+                    $newBalance = $data['invoice']->balance - ($data['invoice']->balance * $discountPercentage);
 
                     if($this->invoiceModel->updateBalance($data = [
                         'balance' => $newBalance,
