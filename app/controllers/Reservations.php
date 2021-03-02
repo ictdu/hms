@@ -29,22 +29,24 @@
             $reservations = $this->reservationModel->getAllReservations();
 
             foreach($reservations as $reservation) {
-                // Get guest details by ID
-                $guest = $this->guestModel->getGuestDetailsById($reservation->guest);
-                // Get room details by guest number
-                $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
+                if($reservation->status == 'confirmed' || $reservation->status == 'pending') {
+                    // Get guest details by ID
+                    $guest = $this->guestModel->getGuestDetailsById($reservation->guest);
+                    // Get room details by guest number
+                    $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
 
-                $data = [
-                    'room' => $room,
-                    'reservation_id' => $reservation->id,
-                    'guest_name' => $guest->full_name,
-                    'guest_check_in_date' => $guest->check_in_date,
-                    'guest_check_out_date' => $guest->check_out_date,
-                    'reservation_status' => $reservation->status
-                ];
+                    $data = [
+                        'room' => $room,
+                        'reservation_id' => $reservation->id,
+                        'guest_name' => $guest->full_name,
+                        'guest_check_in_date' => $guest->check_in_date,
+                        'guest_check_out_date' => $guest->check_out_date,
+                        'reservation_status' => $reservation->status
+                    ];
 
-                // Load view
-                $this->view('reservations/index', $data);
+                    // Load view
+                    $this->view('reservations/index', $data);
+                }
             }
 
             // Init empty data
@@ -144,7 +146,8 @@
             $guest = $this->guestModel->getGuestDetailsById($reservation->guest);
 
             $this->roomModel->updateRoomStatus('booked', $guest->room_number);
-
+            $this->reservationModel->setReservationStatus('booked', $reservationId);
+            
             // Redirect
             flash('feedback', 'The room has been booked.');
             redirect('reservations/index');
