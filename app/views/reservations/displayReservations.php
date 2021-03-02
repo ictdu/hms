@@ -25,8 +25,6 @@
                         <span class="badge badge-success"><?php echo ucwords($data['reservation_status']); ?></span>
                     <?php elseif($data['reservation_status'] == 'pending') : ?>
                         <span class="badge badge-secondary"><?php echo ucwords($data['reservation_status']); ?></span>
-                    <?php elseif($data['reservation_status'] == 'booked') : ?>
-                        <span class="badge badge-warning"><?php echo ucwords($data['reservation_status']); ?></span>
                     <?php endif; ?>
                     </td>
                     <td>

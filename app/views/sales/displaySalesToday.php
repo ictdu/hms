@@ -18,16 +18,16 @@
                 </tr>
             </thead>
             <tbody>
-            <?php if(!empty($data)) : ?>
+            <?php foreach($data['invoices'] as $invoice) : ?>
                 <tr>
-                    <td><?php echo date('Y-m-d', strtotime($data['date'])); ?></td>
-                    <td><?php echo $data['number']; ?></td>
-                    <td>PHP <?php echo $data['balance']; ?></td>
+                    <td><?php echo date('Y-m-d', strtotime($invoice->created_at)); ?></td>
+                    <td><?php echo $invoice->number; ?></td>
+                    <td>PHP <?php echo$invoice->balance; ?></td>
                     <td>
-                    <?php if($data['status'] == 'paid') : ?>
-                        <span class="badge badge-success"><?php echo ucwords($data['status']); ?></span>
-                    <?php elseif($data['status'] == 'unpaid') : ?>
-                        <span class="badge badge-secondary"><?php echo ucwords($data['status']); ?></span>
+                    <?php if($invoice->status == 'paid') : ?>
+                        <span class="badge badge-success"><?php echo ucwords($invoice->status); ?></span>
+                    <?php elseif($invoice->status == 'unpaid') : ?>
+                        <span class="badge badge-secondary"><?php echo ucwords($invoice->status); ?></span>
                     <?php endif; ?>
                     </td>
                    <!-- <td>
@@ -42,7 +42,7 @@
                         </div>
                     </td> -->
                 </tr>
-            <?php endif; ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
     </div>

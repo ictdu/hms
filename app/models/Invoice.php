@@ -96,12 +96,26 @@
             }
         }
 
-        // Paid invoices for today
-        public function filterPaidInvoiceDay()
+        // Paid all paid invoices
+        public function getAllPaidInvoices($status)
         {
             // Database query
-            $this->db->query('SELECT * FROM invoices WHERE DATE_FORMAT(created_at, "%Y-%m-%d") = CURDATE()');
-            
+            $this->db->query('SELECT * FROM invoices WHERE status = :status');
+            // Bind value
+            $this->db->bind(':status', $status);
+            // Return records
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
+        // Paid invoices for today
+        public function filterPaidInvoiceDay($status)
+        {
+            // Database query
+            $this->db->query('SELECT * FROM invoices WHERE DATE_FORMAT(created_at, "%Y-%m-%d") = CURDATE() AND status = :status');
+            // Bind value
+            $this->db->bind(':status', $status);
             // Return records
             $results = $this->db->resultSet();
 
@@ -109,11 +123,12 @@
         }
 
         // Paid invoices for the week
-        public function filterPaidInvoiceWeek()
+        public function filterPaidInvoiceWeek($status)
         {
             // Database query
-            $this->db->query('SELECT * FROM invoices WHERE YEARWEEK(created_at) = YEARWEEK(CURDATE())');
-            
+            $this->db->query('SELECT * FROM invoices WHERE YEARWEEK(created_at) = YEARWEEK(CURDATE()) AND status = :status');
+            // Bind value
+            $this->db->bind(':status', $status);
             // Return records
             $results = $this->db->resultSet();
 
@@ -121,11 +136,12 @@
         }
 
         // Paid invoices for the month
-        public function filterPaidInvoiceMonth()
+        public function filterPaidInvoiceMonth($status)
         {
             // Database query
-            $this->db->query('SELECT * FROM invoices WHERE (YEAR(created_at) = YEAR(CURDATE()) AND MONTH(created_at) = MONTH(CURRENT_DATE()))');
-            
+            $this->db->query('SELECT * FROM invoices WHERE (YEAR(created_at) = YEAR(CURDATE()) AND MONTH(created_at) = MONTH(CURRENT_DATE())) AND status = :status');
+            // Bind value
+            $this->db->bind(':status', $status);
             // Return records
             $results = $this->db->resultSet();
 

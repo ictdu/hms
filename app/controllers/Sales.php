@@ -19,30 +19,14 @@
         // Default method
         public function index()
         {
-            // Fetch booked rooms
-            $invoices = $this->invoiceModel->getAllInvoices();
+            // Fetch paid invoices
+            $invoices = $this->invoiceModel->getAllPaidInvoices('paid');
 
-            foreach($invoices as $invoice) {
-                if($invoice->status == 'paid') {
-                    // Init data values
-                    $data = [
-                        'date' => $invoice->created_at,
-                        'number' => $invoice->number,
-                        'balance' => $invoice->balance,
-                        'status' => $invoice->status
-                    ];
+            // Init data values
+            $data = [
+                'invoices' => $invoices
+            ];
 
-                    // Load view
-                    $this->view('sales/index', $data);
-                } else {
-                    // Empty data
-                    $data = [];
-                    // Load view
-                    $this->view('sales/index', $data);
-                }  
-            }    
-            // Init empty data
-            $data = [];
             // Load view
             $this->view('sales/index', $data);
         }
@@ -50,87 +34,44 @@
         // Sales for the day
         public function today()
         {
-            // Fetch booked rooms
-            $invoices = $this->invoiceModel->filterPaidInvoiceDay();
+            // Fetch paid invoices
+            $invoices = $this->invoiceModel->filterPaidInvoiceDay('paid');
 
-            foreach($invoices as $invoice) {
-                if($invoice->status == 'paid') {
-                    // Init data values
-                    $data = [
-                        'date' => $invoice->created_at,
-                        'number' => $invoice->number,
-                        'balance' => $invoice->balance,
-                        'status' => $invoice->status
-                    ];
+            // Init data values
+            $data = [
+                'invoices' => $invoices
+            ];
 
-                    // Load view
-                    $this->view('sales/today', $data);
-                } else {
-                    // Empty data
-                    $data = [];
-                    // Load view
-                    $this->view('sales/today', $data);
-                }  
-            }    
-            // Init empty data
-            $data = [];
             // Load view
-            $this->view('sales/today', $data);
+            $this->view('sales/today', $data);  
         }
 
         // Sales for the week
         public function week()
         {
-            // Fetch booked rooms
-            $invoices = $this->invoiceModel->filterPaidInvoiceWeek();
+            // Fetch paid invoices
+            $invoices = $this->invoiceModel->filterPaidInvoiceWeek('paid');
 
-            foreach($invoices as $invoice) {
-                if($invoice->status == 'paid') {
-                    // Init data values
-                    $data = [
-                        'date' => $invoice->created_at,
-                        'number' => $invoice->number,
-                        'balance' => $invoice->balance,
-                        'status' => $invoice->status
-                    ];
+            // Init data values
+            $data = [
+                'invoices' => $invoices
+            ];
 
-                    // Load view
-                    $this->view('sales/week', $data);
-                } 
-            }    
-            // Init empty data
-            $data = [];
             // Load view
-            $this->view('sales/week', $data);
+            $this->view('sales/week', $data); 
         }
 
         // Sales for the month
         public function month()
         {
-            // Fetch booked rooms
-            $invoices = $this->invoiceModel->getAllInvoices();
+            // Fetch paid invoices
+            $invoices = $this->invoiceModel->filterPaidInvoiceMonth('paid');
 
-            foreach($invoices as $invoice) {
-                if($invoice->status == 'paid' && $this->invoiceModel->filterPaidInvoiceMonth()) {
-                    // Init data values
-                    $data = [
-                        'date' => $invoice->created_at,
-                        'number' => $invoice->number,
-                        'balance' => $invoice->balance,
-                        'status' => $invoice->status
-                    ];
+            // Init data values
+            $data = [
+                'invoices' => $invoices
+            ];
 
-                    // Load view
-                    $this->view('sales/month', $data);
-                } else {
-                    // Empty data
-                    $data = [];
-                    // Load view
-                    $this->view('sales/month', $data);
-                }  
-            }    
-            // Init empty data
-            $data = [];
             // Load view
             $this->view('sales/month', $data);
         }
