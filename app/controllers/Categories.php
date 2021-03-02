@@ -36,14 +36,14 @@
                 $allowedImageExt = ['jpg', 'jpeg', 'png', 'PNG'];
 
                 // Get image file extension
-                $file_extension = pathinfo($_FILES['category-image']['name'], PATHINFO_EXTENSION);
-                $file = pathinfo($_FILES['category-image']['name']);
-                $imageName = $file['filename'] . '.' . $file['extension'];
+                $file_extension = pathinfo($_FILES['category_image']['name'], PATHINFO_EXTENSION);
+                $file = pathinfo($_FILES['category_image']['name']);
+                $imageName = $file['basename'];
 
                 // Check if file input is not empty
                 // Validate file input extension
                 // Validate file size
-                if(!file_exists($_FILES['category-image']['tmp_name'])) {
+                if(!file_exists($_FILES['category_image']['tmp_name'])) {
                     
                     $data['image_err'] = 'File does not exist.';
 
@@ -51,16 +51,16 @@
 
                     $data['image_err'] = 'File extension not allowed.';
 
-                } elseif($_FILES['category-image']['size'] > 2000000) {
+                } elseif($_FILES['category_image']['size'] > 2000000) {
 
                     $data['image_err'] = 'File size is too large. (Max: 2MB)';
 
                 } else {
                     // File upload location
-                    $target = $_SERVER['DOCUMENT_ROOT']  . UPLOADS . basename($_FILES['category-image']['name']);
+                    $target = $_SERVER['DOCUMENT_ROOT']  . UPLOADS . basename($_FILES['category_image']['name']);
 
                     // If uploaded successfully
-                    if(move_uploaded_file($_FILES['category-image']['tmp_name'], $target)) {
+                    if(move_uploaded_file($_FILES['category_image']['tmp_name'], $target)) {
                         // Success, redirect to index
                         $data['image'] = trim($imageName);
                     } else {
@@ -75,8 +75,8 @@
                     'rate' => trim($_POST['rate']),
                     'capacity' => trim($_POST['capacity']),
                     'description' => trim($_POST['description']),
-                    'image' => trim($imageName),
                     'categories' => $categories,
+                    'image' => trim($imageName),
                     'name_err' => '',
                     'rate_err' => '',
                     'capacity_err' => '',
@@ -104,6 +104,11 @@
                 // Validate category description
                 if(empty($data['description'])) {
                     $data['description_err'] = 'The description field is required.';
+                }
+
+                // Validate image field
+                if(empty($data['image'])) {
+                    $data['image_err'] = 'The image field is required.';
                 }
 
                 // Make sure errors are empty
@@ -162,14 +167,14 @@
                 $allowedImageExt = ['jpg', 'jpeg', 'png', 'PNG'];
 
                 // Get image file extension
-                $file_extension = pathinfo($_FILES['category-image']['name'], PATHINFO_EXTENSION);
-                $file = pathinfo($_FILES['category-image']['name']);
-                $imageName = $file['filename'] . '.' . $file['extension'];
+                $file_extension = pathinfo($_FILES['category_image']['name'], PATHINFO_EXTENSION);
+                $file = pathinfo($_FILES['category_image']['name']);
+                $imageName = $file['basename'];
 
                 // Check if file input is not empty
                 // Validate file input extension
                 // Validate file size
-                if(!file_exists($_FILES['category-image']['tmp_name'])) {
+                if(!file_exists($_FILES['category_image']['tmp_name'])) {
                     
                     $data['image_err'] = 'File does not exist.';
 
@@ -177,16 +182,16 @@
 
                     $data['image_err'] = 'File extension not allowed.';
 
-                } elseif($_FILES['category-image']['size'] > 2000000) {
+                } elseif($_FILES['category_image']['size'] > 2000000) {
 
                     $data['image_err'] = 'File size is too large. (Max: 2MB)';
 
                 } else {
                     // File upload location
-                    $target = $_SERVER['DOCUMENT_ROOT']  . UPLOADS . basename($_FILES['category-image']['name']);
+                    $target = $_SERVER['DOCUMENT_ROOT']  . UPLOADS . basename($_FILES['category_image']['name']);
 
                     // If uploaded successfully
-                    if(move_uploaded_file($_FILES['category-image']['tmp_name'], $target)) {
+                    if(move_uploaded_file($_FILES['category_image']['tmp_name'], $target)) {
                         // Success, redirect to index
                         $data['image'] = trim($imageName);
                     } else {
@@ -202,8 +207,8 @@
                     'rate' => trim($_POST['rate']),
                     'capacity' => trim($_POST['capacity']),
                     'description' => trim($_POST['description']),
-                    'image' => trim($imageName),
                     'categories' => $categories,
+                    'image' => trim($imageName),
                     'name_err' => '',
                     'rate_err' => '',
                     'capacity_err' => '',
@@ -236,6 +241,11 @@
                 // Validate category description
                 if(empty($data['description'])) {
                     $data['description_err'] = 'The description field is required.';
+                }
+
+                // Validate image
+                if(empty($data['image'])) {
+                    $data['image_err'] = 'The image field is required.';
                 }
 
                 // Make sure errors are empty

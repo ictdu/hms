@@ -58,7 +58,7 @@
                                     <div class="col-md-9 col-sm-12">
                                         <div class="form-group">
                                             <label>Image</label>
-                                            <input type="file" name="category-image" accept="image/*" class="form-control-file form-control <?php echo (!empty($data['image_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['image']; ?>">
+                                            <input type="file" name="category_image" accept="image/*" class="form-control-file form-control <?php echo (!empty($data['image_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['image']; ?>">
                                             <span class="invalid-feedback"><?php echo $data['image_err'] ?></span>
                                         </div>
                                     </div>
