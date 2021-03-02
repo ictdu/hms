@@ -20,7 +20,7 @@
                         <td><?php echo 'P' . $category->rate; ?></td>
                         <td><?php echo $category->capacity . ' Persons'; ?></td>
                         <td><?php echo $category->description; ?></td>
-                        <td><a class="btn btn-info" href="<?php echo URLROOT . UPLOADS . $category->image; ?>" target="_blank">View</a></td>
+						<td><a class="btn btn-info" href="<?php echo URLROOT.'/public/images/uploads/'. $category->image; ?>" target="_blank">View</a></td>
                         <td>
                             <div class="dropdown">
                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
