@@ -74,7 +74,7 @@
         public function getGuestsWithConfirmedReservation()
         {
             // Database query
-            $this->db->query('SELECT guests.id, guests.room_number, guests.full_name, guests.check_in_date, guests.check_out_date, guests.notes, reservations.status FROM guests INNER JOIN reservations ON guests.id = reservations.guest WHERE reservations.status = "confirmed"');
+            $this->db->query('SELECT guests.id, guests.room_number, guests.full_name, guests.check_in_date, guests.check_out_date, guests.notes, reservations.status FROM guests INNER JOIN reservations ON guests.id = reservations.guest');
             // Get records
             $results = $this->db->resultSet();
 
@@ -86,7 +86,7 @@
         public function sortCheckInDay()
         {
             // Database query
-            $this->db->query('SELECT guests.id, guests.room_number, guests.full_name, guests.check_in_date, guests.check_out_date, guests.notes, reservations.status FROM guests INNER JOIN reservations ON guests.id = reservations.guest WHERE reservations.status = "confirmed" AND guests.check_in_date = CURDATE()');
+            $this->db->query('SELECT guests.id, guests.room_number, guests.full_name, guests.check_in_date, guests.check_out_date, guests.notes, reservations.status FROM guests INNER JOIN reservations ON guests.id = reservations.guest WHERE DATE_FORMAT(check_in_date, "%Y-%m-%d") = CURDATE()');
             // Get records
             $results = $this->db->resultSet();
 
@@ -97,7 +97,7 @@
         public function sortCheckInWeek()
         {
             // Database query
-            $this->db->query('SELECT guests.id, guests.room_number, guests.full_name, guests.check_in_date, guests.check_out_date, guests.notes, reservations.status FROM guests INNER JOIN reservations ON guests.id = reservations.guest WHERE reservations.status = "confirmed" AND YEARWEEK(check_in_date) = YEARWEEK(CURDATE())');
+            $this->db->query('SELECT guests.id, guests.room_number, guests.full_name, guests.check_in_date, guests.check_out_date, guests.notes, reservations.status FROM guests INNER JOIN reservations ON guests.id = reservations.guest WHERE YEARWEEK(check_in_date) = YEARWEEK(CURDATE())');
             // Get records
             $results = $this->db->resultSet();
 
@@ -108,7 +108,7 @@
         public function sortCheckInMonth()
         {
             // Database query
-            $this->db->query('SELECT guests.id, guests.room_number, guests.full_name, guests.check_in_date, guests.check_out_date, guests.notes, reservations.status FROM guests INNER JOIN reservations ON guests.id = reservations.guest WHERE reservations.status = "confirmed" AND (YEAR(check_in_date) = YEAR(CURDATE()) AND MONTH(check_in_date) = MONTH(CURRENT_DATE()))');
+            $this->db->query('SELECT guests.id, guests.room_number, guests.full_name, guests.check_in_date, guests.check_out_date, guests.notes, reservations.status FROM guests INNER JOIN reservations ON guests.id = reservations.guest WHERE (YEAR(check_in_date) = YEAR(CURDATE()) AND MONTH(check_in_date) = MONTH(CURRENT_DATE()))');
             // Get records
             $results = $this->db->resultSet();
 
