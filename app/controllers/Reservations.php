@@ -46,7 +46,8 @@
                     'guest_name' => $guest->full_name,
                     'guest_check_in_date' => $guest->check_in_date,
                     'guest_check_out_date' => $guest->check_out_date,
-                    'reservation_status' => $resStatus
+                    'reservation_status' => $resStatus,
+                    'invoice_number' => $invoice->number
                 ];
 
                 // Load view
@@ -57,18 +58,6 @@
             $data = [];
             // Load view
             $this->view('reservations/index', $data);  
-        }
-
-        // Change reservation status based on payment
-        public function status($invoiceStatus)
-        {
-            if($invoiceStatus == 'paid') {
-                return 'guaranteed';
-            } elseif($invoiceStatus == 'partial') {
-                return 'confirmed';
-            } else {
-                return 'on hold';
-            }
         }
 
         // Guest reservation details
@@ -94,6 +83,9 @@
                 $guest = $this->guestModel->getGuestDetailsById($reservation->guest);
                 // Get employee details by ID
                 $employee = $this->userModel->getEmployeeById($guest->checked_in_by);
+                // Get invoice by guest id
+                $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
+
 
                 $data = [
                     'reservations' => $reservations,
@@ -104,7 +96,8 @@
                     'guest_name' => $guest->full_name,
                     'guest_check_in_date' => $guest->check_in_date,
                     'guest_check_out_date' => $guest->check_out_date,
-                    'reservation_status' => $resStatus
+                    'reservation_status' => $resStatus,
+                    'invoice_number' => $invoice->number
                 ];
 
                 // Load view
@@ -171,6 +164,18 @@
             // Redirect
             flash('feedback', 'The room has been booked.');
             redirect('reservations/index');
+        }
+
+        // Change reservation status based on payment
+        public function status($invoiceStatus)
+        {
+            if($invoiceStatus == 'paid') {
+                return 'guaranteed';
+            } elseif($invoiceStatus == 'partial') {
+                return 'confirmed';
+            } else {
+                return 'on hold';
+            }
         }
 
     }

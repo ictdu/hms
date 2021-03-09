@@ -36,6 +36,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                 <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/update/' . $data['reservation_id']; ?>"><i class="dw dw-checked"></i> Check-in</a>
+                                <a class="dropdown-item" href="<?php echo URLROOT . '/payments/invoice/' . $data['invoice_number']; ?>" target="_blank"><i class="dw dw-invoice"></i> View Invoice</a>
                                 <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/details/' . $data['reservation_id']; ?>"><i class="dw dw-edit2"></i> Details</a>
                                 <a data-toggle="modal" href="" data-target="#confirmation-modal" class="dropdown-item"><i class="dw dw-delete-3"></i> Delete</a>
                             </div>
