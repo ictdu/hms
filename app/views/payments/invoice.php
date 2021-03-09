@@ -108,16 +108,20 @@
     			<div class="panel-body">
     				<div class="table-responsive">
     					<table class="table table-condensed">
-    						<thead>
-                        <tr>
-							<td><strong>Amount Due</strong></td>
-                        </tr>
-    						</thead>
-    						<tbody>
-    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
-    							<tr>
-    								<td id="balance">PHP <?php echo $data['invoice']->balance; ?></td>							
-    						</tbody>
+							<?php if($data['invoice']->status == 'paid') : ?>	
+									<h4><strong>Amount Paid</strong></h4>	
+									<hr></hr>
+									<span class="lead">- PHP <?php echo $data['invoice']->balance; ?></span>
+									<br>
+									<br>
+									<h4><strong>Balance</strong></h4>
+									<hr></hr>
+									<span class="lead">PHP 0.00</span>
+							<?php else : ?>
+									<h4><strong>Payable Amount</strong></h4>	
+									<hr></hr>
+									<span class="lead">PHP <?php echo $data['invoice']->balance; ?></span><br>
+							<?php endif; ?>
     					</table>
 						<?php if(($data['invoice']->discounted == false) && $data['invoice']->status == 'unpaid') : ?>
 						<form action='<?php echo URLROOT . '/payments/invoice/' . $data['invoice']->number; ?>' method='post'>
