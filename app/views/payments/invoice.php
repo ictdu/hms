@@ -117,13 +117,17 @@
 									<h4><strong>Balance</strong></h4>
 									<hr></hr>
 									<span class="lead">PHP 0.00</span>
+							<?php elseif($data['invoice']->status == 'partial') : ?>
+									<h4><strong>Remaining Balance</strong></h4>	
+									<hr></hr>
+									<span class="lead">PHP <?php echo $data['invoice']->balance; ?></span>
 							<?php else : ?>
 									<h4><strong>Payable Amount</strong></h4>	
 									<hr></hr>
-									<span class="lead">PHP <?php echo $data['invoice']->balance; ?></span><br>
+									<span class="lead">PHP <?php echo $data['invoice']->balance; ?></span>
 							<?php endif; ?>
     					</table>
-						<?php if(($data['invoice']->discounted == false) && $data['invoice']->status == 'unpaid') : ?>
+						<?php if(($data['invoice']->discounted == false) && $data['invoice']->status == 'unpaid' || $data['invoice']->status == 'partial') : ?>
 						<form action='<?php echo URLROOT . '/payments/invoice/' . $data['invoice']->number; ?>' method='post'>
 							<div class="form-group">
 								<label for="promo_code">Do you have a discount code?</label>
@@ -132,7 +136,7 @@
 							</div>
 							<input type="submit" class="col-xs-12 btn btn-info" style="margin-bottom: 5px;" value="APPLY" id="apply">
 						<?php endif; ?>
-						<?php if($data['invoice']->status == 'unpaid') : ?>
+						<?php if($data['invoice']->status == 'unpaid' || $data['invoice']->status == 'partial') : ?>
 							<a target="_blank" href="<?php echo URLROOT . '/payments/pay/' . $data['invoice']->number; ?>" class="col-xs-12 btn btn-warning">PROCEED TO PAYMENT</a>
 						<?php endif; ?>
 						</form>
