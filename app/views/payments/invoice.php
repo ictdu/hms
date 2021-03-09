@@ -31,9 +31,9 @@
     				<address>
         			<strong></strong><br>
     					<h3><?php echo SITENAME; ?></h3>
-    					1234 Main
-    					Apt. 4B
-    					Angeles City PH 2009
+    					#2647 Rizal Avenue, West Bajac Bajac<br>
+						Olongapo City, Zambales<br>
+						Tel. No. 2239031/6024985
     				</address>
     			</div>
     		</div>
