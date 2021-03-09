@@ -205,7 +205,7 @@
                             // Data values
                             $data = [
                                 'guest' => $guest->id,
-                                'status' => 'confirmed'
+                                'status' => 'on hold'
                             ];
 
                             // Generate Invoice

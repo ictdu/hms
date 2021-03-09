@@ -23,8 +23,10 @@
                     <td>
                     <?php if($data['reservation_status'] == 'confirmed') : ?>
                         <span class="badge badge-success"><?php echo ucwords($data['reservation_status']); ?></span>
-                    <?php elseif($data['reservation_status'] == 'pending') : ?>
+                    <?php elseif($data['reservation_status'] == 'on hold') : ?>
                         <span class="badge badge-secondary"><?php echo ucwords($data['reservation_status']); ?></span>
+                    <?php elseif($data['reservation_status'] == 'guaranteed') : ?>
+                        <span class="badge badge-info"><?php echo ucwords($data['reservation_status']); ?></span>
                     <?php endif; ?>
                     </td>
                     <td>
@@ -33,13 +35,8 @@
                                 <i class="dw dw-more"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <?php if(($data['reservation_status'] == 'confirmed') && ($data['room']->status == 'available')) : ?>
                                 <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/update/' . $data['reservation_id']; ?>"><i class="dw dw-checked"></i> Check-in</a>
-                                <?php endif; ?>
                                 <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/details/' . $data['reservation_id']; ?>"><i class="dw dw-edit2"></i> Details</a>
-                                <?php if($data['reservation_status'] == 'pending') : ?>
-                                    <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/confirm/' . $data['reservation_id']; ?>"><i class="dw dw-checked"></i> Confirm</a>
-                                <?php endif; ?>
                                 <a data-toggle="modal" href="" data-target="#confirmation-modal" class="dropdown-item"><i class="dw dw-delete-3"></i> Delete</a>
                             </div>
                         </div>

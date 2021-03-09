@@ -6,6 +6,7 @@
         private $guestModel; 
         private $roomModel;
         private $userModel;
+        private $invoiceModel;
 
         public function __construct()
         {
@@ -14,6 +15,7 @@
             $this->guestModel = $this->model('Guest');
             $this->roomModel = $this->model('Room');
             $this->userModel = $this->model('User');
+            $this->invoiceModel = $this->model('Invoice');
 
             // Check if user is logged in
             if(!isLoggedIn()) {
@@ -29,30 +31,44 @@
             $reservations = $this->reservationModel->getAllReservations();
 
             foreach($reservations as $reservation) {
-                if($reservation->status == 'confirmed' || $reservation->status == 'pending') {
-                    // Get guest details by ID
-                    $guest = $this->guestModel->getGuestDetailsById($reservation->guest);
-                    // Get room details by guest number
-                    $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
+                // Get guest details by ID
+                $guest = $this->guestModel->getGuestDetailsById($reservation->guest);
+                // Get room details by guest number
+                $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
+                // Get invoice by guest id
+                $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
+                // Set reservation status
+                $resStatus = $this->status($invoice->status);
 
-                    $data = [
-                        'room' => $room,
-                        'reservation_id' => $reservation->id,
-                        'guest_name' => $guest->full_name,
-                        'guest_check_in_date' => $guest->check_in_date,
-                        'guest_check_out_date' => $guest->check_out_date,
-                        'reservation_status' => $reservation->status
-                    ];
+                $data = [
+                    'room' => $room,
+                    'reservation_id' => $reservation->id,
+                    'guest_name' => $guest->full_name,
+                    'guest_check_in_date' => $guest->check_in_date,
+                    'guest_check_out_date' => $guest->check_out_date,
+                    'reservation_status' => $resStatus
+                ];
 
-                    // Load view
-                    $this->view('reservations/index', $data);
-                }
+                // Load view
+                $this->view('reservations/index', $data);
             }
 
             // Init empty data
             $data = [];
             // Load view
             $this->view('reservations/index', $data);  
+        }
+
+        // Change reservation status based on payment
+        public function status($invoiceStatus)
+        {
+            if($invoiceStatus == 'paid') {
+                return 'guaranteed';
+            } elseif($invoiceStatus == 'partial') {
+                return 'confirmed';
+            } else {
+                return 'on hold';
+            }
         }
 
         // Guest reservation details
@@ -68,6 +84,10 @@
             $guest = $this->guestModel->getGuestDetailsById($guestId);
             // Get room details by guest number
             $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
+            // Get invoice by guest id
+            $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
+            // Set reservation status
+            $resStatus = $this->status($invoice->status);
 
             foreach($reservations as $reservation) {
                 // Get guest details by ID
@@ -84,7 +104,7 @@
                     'guest_name' => $guest->full_name,
                     'guest_check_in_date' => $guest->check_in_date,
                     'guest_check_out_date' => $guest->check_out_date,
-                    'reservation_status' => $reservation->status
+                    'reservation_status' => $resStatus
                 ];
 
                 // Load view
