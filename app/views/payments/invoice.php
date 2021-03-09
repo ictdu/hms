@@ -8,22 +8,22 @@
 		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 		<style>
 			.watermarked {
-				position: relative;
+				position: relative !important;
 			}
 			.watermarked:after {
-				content: "";
-				display: block;
-				width: 100%;
-				height: 100%;
-				position: absolute;
-				top: 25%;
-				left: 25%;
-				z-index: 1000;
-				pointer-events: none;
-				background-image: url("<?php echo URLROOT ;?>/vendors/images/logo.png");
-				background-position: 30px 30px;
-				background-repeat: no-repeat;
-				opacity: 0.05;
+				content: "" !important;
+				display: block !important;
+				width: 100% !important;
+				height: 100% !important;
+				position: absolute !important;
+				top: 25% !important;
+				left: 25% !important;
+				z-index: 1000 !important;
+				pointer-events: none !important;
+				background-image: url("<?php echo URLROOT ;?>/vendors/images/logo.png") !important;
+				background-position: 30px 30px !important;
+				background-repeat: no-repeat !important;
+				opacity: 0.05 !important;
 			}
 		</style>
 
@@ -101,7 +101,9 @@
        <div class="col-md-3">
     		<div class="panel panel-default">
     			<div class="panel-heading">
-    				<h3 class="panel-title"><strong>Payable Amount</strong></h3>
+    				<h3 class="panel-title">
+					<strong>Payable Amount</strong>
+					</h3>
     			</div>
     			<div class="panel-body">
     				<div class="table-responsive">
