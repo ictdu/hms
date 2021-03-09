@@ -18,6 +18,8 @@
 				position: absolute;
 				top: 25%;
 				left: 25%;
+				z-index: 1000;
+				pointer-events: none;
 				background-image: url("<?php echo URLROOT ;?>/vendors/images/logo.png");
 				background-position: 30px 30px;
 				background-repeat: no-repeat;
