@@ -6,11 +6,29 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+		<style>
+			.watermarked {
+				position: relative;
+			}
+			.watermarked:after {
+				content: "";
+				display: block;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 25%;
+				left: 25%;
+				background-image: url("<?php echo URLROOT ;?>/vendors/images/logo.png");
+				background-position: 30px 30px;
+				background-repeat: no-repeat;
+				opacity: 0.05;
+			}
+		</style>
 
-		<title>HMS - Invoice #<?php echo $data['invoice']->number; ?></title>
+		<title><?php echo 'Invoice #' . $data['invoice']->number . ' - ' . SITENAME; ?></title>
 	</head>
 <body>
-<div class="container">
+<div class="container watermarked">
     <div class="row">
         <div class="col-xs-12">
     		<div class="invoice-title">
