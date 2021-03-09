@@ -3,7 +3,7 @@
     <head>
         <meta charset='utf-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <title>HMS - Pay Invoice</title>
+        <title><?php echo 'Pay Invoice #' . $data['invoice']->number . ' - ' . SITENAME; ?></title>
         <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
         <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css' rel='stylesheet'>
         <style>
@@ -44,6 +44,7 @@
         <div class="row mb-4">
             <div class="col-lg-8 mx-auto text-center">
                 <h1 class="display-4">Invoice #<?php echo $data['invoice']->number; ?></h1>
+                <span class="lead">Amount To Be Paid: <span class="bold"> P<?php echo $data['invoice']->balance; ?></span></span>
             </div>
         </div> <!-- End -->
         <div class="row">
@@ -66,6 +67,25 @@
                                     <div class="form-group"> <label for="username">
                                             <h6>Card Owner</h6>
                                         </label> <input type="text" name="username" placeholder="Card Owner Name" required class="form-control "> </div>
+                                        <div class="form-group "> <label for="Select Your Bank">
+                                        <h6>Bank Card Issuer</h6>
+                                    </label> <select class="form-control" id="ccmonth">
+                                        <option value="" selected disabled>Select Bank Card Issuer</option>
+                                        <option>BDO Unibank Inc.</option>
+                                        <option>Bank of the Philippine Islands</option>
+                                        <option>Philippine National Bank</option>
+                                        <option>Land Bank of the Philippines</option>
+                                        <option>China Bank</option>
+                                        <option>Security Bank</option>
+                                    </select> </div>
+                                    <div class="form-group "> <label for="Select Your Bank">
+                                        <h6>Card Type</h6>
+                                    </label> <select class="form-control" id="ccmonth">
+                                        <option value="" selected disabled>Select Card Type</option>
+                                        <option>Visa</option>
+                                        <option>Mastercard</option>
+                                        <option>American Express</option>
+                                    </select> </div>
                                     <div class="form-group"> <label for="cardNumber">
                                             <h6>Card number</h6>
                                         </label>
