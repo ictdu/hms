@@ -111,7 +111,7 @@
 							<?php if($data['invoice']->status == 'paid') : ?>	
 									<h4><strong>Amount Paid</strong></h4>	
 									<hr></hr>
-									<span class="lead">- PHP <?php echo $data['invoice']->balance; ?></span>
+									<span class="lead">PHP <?php echo $data['invoice']->balance; ?></span>
 									<br>
 									<br>
 									<h4><strong>Balance</strong></h4>
