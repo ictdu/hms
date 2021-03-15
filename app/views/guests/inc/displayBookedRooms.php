@@ -23,8 +23,8 @@
                                 <i class="dw dw-more"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="<?php echo URLROOT . '/guests/room/' . $room->number; ?>"><i class="dw dw-newspaper"></i> Booking Details</a>
-                                <a class="dropdown-item" href="<?php echo URLROOT . '/payments/invoice/' . $data['invoice_number']; ?>" target="_blank"><i class="dw dw-invoice"></i> View Invoice</a>
+                                <a class="dropdown-item" href="<?php echo URLROOT . '/guests/room/' . $data['guest']->room_number; ?>"><i class="dw dw-newspaper"></i> Booking Details</a>
+                                <a class="dropdown-item" href="<?php echo URLROOT . '/payments/invoice/' . $data['invoice']->number; ?>" target="_blank"><i class="dw dw-invoice"></i> View Invoice</a>
                                 <a data-toggle="modal" href="" data-target="#confirmation-modal" class="dropdown-item"><i class="dw dw-delete-3"></i> Check Out</a>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body text-center font-18">
-                    <form action="<?php echo URLROOT . '/guests/checkout/' . $room->number; ?>" method="post">
+                    <form action="<?php echo URLROOT . '/guests/checkout/' . $data['guest']->room_number; ?>" method="post">
                         <h4 class="padding-top-30 mb-30 weight-500">Are you sure you want to continue?</h4>
                         <div class="padding-bottom-30 row" style="margin: 0 auto;">
                             <div class="col-6">

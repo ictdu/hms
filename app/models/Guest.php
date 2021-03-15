@@ -73,6 +73,21 @@
             return $row;
         }
 
+        // Get reservation by check in date, check out date and room number
+        public function getGuestByBookingDates($checkInDate, $checkOutDate, $roomNumber)
+        {
+            // Database query
+            $this->db->query('SELECT * FROM guests WHERE DATE_FORMAT(check_in_date, "%Y-%m-%d") = :check_in_date AND DATE_FORMAT(check_out_date, "%Y-%m-%d") = :check_out_date AND room_number = :room_number');
+            // Bind value
+            $this->db->bind(':check_in_date', $checkInDate);
+            $this->db->bind(':check_out_date', $checkOutDate);
+            $this->db->bind(':room_number', $roomNumber);
+            // Get records
+            $row = $this->db->single();
+
+            return $row;
+        }
+
         // Get all guests
         public function getAllGuests()
         {
@@ -142,6 +157,33 @@
             } else {
                 return false;
             }
+        }
+
+        // Get joined reservation information
+        public function getJoinedGuestDetailsById($guestId)
+        {
+            // Database query
+            $this->db->query('SELECT guests.check_in_date, guests.check_out_date, guests.room_number, guests.id AS guest_id, guests.full_name, guests.address, guests.phone_number, guests.email, guests.notes, invoices.number AS invoice_number, users.first_name AS employee_first_name, users.last_name AS employee_last_name FROM guests INNER JOIN invoices ON guests.id = invoices.guest_id INNER JOIN users ON guests.checked_in_by = users.id WHERE guest_id = :guestId');
+            // Bind values
+            $this->db->bind(':guestId', $guestId);
+            // Return records 
+            $row = $this->db->single();
+
+            return $row;
+
+        }
+
+        // Get details of booked room_number
+        public function getDetailsBookedRoom($roomNumber)
+        {
+            // Database query
+            $this->db->query('SELECT * FROM guests WHERE room_number = :room_number AND ((CURDATE() >= check_in_date) AND (CURDATE() <= check_out_date))');
+            // Bind values
+            $this->db->bind(':room_number', $roomNumber);
+            // Get record
+            $row = $this->db->single();
+
+            return $row;
         }
 
     }

@@ -123,5 +123,18 @@
             return $row;
         }
 
+        // Get all booked rooms
+        public function getAllJoinedRoomGuest($status)
+        {
+            // Database querycom
+            $this->db->query('SELECT rooms.number, rooms.category, rooms.status, guests.id AS guest_id, invoices.number AS invoice_number FROM rooms INNER JOIN guests ON guests.room_number = rooms.number INNER JOIN invoices ON invoices.guest_id = guests.id WHERE rooms.status = :status');
+            // Bind values
+            $this->db->bind(':status', $status);
+            // Return records 
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
 
     }

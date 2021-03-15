@@ -4,6 +4,7 @@
         // Init model var
         private $guestModel;
         private $roomModel;
+        private $userModel;
         private $reservationModel;
         private $invoiceModel;
         private $categoryModel;
@@ -18,6 +19,7 @@
             $this->invoiceModel = $this->model('Invoice');
             $this->categoryModel = $this->model('Category');
             $this->checkoutModel = $this->model('Checkout');
+            $this->userModel = $this->model('User');
 
             // Check if user is logged in
             if(!isLoggedIn()) {
@@ -31,52 +33,62 @@
         {
             // Fetch booked rooms
             $rooms = $this->roomModel->getRoomByStatus('booked');
-            
+
             foreach($rooms as $room) {
-                // Get guest details by room number
-                $guest = $this->guestModel->getBookingDetails($room->number);
-                // Get invoice details by guest ID
+                // Get guest details from booked room
+                $guest = $this->guestModel->getDetailsBookedRoom($room->number);
+                // Get invoice by guest id
                 $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
 
-                // Init data
                 $data = [
-                    'rooms' => $rooms,
-                    'invoice_number' => $invoice->number
+                    'guest' => $guest,
+                    'room' => $room,
+                    'invoice' => $invoice,
+                    'rooms' => $rooms
                 ];
 
                 // Load view
                 $this->view('guests/index', $data);
-            }
-
-            // Init data values
+            }   
+            // Init table
             $data = [
                 'rooms' => $rooms
             ];
-            
             // Load view
             $this->view('guests/index', $data);
-            
         }
 
         // View booking details by room number
-        public function room($roomNumber) 
+        public function room($guestId) 
         {
-            // Get guest details
-            $guest = $this->guestModel->getBookingDetails($roomNumber);
-            // Fetch booked rooms
-            $rooms = $this->roomModel->getRoomByStatus('booked');
-            // Get invoice details by guest ID
-            $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
+           // Fetch booked rooms
+           $rooms = $this->roomModel->getRoomByStatus('booked');
 
-            // Init data
-            $data = [
-                'guest' => $guest,
-                'rooms' => $rooms,
-                'invoice_number' => $invoice->number
+           foreach($rooms as $room) {
+               // Get guest details from booked room
+               $guest = $this->guestModel->getDetailsBookedRoom($room->number);
+               // Get invoice by guest id
+               $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
+               // Get user by ID
+               $employee = $this->userModel->getEmployeeById($guest->checked_in_by);
+
+               $data = [
+                   'guest' => $guest,
+                   'room' => $room,
+                   'invoice' => $invoice,
+                   'rooms' => $rooms,
+                   'employee' => $employee
+               ];
+
+               // Load view
+               $this->view('guests/room', $data, $guestId);
+           }    
+           // Init table
+           $data = [
+                'rooms' => $rooms
             ];
-
             // Load view
-            $this->view('guests/room', $data, $roomNumber);
+            $this->view('guests/room', $data, $guestId);
         }
 
         // Check in guest
@@ -185,8 +197,6 @@
                 // Make sure errors are empty
                 if(empty($data['room_number_err']) && empty($data['full_name_err']) && empty($data['address_err']) && empty($data['phone_number_err']) && empty($data['email_err']) && empty($data['check_in_date_err']) && empty($data['check_out_date_err']) && empty($data['notes_err']) && empty($data['checked_in_by_err'])) {
                     if($this->guestModel->checkInGuest($data)) {
-                        // Get guest details by ID
-                        $guest = $this->guestModel->getBookingDetails($data['room_number']);
                         // Get room details by room number
                         $room = $this->roomModel->getRoomDetailsByNumber($data['room_number']);
                         // Get room category details by name
@@ -199,6 +209,11 @@
                         // Calculate payable amount
                         // Number Of Days X Room Category Rate
                         $balance = $difference->days * $category->rate;
+
+                        // Get guest details by booking dates
+                        $dateIn = date('Y-m-d', strtotime($data['check_in_date']));
+                        $dateOut = date('Y-m-d', strtotime($data['check_out_date']));
+                        $guest = $this->guestModel->getGuestByBookingDates($dateIn, $dateOut, $data['room_number']);
 
                         // If check in date is higher than date today, insert record as a confirmed reservation
                         if($data['check_in_date'] > $dateToday) {
@@ -216,7 +231,7 @@
                                     'guest_id' => $guest->id,
                                     'balance' => $balance
                                 ]);
-
+                                $this->roomModel->updateRoomStatus('reserved', $data['room_number']);
                                 // Record inserted as a reservation (Success)
                                 flash('feedback', 'A reservation has been created.');
                                 redirect('guests/checkin');
@@ -279,7 +294,7 @@
         public function checkout($roomNumber)
         {
             // Get guest details by room number
-            $guest = $this->guestModel->getBookingDetails($roomNumber);
+            $guest = $this->guestModel->getDetailsBookedRoom($roomNumber);
 
             // Check out guest
             if($this->checkoutModel->checkoutGuest($guest->id)) {
