@@ -30,82 +30,28 @@
             // Fetch all reservations
             $reservations = $this->reservationModel->getAllReservations();
 
-            foreach($reservations as $reservation) {
-                // Get guest details by ID
-                $guest = $this->guestModel->getGuestDetailsById($reservation->guest);
-                // Get room details by guest number
-                $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
-                // Get invoice by guest id
-                $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
-                // Set reservation status
-                $resStatus = $this->status($invoice->status);
-
-                $data = [
-                    'room' => $room,
-                    'reservation_id' => $reservation->id,
-                    'guest_name' => $guest->full_name,
-                    'guest_check_in_date' => $guest->check_in_date,
-                    'guest_check_out_date' => $guest->check_out_date,
-                    'reservation_status' => $resStatus,
-                    'invoice_number' => $invoice->number
-                ];
-
-                // Load view
-                $this->view('reservations/index', $data);
-            }
-
-            // Init empty data
-            $data = [];
+            $data = [
+                'reservations' => $reservations
+            ];
+            
             // Load view
-            $this->view('reservations/index', $data);  
+            $this->view('reservations/index', $data);
         }
 
         // Guest reservation details
         public function details($reservationId)
         {
             // Fetch all reservations
+            $reservation = $this->reservationModel->getJoinedReservationById($reservationId);
+
+            // Fetch all reservations
             $reservations = $this->reservationModel->getAllReservations();
-            // Get guest details
-            $reservation = $this->reservationModel->getReservationDetailsById($reservationId);
-            // Fetch guest id from reservation details
-            $guestId = $reservation->guest;
-            // Fetch guest details
-            $guest = $this->guestModel->getGuestDetailsById($guestId);
-            // Get room details by guest number
-            $room = $this->roomModel->getRoomDetailsByNumber($guest->room_number);
-            // Get invoice by guest id
-            $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
-            // Set reservation status
-            $resStatus = $this->status($invoice->status);
 
-            foreach($reservations as $reservation) {
-                // Get guest details by ID
-                $guest = $this->guestModel->getGuestDetailsById($reservation->guest);
-                // Get employee details by ID
-                $employee = $this->userModel->getEmployeeById($guest->checked_in_by);
-                // Get invoice by guest id
-                $invoice = $this->invoiceModel->getInvoiceByGuestId($guest->id);
+            $data = [
+                'reservations' => $reservations,
+                'reservation' => $reservation
+            ];
 
-
-                $data = [
-                    'reservations' => $reservations,
-                    'guest' => $guest,
-                    'room' => $room,
-                    'employee' => $employee,
-                    'reservation_id' => $reservation->id,
-                    'guest_name' => $guest->full_name,
-                    'guest_check_in_date' => $guest->check_in_date,
-                    'guest_check_out_date' => $guest->check_out_date,
-                    'reservation_status' => $resStatus,
-                    'invoice_number' => $invoice->number
-                ];
-
-                // Load view
-                $this->view('reservations/details', $data, $reservationId);
-            }
-
-            // Init emtpy data
-            $data = [];
             // Load view
             $this->view('reservations/details', $data, $reservationId);
         }
@@ -159,7 +105,8 @@
             $guest = $this->guestModel->getGuestDetailsById($reservation->guest);
 
             $this->roomModel->updateRoomStatus('booked', $guest->room_number);
-            $this->reservationModel->setReservationStatus('booked', $reservationId);
+            // Delete reservation after checking in
+            $this->reservationModel->deleteReservation($reservationId);
             
             // Redirect
             flash('feedback', 'The room has been booked.');

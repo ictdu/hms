@@ -132,11 +132,25 @@
         public function getAllReservations()
         {
             // Database query
-            $this->db->query('SELECT * FROM reservations');
+            $this->db->query('SELECT reservations.id, reservations.status, guests.check_in_date, guests.check_out_date, guests.room_number, guests.id AS guest_id, guests.full_name, guests.address, guests.phone_number, guests.email, guests.notes, invoices.number AS invoice_number, users.first_name AS employee_first_name, users.last_name AS employee_last_name FROM reservations INNER JOIN guests ON reservations.guest = guests.id INNER JOIN invoices ON invoices.guest_id = guests.id INNER JOIN users ON guests.checked_in_by = users.id');
             // Return records 
             $results = $this->db->resultSet();
 
             return $results;
+
+        }
+
+        // Get joined reservation information
+        public function getJoinedReservationById($reservationId)
+        {
+            // Database query
+            $this->db->query('SELECT reservations.id, reservations.status, guests.check_in_date, guests.check_out_date, guests.room_number, guests.id AS guest_id, guests.full_name, guests.address, guests.phone_number, guests.email, guests.notes, invoices.number AS invoice_number, users.first_name AS employee_first_name, users.last_name AS employee_last_name FROM reservations INNER JOIN guests ON reservations.guest = guests.id INNER JOIN invoices ON invoices.guest_id = guests.id INNER JOIN users ON guests.checked_in_by = users.id WHERE reservations.id = :reservation_id');
+            // Bind values
+            $this->db->bind(':reservation_id', $reservationId);
+            // Return records 
+            $row = $this->db->single();
+
+            return $row;
 
         }
     }

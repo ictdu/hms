@@ -6,6 +6,7 @@
             <thead>
                 <tr>
                     <th class="table-plus">Reservation Number</th>
+                    <th class="table-plus">Room Number</th>
                     <th class="datatable-nosort">Guest Name</th>
                     <th class="datatable-nosort">Check-in</th>
                     <th class="datatable-nosort">Check-out</th>
@@ -14,19 +15,20 @@
                 </tr>
             </thead>
             <tbody>
-            <?php if(!empty($data)) : ?>
+                <?php foreach($data['reservations'] as $reservation) : ?>
                 <tr>
-                    <td><?php echo $data['reservation_id']; ?></td>
-                    <td><?php echo $data['guest_name']; ?></td>
-                    <td><?php echo $data['guest_check_in_date']; ?></td>
-                    <td><?php echo $data['guest_check_out_date']; ?></td>
+                    <td><?php echo $reservation->id; ?></td>
+                    <td><?php echo $reservation->room_number; ?></td>
+                    <td><?php echo $reservation->full_name; ?></td>
+                    <td><?php echo $reservation->check_in_date; ?></td>
+                    <td><?php echo $reservation->check_out_date; ?></td>
                     <td>
-                    <?php if($data['reservation_status'] == 'confirmed') : ?>
-                        <span class="badge badge-success"><?php echo ucwords($data['reservation_status']); ?></span>
-                    <?php elseif($data['reservation_status'] == 'on hold') : ?>
-                        <span class="badge badge-secondary"><?php echo ucwords($data['reservation_status']); ?></span>
-                    <?php elseif($data['reservation_status'] == 'guaranteed') : ?>
-                        <span class="badge badge-info"><?php echo ucwords($data['reservation_status']); ?></span>
+                    <?php if($reservation->status  == 'confirmed') : ?>
+                        <span class="badge badge-success"><?php echo ucwords($reservation->status); ?></span>
+                    <?php elseif($reservation->status == 'on hold') : ?>
+                        <span class="badge badge-secondary"><?php echo ucwords($reservation->status); ?></span>
+                    <?php elseif($reservation->status  == 'guaranteed') : ?>
+                        <span class="badge badge-info"><?php echo ucwords($reservation->status); ?></span>
                     <?php endif; ?>
                     </td>
                     <td>
@@ -35,15 +37,20 @@
                                 <i class="dw dw-more"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/update/' . $data['reservation_id']; ?>"><i class="dw dw-checked"></i> Check-in</a>
-                                <a class="dropdown-item" href="<?php echo URLROOT . '/payments/invoice/' . $data['invoice_number']; ?>" target="_blank"><i class="dw dw-invoice"></i> View Invoice</a>
-                                <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/details/' . $data['reservation_id']; ?>"><i class="dw dw-edit2"></i> Details</a>
+                                <?php 
+                                    $today = $today = date("Y-m-d");
+                                    if($today >= $reservation->check_in_date AND $today <= $reservation->check_out_date) {
+                                        echo '<a class='."dropdown-item href=" . URLROOT . '/reservations/update/' . $reservation->id . '><i class="dw dw-checked"></i> Check-in</a>';
+                                    }
+                                ?>
+                                <a class="dropdown-item" href="<?php echo URLROOT . '/payments/invoice/' .  $reservation->invoice_number; ?>" target="_blank"><i class="dw dw-invoice"></i> View Invoice</a>
+                                <a class="dropdown-item" href="<?php echo URLROOT . '/reservations/details/' . $reservation->id; ?>"><i class="dw dw-edit2"></i> Details</a>
                                 <a data-toggle="modal" href="" data-target="#confirmation-modal" class="dropdown-item"><i class="dw dw-delete-3"></i> Delete</a>
                             </div>
                         </div>
                     </td>
                 </tr>
-            <?php endif; ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
@@ -52,7 +59,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body text-center font-18">
-                    <form action="<?php echo URLROOT . '/reservations/delete/' . $data['reservation_id']; ?>" method="post">
+                    <form action="<?php echo URLROOT . '/reservations/delete/' . $reservation->id; ?>" method="post">
                         <h4 class="padding-top-30 mb-30 weight-500">Are you sure you want to do this?</h4>
 
                         <div class="padding-bottom-30 row" style="margin: 0 auto;">

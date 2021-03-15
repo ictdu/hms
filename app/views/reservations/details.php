@@ -34,13 +34,13 @@
                                     <div class="col-md-4 col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Room Number</label>
-                                            <input name="room_number" type="text" class="form-control form-control-lg" value="<?php echo $data['guest']->room_number; ?>" disabled>
+                                            <input name="room_number" type="text" class="form-control form-control-lg" value="<?php echo$data['reservation']->room_number; ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Checked-in By</label>
-                                            <input name="checked_in_by" type="text" class="form-control form-control-lg" value="<?php echo $data['employee']->first_name . ' ' . $data['employee']->last_name; ?>" disabled>
+                                            <input name="checked_in_by" type="text" class="form-control form-control-lg" value="<?php echo $data['reservation']->employee_first_name . ' ' . $data['reservation']->employee_last_name; ?>" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Full Name</label>
-                                            <input name="full_name" type="text" class="form-control form-control-lg" value="<?php echo $data['guest']->full_name; ?>" disabled>
+                                            <input name="full_name" type="text" class="form-control form-control-lg" value="<?php echo $data['reservation']->full_name; ?>" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Address</label>
-                                            <input name="address" type="text" class="form-control form-control-lg" value="<?php echo $data['guest']->address; ?>" disabled>
+                                            <input name="address" type="text" class="form-control form-control-lg" value="<?php echo $data['reservation']->address; ?>" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -64,13 +64,13 @@
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Phone Number</label>
-                                            <input name="phone_number" type="text" class="form-control form-control-lg" value="<?php echo $data['guest']->phone_number; ?>" disabled>
+                                            <input name="phone_number" type="text" class="form-control form-control-lg" value="<?php echo $data['reservation']->phone_number; ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Email</label>
-                                            <input name="email" type="email" class="form-control form-control-lg" value="<?php echo $data['guest']->email; ?>" disabled>
+                                            <input name="email" type="email" class="form-control form-control-lg" value="<?php echo $data['reservation']->email; ?>" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -79,13 +79,13 @@
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Check In</label>
-                                            <input name="check_in_date" class="form-control date-picker" value="<?php echo $data['guest']->check_in_date; ?>" disabled>
+                                            <input name="check_in_date" class="form-control date-picker" value="<?php echo $data['reservation']->check_in_date; ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Check Out</label>
-                                            <input name="check_out_date" class="form-control date-picker" value="<?php echo $data['guest']->check_out_date; ?>" disabled>
+                                            <input name="check_out_date" class="form-control date-picker" value="<?php echo $data['reservation']->check_out_date; ?>" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -93,10 +93,10 @@
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Notes</label>
-                                            <textarea name="notes" class="form-control" value="<?php echo $data['guest']->notes; ?>" disabled></textarea>
+                                            <textarea name="notes" class="form-control" value="<?php echo $data['reservation']->notes; ?>" disabled></textarea>
                                         </div>
                                     </div>
-                                </div>    
+                                </div>  
                             </form>
                         </div>  
                     </div>
