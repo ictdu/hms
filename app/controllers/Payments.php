@@ -153,9 +153,10 @@
                     'cash' => trim($_POST['cash']),
                     'invoice' => $invoice
                 ];
+                $paidAmount = $data['invoice']->paid_amount + $data['cash'];
                 $newBalance = $data['invoice']->balance - $data['cash'];
 
-                if($this->invoiceModel->payWithCash($newBalance, $data['invoice']->number, $data['cash'])) {
+                if($this->invoiceModel->payWithCash($newBalance, $data['invoice']->number, $paidAmount)) {
                     $invoice = $this->invoiceModel->getInvoiceByNumber($invoiceNumber);
 
                     if($invoice->paid_amount != 0 && $invoice->paid_amount < $invoice->balance) {

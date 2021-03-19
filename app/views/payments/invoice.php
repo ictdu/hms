@@ -111,20 +111,25 @@
 							<?php if($data['invoice']->status == 'paid') : ?>	
 									<h4><strong>Amount Paid</strong></h4>	
 									<hr></hr>
-									<span class="lead">PHP <?php echo $data['invoice']->paid_amount; ?></span>
+									<span class="lead">PHP <?php echo round($data['invoice']->paid_amount, 2); ?></span>
 									<br>
 									<br>
 									<h4><strong>Balance</strong></h4>
 									<hr></hr>
-									<span class="lead">PHP <?php echo $data['invoice']->balance; ?></span>
+									<span class="lead">PHP <?php echo round($data['invoice']->balance, 2); ?></span>
 							<?php elseif($data['invoice']->status == 'partial') : ?>
+                                    <h4><strong>Amount Paid</strong></h4>	
+									<hr></hr>
+									<span class="lead">PHP <?php echo round($data['invoice']->paid_amount, 2); ?></span>
+									<br>
+									<br>
 									<h4><strong>Remaining Balance</strong></h4>	
 									<hr></hr>
-									<span class="lead">PHP <?php echo $data['invoice']->balance; ?></span>
+									<span class="lead">PHP <?php echo round($data['invoice']->balance, 2); ?></span>
 							<?php else : ?>
 									<h4><strong>Payable Amount</strong></h4>	
 									<hr></hr>
-									<span class="lead">PHP <?php echo $data['invoice']->balance; ?></span>
+									<span class="lead">PHP <?php echo round($data['invoice']->balance, 2); ?></span>
 							<?php endif; ?>
     					</table>
 						<?php if(($data['invoice']->discounted == false) && $data['invoice']->status == 'unpaid' || $data['invoice']->status == 'partial') : ?>

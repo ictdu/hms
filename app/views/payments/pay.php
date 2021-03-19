@@ -44,7 +44,7 @@
         <div class="row mb-4">
             <div class="col-lg-8 mx-auto text-center">
                 <h1 class="display-4">Invoice #<?php echo $data['invoice']->number; ?></h1>
-                <span class="lead">Amount To Be Paid: <span class="bold"> P<?php echo $data['invoice']->balance; ?></span></span>
+                <span class="lead">Amount To Be Paid: <span class="bold"> P<?php echo round($data['invoice']->balance, 2); ?></span></span>
             </div>
         </div> <!-- End -->
         <div class="row">
