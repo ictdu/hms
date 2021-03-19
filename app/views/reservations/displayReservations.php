@@ -24,7 +24,12 @@
                     <td><?php echo $reservation->check_out_date; ?></td>
                     <td>
                         <?php
-                            echo ucwords($reservation->status);
+                            if($reservation->status=='paid'){
+                                echo 'Guaranteed';
+                            }
+                            else if($reservation->status=='unpaid'){
+                                echo "<label style='color: red !important;'>On Hold</label>";
+                            }
                         ?>
 <!--                    --><?php //if($reservation->status  == 'confirmed') : ?>
 <!--                        <span class="badge badge-success">--><?php //echo ucwords($reservation->status); ?><!--</span>-->
