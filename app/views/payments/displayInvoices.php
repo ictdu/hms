@@ -17,9 +17,11 @@
                 <tr>
                     <td><?php echo date('Y-m-d', strtotime($invoice->created_at)); ?></td>
                     <td><?php echo $invoice->number; ?></td>
-                    <td>PHP <?php echo $invoice->balance; ?></td>
+                    <td>PHP <?php echo round($invoice->balance, 2); ?></td>
                     <td>
-                    <?php if($invoice->status == 'paid') : ?>
+                    <?php if($invoice->status == 'partial') : ?>
+                        <span class="badge badge-warning"><?php echo ucwords($invoice->status); ?></span>
+                    <?php elseif($invoice->status == 'paid') : ?>
                         <span class="badge badge-success"><?php echo ucwords($invoice->status); ?></span>
                     <?php elseif($invoice->status == 'unpaid') : ?>
                         <span class="badge badge-secondary"><?php echo ucwords($invoice->status); ?></span>
