@@ -111,12 +111,12 @@
 							<?php if($data['invoice']->status == 'paid') : ?>	
 									<h4><strong>Amount Paid</strong></h4>	
 									<hr></hr>
-									<span class="lead">PHP <?php echo $data['invoice']->balance; ?></span>
+									<span class="lead">PHP <?php echo $data['invoice']->paid_amount; ?></span>
 									<br>
 									<br>
 									<h4><strong>Balance</strong></h4>
 									<hr></hr>
-									<span class="lead">PHP 0.00</span>
+									<span class="lead">PHP <?php echo $data['invoice']->balance; ?></span>
 							<?php elseif($data['invoice']->status == 'partial') : ?>
 									<h4><strong>Remaining Balance</strong></h4>	
 									<hr></hr>

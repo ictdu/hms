@@ -145,17 +145,45 @@
 
             // Check for POST
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Sanitize POST data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 
                 // Init data values
                 $data = [
-                    'status' => 'paid',
-                    'number' => $invoiceNumber
+                    'cash' => trim($_POST['cash']),
+                    'invoice' => $invoice
                 ];
+                $newBalance = $data['invoice']->balance - $data['cash'];
 
-                if($this->invoiceModel->updateInvoiceStatus($data)) {
-                    // Update invoice status to paid
-                    flash('feedback', 'Invoice has been paid.');
-                    redirect('payments/invoice/' . $invoiceNumber);
+                if($this->invoiceModel->payWithCash($newBalance, $data['invoice']->number, $data['cash'])) {
+                    $invoice = $this->invoiceModel->getInvoiceByNumber($invoiceNumber);
+
+                    if($invoice->paid_amount != 0 && $invoice->paid_amount < $invoice->balance) {
+                        if($this->invoiceModel->updateInvoiceStatus(
+                            $data = [
+                                'status' => 'partial', 
+                                'number' => $invoice->number
+                            ]
+                            )) {
+                            // Update invoice status to paid
+                            flash('feedback', 'Invoice has been paid.');
+                            redirect('payments/invoice/' . $invoiceNumber);
+                        }
+                    }
+                    if($invoice->paid_amount != 0 && $invoice->balance == 0) {
+                        if($this->invoiceModel->updateInvoiceStatus(
+                            $data = [
+                                'status' => 'paid', 
+                                'number' => $invoice->number
+                            ]
+                            )) {
+                            // Update invoice status to paid
+                            flash('feedback', 'Invoice has been paid.');
+                            redirect('payments/invoice/' . $invoiceNumber);
+                        }
+                    }
+
+                    
                 }
             } else {
                 // Init data values

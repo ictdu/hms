@@ -61,6 +61,22 @@
             return $row;
         }
 
+        // Pay with cash
+        public function payWithCash($newBalance, $invoiceNumber, $paid_amount) {
+            // Database query
+            $this->db->query('UPDATE invoices SET balance = :balance, paid_amount = :paid_amount WHERE number = :number');
+            // Bind values
+            $this->db->bind(':balance', $newBalance);
+            $this->db->bind(':number', $invoiceNumber);
+            $this->db->bind(':paid_amount', $paid_amount);
+            // Execute
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         // Update invoice balance
         public function updateBalance($data)
         {
