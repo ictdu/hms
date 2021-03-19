@@ -25,10 +25,13 @@
                     <td>
                         <?php
                             if($reservation->status=='paid'){
-                                echo 'Guaranteed';
+                                echo "<label style='color: green !important;'>Guaranteed</label>";
                             }
                             else if($reservation->status=='unpaid'){
                                 echo "<label style='color: red !important;'>On Hold</label>";
+                            }
+                            else{
+                                echo "<label style='color: green !important;'>Confirmed</label>";
                             }
                         ?>
 <!--                    --><?php //if($reservation->status  == 'confirmed') : ?>
