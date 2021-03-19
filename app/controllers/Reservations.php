@@ -113,6 +113,7 @@
             redirect('reservations/index');
         }
 
+        // Check Status in Reservation
         // Change reservation status based on payment
         public function status($invoiceStatus)
         {

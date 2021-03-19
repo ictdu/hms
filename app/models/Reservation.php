@@ -132,7 +132,7 @@
         public function getAllReservations()
         {
             // Database query
-            $this->db->query('SELECT reservations.id, reservations.status, guests.check_in_date, guests.check_out_date, guests.room_number, guests.id AS guest_id, guests.full_name, guests.address, guests.phone_number, guests.email, guests.notes, invoices.number AS invoice_number, users.first_name AS employee_first_name, users.last_name AS employee_last_name FROM reservations INNER JOIN guests ON reservations.guest = guests.id INNER JOIN invoices ON invoices.guest_id = guests.id INNER JOIN users ON guests.checked_in_by = users.id');
+            $this->db->query('SELECT reservations.id, guests.check_in_date, guests.check_out_date, guests.room_number, guests.id AS guest_id, guests.full_name, guests.address, guests.phone_number, guests.email, guests.notes, invoices.status AS status,  invoices.number AS invoice_number, users.first_name AS employee_first_name, users.last_name AS employee_last_name FROM reservations INNER JOIN guests ON reservations.guest = guests.id INNER JOIN invoices ON invoices.guest_id = guests.id INNER JOIN users ON guests.checked_in_by = users.id');
             // Return records 
             $results = $this->db->resultSet();
 

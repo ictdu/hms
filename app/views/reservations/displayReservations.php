@@ -23,13 +23,17 @@
                     <td><?php echo $reservation->check_in_date; ?></td>
                     <td><?php echo $reservation->check_out_date; ?></td>
                     <td>
-                    <?php if($reservation->status  == 'confirmed') : ?>
-                        <span class="badge badge-success"><?php echo ucwords($reservation->status); ?></span>
-                    <?php elseif($reservation->status == 'on hold') : ?>
-                        <span class="badge badge-secondary"><?php echo ucwords($reservation->status); ?></span>
-                    <?php elseif($reservation->status  == 'guaranteed') : ?>
-                        <span class="badge badge-info"><?php echo ucwords($reservation->status); ?></span>
-                    <?php endif; ?>
+                        <?php
+                            echo ucwords($reservation->status);
+                        ?>
+<!--                    --><?php //if($reservation->status  == 'confirmed') : ?>
+<!--                        <span class="badge badge-success">--><?php //echo ucwords($reservation->status); ?><!--</span>-->
+<!--                    --><?php //elseif($reservation->status == 'on hold') : ?>
+<!--                        <span class="badge badge-secondary">--><?php //echo ucwords($reservation->status); ?><!--</span>-->
+<!--                    --><?php //elseif($reservation->status  == 'guaranteed') : ?>
+<!--                        asdf-->
+<!--                        <span class="badge badge-info">--><?php //echo ucwords($reservation->status); ?><!--</span>-->
+<!--                    --><?php //endif; ?>
                     </td>
                     <td>
                         <div class="dropdown">
