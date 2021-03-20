@@ -24,7 +24,7 @@
                 <tr>
                     <td><?php echo date('Y-m-d', strtotime($invoice->created_at)); ?></td>
                     <td><?php echo $invoice->number; ?></td>
-                    <td>PHP <?php echo $total += $invoice->balance; ?></td>
+                    <td>PHP <?php echo $invoice->paid_amount; $total += $invoice->paid_amount; ?></td>
                     <td>
                     <?php if($invoice->status == 'paid') : ?>
                         <span class="badge badge-success"><?php echo ucwords($invoice->status); ?></span>
