@@ -65,7 +65,9 @@
                             <!-- credit card info-->
                             <div id="credit-card" class="tab-pane fade show active pt-3">
                             <form action="<?php echo URLROOT . '/payments/pay/' . $data['invoice']->number; ?>" method="post">
+                                <input type="number" name="cash" placeholder="Enter payment amount" class="form-control" step="0.01" required>
                                     <div class="form-group"> <label for="username">
+
                                             <h6>Card Owner</h6>
                                         </label> <input type="text" name="username" placeholder="Card Owner Name" required class="form-control "> </div>
                                         <div class="form-group "> <label for="Select Your Bank">
